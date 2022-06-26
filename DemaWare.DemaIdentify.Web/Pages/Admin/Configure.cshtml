@@ -1,0 +1,151 @@
+﻿@page "/configure"
+@model ConfigureModel
+@inject LocalizationService localizer
+
+@{
+	Layout = "_AdminLayout";
+	ViewData["Title"] = localizer.GetLocalizedHtmlString("InitialConfiguration");
+}
+
+<form method="post">
+	<partial name="_ValidationSummary" />
+
+	<div class="card-body">
+		<div class="container-fluid px-0">
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label asp-for="Input.Language" class="form-label"></label>
+					<select asp-for="Input.Language" class="form-select" asp-items="Model.Languages"></select>
+					<span asp-validation-for="Input.Language" class="text-danger"></span>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label asp-for="Input.ApplicationName" class="form-label"></label>
+					<input type="text" asp-for="Input.ApplicationName" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("ApplicationName")" autofocus />
+					<span asp-validation-for="Input.ApplicationName" class="text-danger"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h5 class="card-header text-primary border-top">@localizer.GetLocalizedHtmlString("Colors")</h5>
+	<div class="card-body">
+		<div class="container-fluid px-0">
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label asp-for="Input.ColorBaseBackground" class="form-label"></label>
+					<input type="color" asp-for="Input.ColorBaseBackground" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("ColorBaseBackground")" />
+					<span asp-validation-for="Input.ColorBaseBackground" class="text-danger"></span>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label asp-for="Input.ColorBaseForeground" class="form-label"></label>
+					<input type="color" asp-for="Input.ColorBaseForeground" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("ColorBaseForeground")" />
+					<span asp-validation-for="Input.ColorBaseForeground" class="text-danger"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h5 class="card-header text-primary border-top">@localizer.GetLocalizedHtmlString("Images")</h5>
+	<div class="card-body">
+		<div class="container-fluid px-0">
+			<div class="row">
+				<div class="col-md-12 mb-3">
+					<label asp-for="Input.UrlLogoWhite" class="form-label"></label>
+					<input type="text" asp-for="Input.UrlLogoWhite" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("UrlLogoWhite")" />
+					<span asp-validation-for="Input.UrlLogoWhite" class="text-danger"></span>
+				</div>
+				<div class="col-md-12 mb-3">
+					<label asp-for="Input.UrlLogoColor" class="form-label"></label>
+					<input type="text" asp-for="Input.UrlLogoColor" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("UrlLogoColor")" />
+					<span asp-validation-for="Input.UrlLogoColor" class="text-danger"></span>
+				</div>
+				<div class="col-md-12 mb-3">
+					<label asp-for="Input.UrlBackgroundCover" class="form-label"></label>
+					<input type="text" asp-for="Input.UrlBackgroundCover" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("UrlBackgroundCover")" />
+					<span asp-validation-for="Input.UrlBackgroundCover" class="text-danger"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h5 class="card-header text-primary border-top">@localizer.GetLocalizedHtmlString("Images")</h5>
+	<div class="card-body">
+		<div class="container-fluid px-0">
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label asp-for="Input.SmtpHost" class="form-label"></label>
+					<input type="text" asp-for="Input.SmtpHost" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("SmtpHost")" />
+					<span asp-validation-for="Input.SmtpHost" class="text-danger"></span>
+				</div>
+				<div class="col-md-3 mb-3">
+					<label asp-for="Input.SmtpPort" class="form-label"></label>
+					<input type="number" asp-for="Input.SmtpPort" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("SmtpPort")" />
+					<span asp-validation-for="Input.SmtpPort" class="text-danger"></span>
+				</div>
+				<div class="col-md-3 mb-3">
+					<label asp-for="Input.SmtpEnableSsl" class="form-label"></label><br />
+					<input type="checkbox" asp-for="Input.SmtpEnableSsl" class="form-check-input" />
+					<span asp-validation-for="Input.SmtpEnableSsl" class="text-danger"></span>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label asp-for="Input.SmtpUsername" class="form-label"></label>
+					<input type="text" asp-for="Input.SmtpUsername" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("SmtpUsername")" />
+					<span asp-validation-for="Input.SmtpUsername" class="text-danger"></span>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label asp-for="Input.SmtpPassword" class="form-label"></label>
+					<input type="text" asp-for="Input.SmtpPassword" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("SmtpPassword")" />
+					<span asp-validation-for="Input.SmtpPassword" class="text-danger"></span>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label asp-for="Input.SmtpFromAddress" class="form-label"></label>
+					<input type="email" asp-for="Input.SmtpFromAddress" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("SmtpFromAddress")" />
+					<span asp-validation-for="Input.SmtpFromAddress" class="text-danger"></span>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label asp-for="Input.SmtpFromName" class="form-label"></label>
+					<input type="text" asp-for="Input.SmtpFromName" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("SmtpFromName")" />
+					<span asp-validation-for="Input.SmtpFromName" class="text-danger"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h5 class="card-header text-primary border-top">@localizer.GetLocalizedHtmlString("AdminUser")</h5>
+	<div class="card-body">
+		<div class="container-fluid px-0">
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label asp-for="Input.UserEmail" class="form-label"></label>
+					<input type="email" asp-for="Input.UserEmail" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("EmailAddress")" />
+					<span asp-validation-for="Input.UserEmail" class="text-danger"></span>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label asp-for="Input.UserPassword" class="form-label"></label>
+					<input type="password" asp-for="Input.UserPassword" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("Password")" />
+					<span asp-validation-for="Input.UserPassword" class="text-danger"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card-footer text-center">
+		<button class="btn btn-lg btn-primary text-uppercase" type="submit">@localizer.GetLocalizedHtmlString("Save")</button>
+	</div>
+</form>
+
+@section Scripts {
+	<script type="text/javascript">
+		$(function () {
+			$("#Input_Language").change(function () {
+				var redirectUrl = window.location.toString();
+
+				var cultureIndex = redirectUrl.indexOf("culture=");
+				if (cultureIndex > 0) redirectUrl = redirectUrl.substr(0, cultureIndex - 1);
+
+				redirectUrl += (redirectUrl.indexOf("?") > 0 ? "&" : "?") + "culture=" + $(this).val();
+				window.location.replace(redirectUrl);
+			});
+		});
+	</script>
+}

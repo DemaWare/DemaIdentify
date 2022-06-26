@@ -1,0 +1,8 @@
+﻿@inject LocalizationService localizer
+
+@if (ViewContext.ModelState.IsValid == false) {
+	<div class="card-body bg-danger text-danger">
+		<p class="m-0">@localizer.GetLocalizedHtmlString("ValidationSummaryTitle"):</p>
+		<div asp-validation-summary="All" class="m-0 p-0 border-0"></div>
+	</div>
+}

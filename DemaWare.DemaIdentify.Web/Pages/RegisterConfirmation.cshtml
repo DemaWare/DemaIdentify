@@ -1,0 +1,10 @@
+﻿@page
+@model RegisterConfirmationModel
+@inject LocalizationService localizer
+
+@{
+    ViewData["Title"] = localizer.GetLocalizedHtmlString("AccountConfirmTitle");
+}
+
+<h2>@ViewData["Title"]</h2>
+<p>@localizer.GetLocalizedHtmlString("AccountConfirmMessage")</p>

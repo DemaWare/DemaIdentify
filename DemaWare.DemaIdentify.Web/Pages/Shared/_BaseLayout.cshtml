@@ -1,0 +1,58 @@
+﻿@inject SettingService settingService
+
+@{
+	Layout = "";
+
+	// Redirect to configuration page when no configuration is set
+	var currentPage = Context.Request.Path.Value!.ToLower();
+	var configurationPage = Url.Page("/Admin/Configure")!.ToLower();
+	if (currentPage != configurationPage && !settingService.IsApplicationConfigured) Context.Response.Redirect(configurationPage);
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@settingService.ApplicationName - @ViewData["Title"]</title>
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+	<link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+
+	<style type="text/css">
+		:root {
+			--primary: @settingService.ColorBaseBackground;
+		}
+
+		.background-cover {
+			background-image: url(@Url.Content(settingService.UrlBackgroundCover)) !important;
+		}
+	</style>
+
+	@await RenderSectionAsync("styles", required: false)
+</head>
+<body>
+	@RenderBody()
+
+	<script src="~/lib/jquery/jquery.slim.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			var toggleBtnGroup = function() {
+				if ($(window).width() < 500) {
+					$(".btn-group").addClass("btn-group-vertical").removeClass("btn-group");
+				} else {
+					$(".btn-group-vertical").addClass("btn-group").removeClass("btn-group-vertical");
+				}
+			}
+			toggleBtnGroup();
+			window.addEventListener('resize', toggleBtnGroup);
+		});
+	</script>
+	@RenderSection("Scripts", required: false)
+</body>
+</html>

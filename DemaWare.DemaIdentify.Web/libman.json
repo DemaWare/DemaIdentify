@@ -1,0 +1,33 @@
+{
+  "version": "1.0",
+  "defaultProvider": "unpkg",
+  "libraries": [
+    {
+      "library": "bootstrap@5.1.3",
+      "destination": "wwwroot/lib/bootstrap/",
+      "files": [
+        "dist/css/bootstrap-grid.min.css",
+        "dist/css/bootstrap-grid.min.css.map",
+        "dist/css/bootstrap-reboot.min.css",
+        "dist/css/bootstrap-reboot.min.css.map",
+        "dist/css/bootstrap-utilities.min.css",
+        "dist/css/bootstrap-utilities.min.css.map",
+        "dist/css/bootstrap.min.css",
+        "dist/css/bootstrap.min.css.map",
+        "dist/js/bootstrap.bundle.min.js",
+        "dist/js/bootstrap.bundle.min.js.map",
+        "dist/js/bootstrap.min.js",
+        "dist/js/bootstrap.min.js.map"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "jquery@3.6.0",
+      "destination": "wwwroot/lib/jquery/",
+      "files": [
+        "jquery.slim.min.js",
+        "jquery.slim.min.map"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+﻿@inject LocalizationService localizer
+@inject SettingService settingService
+
+@{
+	Layout = "_BaseLayout";
+}
+
+<div class="container-fluid">
+	<div class="row bg-primary py-3">
+		<div class="col-12 text-center">
+			<img src="@Url.Content(settingService.UrlLogoWhite)" alt="Logo @settingService.ApplicationName" style="max-width:500px;width:100%;" />
+		</div>
+	</div>
+	@if (User.Identity != null && User.Identity.IsAuthenticated) {
+		<div class="row bg-primary border-1 border-top border-white">
+			<div class="col-12">
+				<nav class="navbar navbar-expand-lg navbar-dark">
+					<div class="container-fluid">
+						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarNavDropdown">
+							<ul class="navbar-nav">
+								<li class="nav-item"><a asp-page="/Admin/Index" class="nav-link">@localizer.GetLocalizedHtmlString("General")</a></li>
+								<li class="nav-item dropdown">
+									<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuApplicationsLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">@localizer.GetLocalizedHtmlString("Applications")</a>
+									<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuApplicationsLink">
+										<li><a asp-page="/Admin/Application/ApplicationClientOverview" class="dropdown-item">@localizer.GetLocalizedHtmlString("Clients")</a></li>
+										<li><a asp-page="/Admin/Application/ApplicationAuthorizationOverview" class="dropdown-item">@localizer.GetLocalizedHtmlString("Authorizations")</a></li>
+										<li><a asp-page="/Admin/Application/ApplicationScopeOverview" class="dropdown-item">@localizer.GetLocalizedHtmlString("Scopes")</a></li>
+										<li><a asp-page="/Admin/Application/ApplicationTokenOverview" class="dropdown-item">@localizer.GetLocalizedHtmlString("Tokens")</a></li>
+									</ul>
+								</li>
+								<li class="nav-item dropdown">
+									<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuIdentityLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">@localizer.GetLocalizedHtmlString("Identities")</a>
+									<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuIdentityLink">
+										<li><a asp-page="/Admin/Identity/UserOverview" class="dropdown-item">@localizer.GetLocalizedHtmlString("Users")</a></li>
+										<li><a asp-page="/Admin/Identity/RoleOverview" class="dropdown-item">@localizer.GetLocalizedHtmlString("Roles")</a></li>
+									</ul>
+								</li>
+								<li class="nav-item"><a asp-page="/Admin/Template/EmailOverview" class="nav-link">@localizer.GetLocalizedHtmlString("Templates")</a></li>
+								<li class="nav-item"><a asp-page="/Logout" class="nav-link">@localizer.GetLocalizedHtmlString("Logout")</a></li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>
+	}
+
+	<div class="row my-3">
+		<div class="col-12">
+			<div class="card">
+				<h4 class="card-header text-primary">@ViewData["Title"]</h4>
+				@RenderBody()
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	@RenderSection("Scripts", required: false)
+}

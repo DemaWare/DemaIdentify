@@ -1,0 +1,57 @@
+﻿@page "/"
+@model IndexModel
+@inject LocalizationService localizer
+
+@{
+	ViewData["Title"] = @localizer.GetLocalizedHtmlString("Home");
+	var applicationClientCount = 0;
+}
+
+@if (User.Identity != null && User.Identity.IsAuthenticated) {
+	var authenticationInfo = await HttpContext.AuthenticateAsync();
+
+	<div class="card text-center text-primary bg-light border-primary mb-2">
+		<div class="card-body">
+			<p class="card-text pt-0"><strong>@localizer.GetLocalizedHtmlString("SignedInAs"):</strong><br />@User.Identity.Name</p>
+			<div class="btn-group btn-group-lg w-100">
+				<a asp-page="./Logout" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-primary text-uppercase">@localizer.GetLocalizedHtmlString("Logout")</a>
+			</div>
+		</div>
+	</div>
+
+	if(User.IsInRole(Constants.Roles.SystemAdministrator)) {
+		<div class="card text-center text-primary bg-light border-primary mb-2">
+			<div class="card-body">
+				<h5 class="card-title">AdminPages</h5>
+				<div class="btn-group btn-group-lg w-100">
+					<a asp-page="./Admin/Index" class="btn btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Open")</a>
+				</div>
+			</div>
+		</div>
+	}
+} else if (!Model.ApplicationClients.Any()) {
+	<div class="btn-group btn-group-lg w-100">
+		<a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-primary text-uppercase">@localizer.GetLocalizedHtmlString("Login")</a>
+	</div>
+}
+
+@foreach (var applicationClient in Model.ApplicationClients) {
+	applicationClientCount++;
+
+	<div class="card text-center border-secondary bg-light @(applicationClientCount > 1 ? "mt-2" : string.Empty)">
+		<div class="card-body">
+			@if (!string.IsNullOrWhiteSpace(applicationClient.ImageUrl)) {
+				<img src="@applicationClient.ImageUrl" class="card-img-top" alt="@applicationClient.Name">
+			}
+			<h5 class="card-title">@applicationClient.Name</h5>
+			@if (!string.IsNullOrWhiteSpace(applicationClient.Description)) {
+				<p class="card-text">@applicationClient.Description</p>
+			}
+			@if (!string.IsNullOrWhiteSpace(applicationClient.ApplicationUrl)) {
+				<div class="btn-group btn-group-lg w-100">
+					<a href="@applicationClient.ApplicationUrl" class="btn btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Open")</a>
+				</div>
+			}
+		</div>
+	</div>
+}

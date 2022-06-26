@@ -1,0 +1,76 @@
+﻿@page "/login"
+@model LoginModel
+@inject LocalizationService localizer
+
+@{
+    ViewData["Title"] = localizer.GetLocalizedHtmlString("Login");
+}
+
+<partial name="_ValidationSummary" />
+
+<form id="account" method="post">
+    <div class="mb-3">
+        <label class="visually-hidden" asp-for="Input.Language"></label>
+        <div class="input-group input-group-lg">
+            <span class="input-group-text"><i class="material-icons">language</i></span>
+            <select asp-for="Input.Language" class="form-select" asp-items="Model.Languages"></select>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="visually-hidden" asp-for="Input.Email"></label>
+        <div class="input-group input-group-lg">
+            <div class="input-group-text"><i class="material-icons">account_box</i></div>
+            <input type="email" asp-for="Input.Email" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("EmailAddress")" autocomplete="off" autofocus />
+        </div>
+        <span asp-validation-for="Input.Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="visually-hidden" asp-for="Input.Password"></label>
+        <div class="input-group input-group-lg">
+            <div class="input-group-text"><i class="material-icons">lock</i></div>
+            <input type="password" asp-for="Input.Password" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("Password")" autocomplete="off" />
+        </div>
+        <span asp-validation-for="Input.Password" class="text-danger"></span>
+    </div>
+
+    <div>
+        <div class="btn-group btn-group-lg w-100">
+            <button class="btn btn-outline-primary" type="submit">@localizer.GetLocalizedHtmlString("Login")</button>
+            @if (!string.IsNullOrWhiteSpace(Model.ReturnUrl)) {
+                <a href="@Model.ReturnUrl" class="btn btn-outline-secondary">@localizer.GetLocalizedHtmlString("Cancel")</a>
+            }
+        </div>
+    </div>
+</form>
+
+<div class="login-footer">
+    <div class="mb-3">
+        <div class="btn-group btn-group-lg w-100">
+            <a asp-page="./ForgotPassword" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-secondary">@localizer.GetLocalizedHtmlString("PasswordForgotTitle")</a>
+        </div>
+    </div>
+
+    <div>
+        <div class="btn-group btn-group-lg w-100">
+            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-secondary">@localizer.GetLocalizedHtmlString("UserRegister")</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $("#Input_Language").change(function () {
+                var redirectUrl = window.location.toString();
+
+                var cultureIndex = redirectUrl.indexOf("culture=");
+                if (cultureIndex > 0) redirectUrl = redirectUrl.substr(0, cultureIndex - 1);
+
+                redirectUrl += (redirectUrl.indexOf("?") > 0 ? "&" : "?") + "culture=" + $(this).val();
+                window.location.replace(redirectUrl);
+            });
+        });
+    </script>
+}

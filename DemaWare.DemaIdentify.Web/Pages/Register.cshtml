@@ -1,0 +1,50 @@
+﻿@page
+@model RegisterModel
+@inject LocalizationService localizer
+
+@{
+    ViewData["Title"] = localizer.GetLocalizedHtmlString("AccountCreateTitle");
+}
+
+<h2>@ViewData["Title"]</h2>
+<p>@localizer.GetLocalizedHtmlString("AccountCreateMessage")</p>
+
+<partial name="_ValidationSummary" />
+
+<form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <div class="mb-3">
+        <label class="visually-hidden" asp-for="Input.Email"></label>
+        <div class="input-group input-group-lg">
+            <div class="input-group-text"><i class="material-icons">account_box</i></div>
+            <input type="email" asp-for="Input.Email" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("EmailAddress")" autocomplete="off" autofocus />
+        </div>
+        <span asp-validation-for="Input.Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="visually-hidden" asp-for="Input.Password"></label>
+        <div class="input-group input-group-lg">
+            <div class="input-group-text"><i class="material-icons">lock</i></div>
+            <input type="password" asp-for="Input.Password" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("Password")" autocomplete="off" />
+        </div>
+        <span asp-validation-for="Input.Password" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="visually-hidden" asp-for="Input.ConfirmPassword"></label>
+        <div class="input-group input-group-lg">
+            <div class="input-group-text"><i class="material-icons">lock</i></div>
+            <input type="password" asp-for="Input.ConfirmPassword" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("PasswordRepeat")" autocomplete="off" />
+        </div>
+        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+    </div>
+
+    <div>
+        <div class="btn-group btn-group-lg w-100">
+            <button class="btn btn-outline-primary" type="submit">@localizer.GetLocalizedHtmlString("Register")</button>
+            @if (!string.IsNullOrWhiteSpace(Model.ReturnUrl)) {
+                <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-secondary">@localizer.GetLocalizedHtmlString("Cancel")</a>
+            }
+        </div>
+    </div>
+</form>

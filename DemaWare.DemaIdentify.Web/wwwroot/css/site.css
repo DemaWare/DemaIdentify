@@ -1,0 +1,222 @@
+﻿@import 'https://fonts.googleapis.com/css?family=Raleway:300,400,500,700&display=swap';
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined';
+:root {
+  --primary: #3a5fac;
+  /* Blue */
+  --secondary: #6c757d;
+  /* Gray */
+  --danger: #dc3545 /* Red */ ;
+}
+
+.background-cover {
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+
+html, body {
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.8;
+}
+html, html a, html a:hover, body, body a, body a:hover {
+  color: #212529;
+  /* Gray - Dark */
+}
+
+h2 {
+  color: var(--primary);
+  margin-bottom: 0;
+}
+
+.material-icons, .material-icons-outlined {
+  vertical-align: middle;
+}
+
+.main {
+  background: #ececec;
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+.main .login-container {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--primary);
+  border-radius: 5px;
+  margin: 20px;
+}
+.main .login-container .login-header {
+  border-bottom: 1px dashed var(--primary);
+  padding: 15px 15px 15px 15px;
+  text-align: center;
+}
+.main .login-container .login-header img {
+  width: 100%;
+}
+.main .login-container .login-body {
+  padding: 10px;
+  width: 100%;
+}
+.main .login-container .login-body form {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.main .login-container .login-footer {
+  background: rgba(108, 117, 125, 0.05);
+  border-top: 1px dashed var(--primary);
+  margin: 15px -10px -10px -10px;
+  padding: 20px 10px 20px 10px;
+}
+@media (min-width: 640px) {
+  .main .login-container {
+    width: 600px;
+    margin: 20px auto;
+  }
+}
+@media (min-height: 500px) and (min-width: 640px) {
+  .main .login-container {
+    margin: 0;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+a.external-login {
+  align-items: center;
+  background: #ffffff;
+  border: 1px dashed var(--primary);
+  display: flex;
+  margin-top: 30px;
+  opacity: 0.8;
+  padding: 2px;
+  width: 100%;
+}
+a.external-login img {
+  margin-right: 5px;
+  opacity: 0.7;
+}
+a.external-login span {
+  font-size: 12px;
+}
+a.external-login:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+a.external-login:hover img {
+  opacity: 1;
+}
+
+/* Bootstrap => Text */
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.text-danger {
+  color: var(--danger) !important;
+}
+
+/* Bootstrap => Borders */
+.border-primary {
+  border-color: var(--primary) !important;
+}
+
+.border-danger {
+  border-color: var(--danger) !important;
+}
+
+/* Bootstrap => Backgrounds */
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+
+.bg-danger {
+  background-color: rgba(248, 215, 218, 0.7) !important;
+}
+
+/* Bootstrap => Alerts */
+.alert {
+  border-style: dashed;
+}
+.alert.alert-danger {
+  background: rgba(248, 215, 218, 0.7);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* Bootstrap => Buttons */
+.btn {
+  margin-right: 5px;
+  padding: 2px 15px;
+}
+.btn.btn-primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+}
+.btn.btn-outline-primary {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.btn.btn-outline-primary:not([disabled]):hover {
+  background: rgba(58, 95, 172, 0.1);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.btn.btn-outline-secondary {
+  border-color: var(--secondary);
+  color: var(--secondary);
+}
+.btn.btn-outline-secondary:not([disabled]):hover {
+  background: rgba(108, 117, 125, 0.1);
+  border-color: var(--secondary);
+  color: var(--secondary);
+}
+.btn.btn-outline-danger {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.btn.btn-outline-danger:not([disabled]):hover {
+  background: rgba(220, 53, 69, 0.1);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.btn:last-child {
+  margin-right: 0;
+}
+
+/* Bootstrap -> Forms */
+.validation-summary-errors > ul {
+  margin: 0;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.form-label::after {
+  content: ":";
+}
+
+.input-group .input-group-text {
+  background: #ffffff;
+  border-right: 0;
+  padding: 0 5px;
+}
+.input-group .input-group-text .material-icons {
+  color: rgba(58, 95, 172, 0.9);
+}
+.input-group .form-control, .input-group .form-select {
+  border-left-width: 0;
+}
+.input-group .form-control:first-child, .input-group .form-select:first-child {
+  border-left-width: 1px;
+}
+
+.input-group-lg .input-group-text .material-icons {
+  font-size: 28px;
+}

@@ -1,0 +1,20 @@
+﻿@inject SettingService settingService
+
+@{
+	Layout = "_BaseLayout";
+}
+
+<div class="main background-cover">
+	<div class="login-container shadow-sm">
+		<div class="login-header">
+			<img src="@Url.Content(settingService.UrlLogoColor)" alt="@settingService.ApplicationName" />
+		</div>
+		<div class="login-body">
+			@RenderBody()
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	@RenderSection("Scripts", required: false)
+}

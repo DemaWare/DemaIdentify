@@ -1,0 +1,21 @@
+﻿@page
+@model ConfirmEmailModel
+@inject LocalizationService localizer
+
+@{
+	ViewData["Title"] = localizer.GetLocalizedHtmlString("AccountConfirmTitle");
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Model.IsMailConfirmed) {
+	<p>@localizer.GetLocalizedHtmlString("AccountConfirmedMessage")</p>
+
+	<div class="mb-3">
+		<div class="btn-group btn-group-lg w-100">
+			<a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-secondary">@localizer.GetLocalizedHtmlString("Login")</a>
+		</div>
+	</div>
+} else {
+	<p>@localizer.GetLocalizedHtmlString("AccountConfirmFailure")</p>
+}

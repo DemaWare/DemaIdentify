@@ -1,0 +1,19 @@
+﻿@page "/admin/application/client/{entityId:Guid}"
+@model DemaWare.DemaIdentify.Web.Pages.Admin.Application.ApplicationClientDetailModel
+@inject LocalizationService localizer
+
+@{
+	Layout = "_AdminLayout";
+	ViewData["Title"] = localizer.GetLocalizedHtmlString("Clients");
+}
+
+<div class="row mx-2 mt-3">
+	<div class="col-12">
+		<div class="card">
+
+			<div class="card-body">
+				<p class="card-text">@Model.EntityId</p>
+			</div>
+		</div>
+	</div>
+</div>
