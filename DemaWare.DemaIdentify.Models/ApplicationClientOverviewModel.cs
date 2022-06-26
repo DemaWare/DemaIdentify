@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace DemaWare.DemaIdentify.Models {
     public class ApplicationClientOverviewModel : EntityModel {
-        private string? _clientId;
+        private string? _clientId = null!;
         [DataMember]
         public string? ClientId {
             get { return _clientId; }
@@ -17,11 +17,11 @@ namespace DemaWare.DemaIdentify.Models {
             set { _displayName = value; NotifyPropertyChanged(); }
         }
 
-        private string? _description;
+        private bool _isVisible;
         [DataMember]
-        public string? Description {
-            get { return _description; }
-            set { _description = value; NotifyPropertyChanged(); }
+        public bool IsVisible {
+            get { return _isVisible; }
+            set { _isVisible = value; NotifyPropertyChanged(); }
         }
     }
 }

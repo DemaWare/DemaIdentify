@@ -21,6 +21,6 @@ public class ApplicationClient : OpenIddictEntityFrameworkCoreApplication<Guid, 
         EntityId = Id,
         ClientId = ClientId,
         DisplayName = DisplayName,
-        Description = Description
+        IsVisible = IsVisible
     };
 }
