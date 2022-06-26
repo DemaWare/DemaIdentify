@@ -1,6 +1,7 @@
 using DemaWare.DemaIdentify.BusinessLogic;
 using DemaWare.DemaIdentify.BusinessLogic.Entities;
 using DemaWare.DemaIdentify.BusinessLogic.Extensions;
+using DemaWare.DemaIdentify.Models.Configuration;
 using DemaWare.DemaIdentify.Web;
 using DemaWare.DemaIdentify.Web.Helpers;
 using DemaWare.DemaIdentify.Web.Resources;
@@ -15,6 +16,10 @@ using System.Reflection;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Load config file
+var openIddictConfiguration = new OpenIddictConfigurationModel();
+builder.Configuration.Bind("OpenIddict", openIddictConfiguration);
 
 // DemaIdentify
 builder.Services.AddDemaIdentify(builder.Configuration.GetConnectionString(nameof(EntitiesDbContext)));
@@ -76,8 +81,13 @@ builder.Services.AddOpenIddict()
         options.SetAccessTokenLifetime(TimeSpan.FromMinutes(30));
         options.SetRefreshTokenLifetime(TimeSpan.FromDays(7));
 
-        //TODO: Change when going to production
-        options.AddDevelopmentEncryptionCertificate().AddDevelopmentSigningCertificate();
+        if (openIddictConfiguration.UseDevelopmentCertificate) {
+            options.AddDevelopmentEncryptionCertificate();
+            options.AddDevelopmentSigningCertificate();
+        } else {
+            options.AddEncryptionCertificate(openIddictConfiguration.Certificate.Thumbprint, openIddictConfiguration.Certificate.StoreName, openIddictConfiguration.Certificate.StoreLocation);
+            options.AddSigningCertificate(openIddictConfiguration.Certificate.Thumbprint, openIddictConfiguration.Certificate.StoreName, openIddictConfiguration.Certificate.StoreLocation);
+        }
 
         options.UseAspNetCore()
             .EnableTokenEndpointPassthrough()
