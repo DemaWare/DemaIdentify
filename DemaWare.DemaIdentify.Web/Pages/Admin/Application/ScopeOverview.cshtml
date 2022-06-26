@@ -1,0 +1,32 @@
+﻿@page "/admin/application/scope"
+@model DemaWare.DemaIdentify.Web.Pages.Admin.Application.ScopeOverviewModel
+@inject LocalizationService localizer
+
+@{
+	Layout = "_AdminLayout";
+	ViewData["Title"] = localizer.GetLocalizedHtmlString("Scopes");
+}
+
+<table class="table table-striped table-hover">
+	<thead class="table-light">
+		<tr>
+			<th scope="col" style="width:150px;">@localizer.GetLocalizedHtmlString("Name")</th>
+			<th scope="col">@localizer.GetLocalizedHtmlString("Resources")</th>
+			<th scope="col" style="width:100px;">&nbsp;</th>
+			<th scope="col" style="width:100px;">&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var scope in Model.Scopes) {
+			<tr>
+				<td>@scope.Name</td>
+				<td>@(scope.Resources.Any() ? string.Join("; ", scope.Resources) : "-")</td>
+				<td><a asp-page="./ScopeEdit" asp-route-scopeId="@scope.EntityId" class="btn btn-sm btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Edit")</a></td>
+				<td><a asp-page="./ScopeDelete" asp-route-scopeId="@scope.EntityId" class="btn btn-sm btn-outline-danger text-uppercase">@localizer.GetLocalizedHtmlString("Delete")</a></td>
+			</tr>
+		}
+	</tbody>
+</table>
+<div class="card-footer text-center">
+	<a asp-page="./ScopeCreate" class="btn btn-lg btn-outline-primary text-uppercase">@localizer.GetLocalizedHtmlString("Add")</a>
+</div>

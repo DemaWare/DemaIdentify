@@ -15,7 +15,7 @@ namespace DemaWare.DemaIdentify.Web.Pages {
 
         public void OnGet() {
             ReturnUrl = Url.Content("~/");
-            ApplicationClients = _applicationService.GetClientEnumeration(onlyVisible: true);
+            ApplicationClients = _applicationService.GetClientEnumerationAsync(onlyVisible: true).Result;
         }
     }
 }

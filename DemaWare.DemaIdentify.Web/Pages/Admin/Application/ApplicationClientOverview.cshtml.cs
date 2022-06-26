@@ -18,7 +18,7 @@ namespace DemaWare.DemaIdentify.Web.Pages.Admin.Application {
         }
 
         public void OnGet() {
-            ApplicationClients = _applicationService.GetClientOverview();
+            ApplicationClients = _applicationService.GetClientOverviewAsync().Result;
         }
     }
 }
