@@ -16,8 +16,8 @@ namespace DemaWare.DemaIdentify.Web.Pages.Admin.Application {
             _applicationService = applicationService;
         }
 
-        public void OnGet() {
-            Clients = _applicationService.GetClientOverviewAsync().Result;
+        public async void OnGet() {
+            Clients = await _applicationService.GetClientOverviewAsync();
         }
     }
 }

@@ -24,8 +24,8 @@ namespace DemaWare.DemaIdentify.Web.Pages.Admin.Template {
             _templateService = templateService;
         }
 
-        public void OnGet() {
-            var templates = _templateService.GetEmailEnumerationAsync().Result.ToList();
+        public async void OnGet() {
+            var templates = (await _templateService.GetEmailEnumerationAsync()).ToList();
             ParentList = new SelectList(templates, nameof(EnumerationModel.EntityId), nameof(EnumerationModel.Name));
             
             var types = EnumExtension.ToEnumList<TemplateEmailType>();

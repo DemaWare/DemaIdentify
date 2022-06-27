@@ -16,8 +16,8 @@ namespace DemaWare.DemaIdentify.Web.Pages.Admin.Identity {
             _identityService = identityService;
         }
 
-        public void OnGet(Guid roleId) {
-            Role = _identityService.GetRoleAsync(roleId).Result;
+        public async void OnGet(Guid roleId) {
+            Role = await _identityService.GetRoleAsync(roleId);
         }
 
         public async Task<IActionResult> OnPostAsync(Guid roleId) {

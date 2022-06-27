@@ -23,8 +23,8 @@ namespace DemaWare.DemaIdentify.Web.Pages.Admin.Identity {
             _identityService = identityService;
         }
 
-        public void OnGet(Guid userId) {
-            Input = _identityService.GetUserAsync(userId).Result;
+        public async void OnGet(Guid userId) {
+            Input = await _identityService.GetUserAsync(userId);
 
             var roles = _identityService.GetRoleEnumerationAsync().Result;
             RoleList = new SelectList(roles, nameof(EnumerationModel.Name), nameof(EnumerationModel.Name));
