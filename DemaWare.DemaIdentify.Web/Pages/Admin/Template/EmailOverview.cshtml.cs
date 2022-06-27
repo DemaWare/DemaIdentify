@@ -16,8 +16,8 @@ namespace DemaWare.DemaIdentify.Web.Pages.Admin.Template {
             _templateService = templateService;
         }
 
-        public async void OnGet() {
-            Templates = await _templateService.GetEmailOverviewAsync();
+        public void OnGet() {
+            Templates = _templateService.GetEmailOverviewAsync().Result;
         }
     }
 }
