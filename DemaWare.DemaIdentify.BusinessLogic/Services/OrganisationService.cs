@@ -15,7 +15,8 @@ public class OrganisationService {
 
     public async Task CreateInitialOrganisationAsync(string? userEmail) {
         if (string.IsNullOrEmpty(userEmail)) throw new ArgumentNullException(nameof(userEmail));
-        
+        userEmail = userEmail.ToLower();
+
         if (!_entitiesContext.Organisations.Any()) {
             var emailAddress = userEmail.Split("@");
 
@@ -51,7 +52,7 @@ public class OrganisationService {
         if (!organisationModel.IsExistingObject) _entitiesContext.Organisations.Add(organisation);
 
         organisation.Name = !string.IsNullOrWhiteSpace(organisationModel.Name) ? organisationModel.Name : string.Empty;
-        organisation.DomainName = !string.IsNullOrWhiteSpace(organisationModel.DomainName) ? organisationModel.DomainName : string.Empty;
+        organisation.DomainName = !string.IsNullOrWhiteSpace(organisationModel.DomainName) ? organisationModel.DomainName.ToLower() : string.Empty;
         organisation.IsEnabled = organisationModel.IsEnabled;        
 
         await _entitiesContext.SaveChangesAsync();
