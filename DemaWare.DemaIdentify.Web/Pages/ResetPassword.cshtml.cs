@@ -1,6 +1,5 @@
-﻿using DemaWare.DemaIdentify.BusinessLogic.Entities;
+﻿using DemaWare.DemaIdentify.BusinessLogic.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
@@ -10,8 +9,7 @@ using System.Text;
 namespace DemaWare.DemaIdentify.Web.Pages {
     [AllowAnonymous]
     public class ResetPasswordModel : PageModel {
-        private readonly UserManager<User> _userManager;
-        private readonly ILogger<ResetPasswordModel> _logger;
+        private readonly IdentityService _identityService;
 
         [BindProperty]
         public InputModel Input { get; set; } = new InputModel();
@@ -36,9 +34,8 @@ namespace DemaWare.DemaIdentify.Web.Pages {
             public string? Code { get; set; }
         }
 
-        public ResetPasswordModel(UserManager<User> userManager, ILogger<ResetPasswordModel> logger) {
-            _userManager = userManager;
-            _logger = logger;
+        public ResetPasswordModel(IdentityService identityService) {
+            _identityService = identityService;
         }
 
         public IActionResult OnGet(string email, string code, string? returnUrl = null) {
@@ -54,16 +51,18 @@ namespace DemaWare.DemaIdentify.Web.Pages {
         }
 
         public async Task<IActionResult> OnPostAsync(string? returnUrl = null) {
-            if (!ModelState.IsValid) return Page();
+            if (ModelState.IsValid) {
+                try {
+                    await _identityService.ResetPasswordAsync(Input.Email, Input.Password, Input.Code);
+                } catch {
+                    // Do nothing, always redirect to confirmation page
+                }
 
-            var user = await _userManager.FindByEmailAsync(Input.Email);
-            if (user == null) return RedirectToPage("./ResetPasswordConfirmation", new { returnUrl });
+                return RedirectToPage("./ResetPasswordConfirmation", new { returnUrl });
+            }
 
-            var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
-            if (result.Succeeded) return RedirectToPage("./ResetPasswordConfirmation", new { returnUrl });
-
-            foreach (var error in result.Errors) ModelState.AddModelError(string.Empty, error.Description);
             return Page();
+
         }
     }
 }

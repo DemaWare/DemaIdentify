@@ -1,6 +1,5 @@
-using DemaWare.DemaIdentify.BusinessLogic.Entities;
+using DemaWare.DemaIdentify.BusinessLogic.Services;
 using DemaWare.DemaIdentify.Web.Helpers;
-using DemaWare.DemaIdentify.Web.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -13,10 +12,7 @@ using System.ComponentModel.DataAnnotations;
 namespace DemaWare.DemaIdentify.Web.Pages {
     [AllowAnonymous]
     public class LoginModel : PageModel {
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
-        private readonly ILogger<LoginModel> _logger;
-        private readonly LocalizationService _localizer;
+        private readonly IdentityService _identityService;
 
         [BindProperty]
         public InputModel Input { get; set; } = new InputModel();
@@ -41,18 +37,15 @@ namespace DemaWare.DemaIdentify.Web.Pages {
             public string? Password { get; set; }
         }
 
-        public LoginModel(SignInManager<User> signInManager, UserManager<User> userManager, ILogger<LoginModel> logger, LocalizationService localizer) {
-            _signInManager = signInManager;
-            _userManager = userManager;
-            _logger = logger;
-            _localizer = localizer;
+        public LoginModel(IdentityService identityService) {
+            _identityService = identityService;
         }
 
         public void OnLoad() {
             Languages = LanguageHelper.GenerateLanguageList().Select(c => new SelectListItem { Value = c.Code, Text = c.Name }).ToList();
         }
 
-        public async Task OnGetAsync(string? returnUrl = null) {
+        public async void OnGet(string? returnUrl = null) {
             if (!string.IsNullOrEmpty(ErrorMessage)) ModelState.AddModelError(string.Empty, ErrorMessage);
 
             ReturnUrl = returnUrl ?? Url.Content("~/");
@@ -74,31 +67,11 @@ namespace DemaWare.DemaIdentify.Web.Pages {
             returnUrl ??= Url.Content("~/");
 
             if (ModelState.IsValid) {
-                // TODO: Implement account lockout (#4)
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, false, lockoutOnFailure: false);
-                if (result.Succeeded) {
-                    var user = await _userManager.FindByEmailAsync(Input.Email);
-                    user.LastLoginTime = DateTime.Now;
-                    await _userManager.UpdateAsync(user);
-
-                    _logger.LogInformation("User ({userEmail}) logged in.", Input.Email?.ToLower());
+                try {
+                    await _identityService.PasswordSignInAsync(Input.Email, Input.Password);
                     return LocalRedirect(returnUrl);
-
-                } else if (result.RequiresTwoFactor) {
-                    throw new NotImplementedException();
-                    // TODO: Implement 2FA (#1)
-                    //return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = false });
-
-                } else if (result.IsLockedOut) {
-                    throw new NotImplementedException();
-                    // TODO: Implement account lockout (#4)
-                    //_logger.LogWarning("User account ({userEmail}) locked out.", Input.Email?.ToLower());
-                    //return RedirectToPage("./Lockout");
-
-                } else {
-                    ModelState.AddModelError(string.Empty, _localizer.GetLocalizedHtmlString("ErrorMessageLogin"));
+                } catch (Exception ex) {
+                    ModelState.AddModelError(string.Empty, ex.Message);
                 }
             }
 

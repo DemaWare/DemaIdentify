@@ -2,10 +2,9 @@ using DemaWare.DemaIdentify.BusinessLogic;
 using DemaWare.DemaIdentify.BusinessLogic.Entities;
 using DemaWare.DemaIdentify.BusinessLogic.Extensions;
 using DemaWare.DemaIdentify.Models.Configuration;
+using DemaWare.DemaIdentify.Models.Resources;
 using DemaWare.DemaIdentify.Web;
 using DemaWare.DemaIdentify.Web.Helpers;
-using DemaWare.DemaIdentify.Web.Resources;
-using DemaWare.DemaIdentify.Web.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -116,8 +115,6 @@ builder.Services.ConfigureApplicationCookie(options => {
     options.LoginPath = "/login";
 });
 
-builder.Services.AddSingleton<LocalizationService>();
-
 // Add initial data
 builder.Services.AddHostedService<InitialData>();
 
@@ -132,8 +129,7 @@ builder.Services.AddControllers();
 builder.Services.AddRazorPages(options => {
     options.Conventions.AuthorizeFolder("/Admin", "RequireSaRole");
     options.Conventions.AllowAnonymousToPage("/Admin/Configure");
-})
-    .AddViewLocalization()
+}).AddViewLocalization()
     .AddDataAnnotationsLocalization(options => {
         options.DataAnnotationLocalizerProvider = (type, factory) => {
             return factory.Create(nameof(ModelResources), location: typeof(ModelResources).GetTypeInfo().Assembly.GetName().Name ?? string.Empty);

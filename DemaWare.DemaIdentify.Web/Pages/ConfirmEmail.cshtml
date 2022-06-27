@@ -8,14 +8,10 @@
 
 <h2>@ViewData["Title"]</h2>
 
-@if (Model.IsMailConfirmed) {
-	<p>@localizer.GetLocalizedHtmlString("AccountConfirmedMessage")</p>
+<p>@localizer.GetLocalizedHtmlString("AccountConfirmedMessage")</p>
 
-	<div class="mb-3">
-		<div class="btn-group btn-group-lg w-100">
-			<a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-secondary">@localizer.GetLocalizedHtmlString("Login")</a>
-		</div>
+<div class="mb-3">
+	<div class="btn-group btn-group-lg w-100">
+		<a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-secondary">@localizer.GetLocalizedHtmlString("Login")</a>
 	</div>
-} else {
-	<p>@localizer.GetLocalizedHtmlString("AccountConfirmFailure")</p>
-}
+</div>

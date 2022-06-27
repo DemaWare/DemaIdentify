@@ -10,6 +10,7 @@ public static class ServiceExtensions {
         services.AddDatabaseDeveloperPageExceptionFilter();
 
         // Add services
+        services.AddSingleton<LocalizationService>();
         services.AddTransient<ApplicationService>();
         services.AddTransient<IdentityService>();
         services.AddTransient<SettingService>();

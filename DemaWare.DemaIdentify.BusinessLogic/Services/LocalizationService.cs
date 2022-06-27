@@ -1,8 +1,8 @@
-﻿using DemaWare.DemaIdentify.Web.Resources;
+﻿using DemaWare.DemaIdentify.Models.Resources;
 using Microsoft.Extensions.Localization;
 using System.Reflection;
 
-namespace DemaWare.DemaIdentify.Web.Services {
+namespace DemaWare.DemaIdentify.BusinessLogic.Services {
     public class LocalizationService {
         private readonly IStringLocalizer _localizer;
         public LocalizationService(IStringLocalizerFactory localizerFactory) {
