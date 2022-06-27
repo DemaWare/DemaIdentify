@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DemaWare.DemaIdentify.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DemaWare.DemaIdentify.BusinessLogic.Entities;
@@ -19,27 +20,17 @@ public class Organisation {
     [Required]
     public bool IsDeleted { get; set; }
 
-    //public TemplateEmailModel ToModel() => new() {
-    //    EntityId = Id,
-    //    Parent = ParentId,
-    //    Type = Type.HasValue ? (int)Type.Value : null,
-    //    Subject = Subject,
-    //    Body = Body
-    //};
+    public OrganisationModel ToModel() => new() {
+        EntityId = Id,
+        Name = Name,
+        DomainName = DomainName,
+        IsEnabled = IsEnabled
+    };
 
-    //public EnumerationModel ToEnumerationModel() => new EnumerationModel(Id, Subject ?? string.Empty);
-
-    //public TemplateEmailDetailModel ToDetailModel() => new() {
-    //    EntityId = Id,
-    //    Parent = ParentId.HasValue ? Parent?.ToDetailModel() : null,
-    //    Type = Type.HasValue ? Type.Value.ToEnumModel() : null,
-    //    Subject = Subject,
-    //    Body = Body
-    //};
-
-    //public TemplateEmailOverviewModel ToOverviewModel() => new() {
-    //    EntityId = Id,
-    //    Type = Type.HasValue ? Type.Value.ToEnumModel() : null,
-    //    Subject = Subject
-    //};
+    public OrganisationOverviewModel ToOverviewModel() => new() {
+        EntityId = Id,
+        Name = Name,
+        DomainName = DomainName,
+        IsEnabled = IsEnabled
+    };
 }

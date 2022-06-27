@@ -13,6 +13,7 @@ public static class ServiceExtensions {
         services.AddSingleton<LocalizationService>();
         services.AddTransient<ApplicationService>();
         services.AddTransient<IdentityService>();
+        services.AddTransient<OrganisationService>();
         services.AddTransient<SettingService>();
         services.AddTransient<TemplateService>();
 
