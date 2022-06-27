@@ -24,10 +24,10 @@ namespace DemaWare.DemaIdentify.Web.Pages.Admin.Template {
             _templateService = templateService;
         }
 
-        public async void OnGet() {
-            var templates = (await _templateService.GetEmailEnumerationAsync()).ToList();
+        public void OnGet() {
+            var templates = _templateService.GetEmailEnumerationAsync().Result.ToList();
             ParentList = new SelectList(templates, nameof(EnumerationModel.EntityId), nameof(EnumerationModel.Name));
-            
+
             var types = EnumExtension.ToEnumList<TemplateEmailType>();
             TypeList = new SelectList(types, nameof(EnumModel.Id), nameof(EnumModel.Name));
         }

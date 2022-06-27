@@ -16,8 +16,8 @@ namespace DemaWare.DemaIdentify.Web.Pages.Admin.Application {
             _applicationService = applicationService;
         }
 
-        public async void OnGet() {
-            Scopes = await _applicationService.GetScopeOverviewAsync();
+        public void OnGet() {
+            Scopes = _applicationService.GetScopeOverviewAsync().Result;
         }
     }
 }

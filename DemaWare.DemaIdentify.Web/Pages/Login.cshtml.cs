@@ -45,13 +45,13 @@ namespace DemaWare.DemaIdentify.Web.Pages {
             Languages = LanguageHelper.GenerateLanguageList().Select(c => new SelectListItem { Value = c.Code, Text = c.Name }).ToList();
         }
 
-        public async void OnGet(string? returnUrl = null) {
+        public void OnGet(string? returnUrl = null) {
             if (!string.IsNullOrEmpty(ErrorMessage)) ModelState.AddModelError(string.Empty, ErrorMessage);
 
             ReturnUrl = returnUrl ?? Url.Content("~/");
 
             // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            HttpContext.SignOutAsync(IdentityConstants.ExternalScheme).Wait();
 
             var requestCultureFeature = HttpContext.Features.Get<IRequestCultureFeature>();
             if (requestCultureFeature != null) {

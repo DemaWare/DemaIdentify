@@ -12,9 +12,9 @@ namespace DemaWare.DemaIdentify.Web.Pages {
             _identityService = identityService;
         }
 
-        public async Task<IActionResult> OnGet(string? returnUrl = null) {
+        public  IActionResult OnGet(string? returnUrl = null) {
             try {
-                await _identityService.SignOutAsync();
+                _identityService.SignOutAsync().Wait();
                 if (returnUrl != null) return LocalRedirect(returnUrl);
                 return RedirectToPage("/Index");
             } catch (Exception ex) {

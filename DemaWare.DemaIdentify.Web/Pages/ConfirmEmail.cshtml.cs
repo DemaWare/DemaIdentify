@@ -13,12 +13,12 @@ namespace DemaWare.DemaIdentify.Web.Pages {
             _identityService = identityService;
         }
 
-        public async void OnGet(string? userId, string? code, string? returnUrl) {
+        public void OnGet(string? userId, string? code, string? returnUrl) {
             ReturnUrl = returnUrl ?? Url.Content("~/");
 
             if (!string.IsNullOrWhiteSpace(userId) && !string.IsNullOrWhiteSpace(code) && Guid.TryParse(userId, out Guid userIdGuid)) {
                 try {
-                    await _identityService.ConfirmEmailAsync(userIdGuid, code);
+                    _identityService.ConfirmEmailAsync(userIdGuid, code).Wait();
                 } catch (Exception ex) {
                     ModelState.AddModelError(string.Empty, ex.Message);
                 }
