@@ -132,7 +132,6 @@ public class IdentityService {
         if (string.IsNullOrWhiteSpace(userEmail)) throw new ArgumentNullException(nameof(userEmail));
         if (string.IsNullOrWhiteSpace(userPassword)) throw new ArgumentNullException(nameof(userPassword));
         if (string.IsNullOrWhiteSpace(confirmEmailUrl)) throw new ArgumentNullException(nameof(confirmEmailUrl));
-        confirmEmailUrl = WebUtility.UrlDecode(confirmEmailUrl);
 
         var user = await _userManager.FindByEmailAsync(userEmail);
 
@@ -148,11 +147,11 @@ public class IdentityService {
             _logger.LogInformation("User ({emailAddress}) created a new account with password.", userEmail);
 
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var callbackUrl = string.Format(confirmEmailUrl, user.Id, WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)));
+            var callbackUrl = confirmEmailUrl.Replace("%7B0%7D", user.Id.ToString()).Replace("%7B1%7D", WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)));
 
             try {
                 var templateEmail = _templateService.GenerateEmail(TemplateEmailType.UserRegistrationConfirmEmail);
-                templateEmail.Body = templateEmail.Body?.Replace("{email}", userEmail).Replace("{url}", WebUtility.UrlEncode(callbackUrl ?? ""));
+                templateEmail.Body = templateEmail.Body?.Replace("{email}", userEmail).Replace("{url}", callbackUrl);
 
                 var mailHelper = new MailSmtpHelper(_settingService.GetSmtpSettings());
                 mailHelper.AddRecipient(RecipientMailType.To, userEmail);
@@ -196,7 +195,6 @@ public class IdentityService {
     public async Task SendPasswordResetTokenAsync(string? userEmail, string? resetPasswordUrl) {
         if (string.IsNullOrEmpty(userEmail)) throw new ArgumentNullException(nameof(userEmail));
         if (string.IsNullOrEmpty(resetPasswordUrl)) throw new ArgumentNullException(nameof(resetPasswordUrl));
-        resetPasswordUrl = WebUtility.UrlDecode(resetPasswordUrl);
 
         var user = await _userManager.FindByEmailAsync(userEmail);
 
@@ -204,11 +202,11 @@ public class IdentityService {
             _logger.LogInformation("The user '{userEmail}' has requested a reset password email.", userEmail);
 
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var callbackUrl = string.Format(resetPasswordUrl, WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(user.Email)), WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)));
+            var callbackUrl = resetPasswordUrl.Replace("%7B0%7D", WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(user.Email))).Replace("%7B1%7D", WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)));
 
             try {
                 var templateEmail = _templateService.GenerateEmail(TemplateEmailType.UserResetPassword);
-                templateEmail.Body = templateEmail.Body?.Replace("{email}", userEmail).Replace("{url}", WebUtility.UrlEncode(callbackUrl ?? ""));
+                templateEmail.Body = templateEmail.Body?.Replace("{email}", userEmail).Replace("{url}", callbackUrl);
 
                 var mailHelper = new MailSmtpHelper(_settingService.GetSmtpSettings());
                 mailHelper.AddRecipient(RecipientMailType.To, user.Email);
