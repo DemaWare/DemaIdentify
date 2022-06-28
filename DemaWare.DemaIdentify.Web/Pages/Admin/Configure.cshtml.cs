@@ -11,6 +11,7 @@ namespace DemaWare.DemaIdentify.Web.Pages {
     public class ConfigureModel : PageModel {
         private readonly ILogger<ConfigureModel> _logger;
         private readonly IdentityService _identityService;
+        private readonly OrganisationService _organisationService;
         private readonly TemplateService _templateService;
         private readonly SettingService _settingService;
 
@@ -79,9 +80,10 @@ namespace DemaWare.DemaIdentify.Web.Pages {
             public string? UserPassword { get; set; }
         }
 
-        public ConfigureModel(ILogger<ConfigureModel> logger, IdentityService identityService, TemplateService templateService, SettingService settingService) {
+        public ConfigureModel(ILogger<ConfigureModel> logger, IdentityService identityService, OrganisationService organisationService, TemplateService templateService, SettingService settingService) {
             _logger = logger;
             _identityService = identityService;
+            _organisationService = organisationService;
             _templateService = templateService;
             _settingService = settingService;
         }
@@ -151,6 +153,7 @@ namespace DemaWare.DemaIdentify.Web.Pages {
 
                     await _identityService.CreateInitialRolesAsync();
                     await _identityService.CreateInitialAdminUserAsync(Input.UserEmail, Input.UserPassword);
+                    await _organisationService.CreateInitialOrganisationAsync(Input.UserEmail);                    
                     await _templateService.CreateInitialTemplatesAsync();
 
                     trans.Commit();
