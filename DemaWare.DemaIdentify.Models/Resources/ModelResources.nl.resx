@@ -343,4 +343,25 @@
   <data name="Resources" xml:space="preserve">
     <value>Resources</value>
   </data>
+  <data name="Organisations" xml:space="preserve">
+    <value>Organisaties</value>
+  </data>
+  <data name="Organisation" xml:space="preserve">
+    <value>Organisatie</value>
+  </data>
+  <data name="DomainName" xml:space="preserve">
+    <value>Domeinnaam</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Ingeschakeld</value>
+  </data>
+  <data name="OrganisationConfirmDelete" xml:space="preserve">
+    <value>Weet u zeker dat de organisatie '{0}' wilt verwijderen?</value>
+  </data>
+  <data name="RegistrationLimited" xml:space="preserve">
+    <value>Registratie is beperkt tot de deelnemende organisaties!</value>
+  </data>
+  <data name="SignInLimited" xml:space="preserve">
+    <value>Aanmelden is beperkt tot de deelnemende organisaties!</value>
+  </data>
 </root>
