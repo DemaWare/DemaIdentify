@@ -71,6 +71,8 @@ builder.Services.AddOpenIddict()
         options.SetTokenEndpointUris("/connect/token");
         options.SetUserinfoEndpointUris("/connect/userinfo");
 
+        options.RegisterScopes(Scopes.Email, Scopes.Profile, Scopes.Roles, Scopes.OpenId);
+
         options.AllowAuthorizationCodeFlow().RequireProofKeyForCodeExchange();
         options.AllowRefreshTokenFlow();
 
