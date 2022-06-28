@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DemaWare.DemaIdentify.BusinessLogic;
 public class EntitiesDbContext : IdentityDbContext<User, Role, Guid> {
+    public DbSet<Organisation> Organisations => Set<Organisation>();
     public DbSet<Setting> Settings => Set<Setting>();
     public DbSet<TemplateEmail> TemplateEmails => Set<TemplateEmail>();
 

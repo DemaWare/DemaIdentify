@@ -1,0 +1,19 @@
+﻿@page "/admin/organisation/{organisationId:Guid}/delete"
+@model DemaWare.DemaIdentify.Web.Pages.Admin.Organisation.OrganisationDeleteModel
+@inject LocalizationService localizer
+
+@{
+	Layout = "_AdminLayout";
+	ViewData["Title"] = string.Format("{0} ({1})", localizer.GetLocalizedHtmlString("Organisation"), localizer.GetLocalizedHtmlString("Delete"));
+}
+
+<form method="post">
+	<partial name="_ValidationSummary" />
+	<div class="card-body">
+		<p class="card-text">@Html.Raw(string.Format(localizer.GetLocalizedHtmlString("OrganisationConfirmDelete"), string.Format("<span class=\"fw-bold\">{0}</span>", Model.Organisation?.Name)))</p>
+	</div>
+	<div class="card-footer text-center">
+		<a asp-page="./OrganisationOverview" class="btn btn-lg btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Cancel")</a>
+		<button class="btn btn-lg btn-outline-danger text-uppercase" type="submit">@localizer.GetLocalizedHtmlString("Delete")</button>
+	</div>
+</form>
