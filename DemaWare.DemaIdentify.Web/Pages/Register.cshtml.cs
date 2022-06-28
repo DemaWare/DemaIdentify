@@ -49,7 +49,7 @@ namespace DemaWare.DemaIdentify.Web.Pages {
 
             if (ModelState.IsValid) {
                 try {
-                    var confirmEmailUrl = Url.Page("/ConfirmEmail", new { userId = "{0}", code = "{1}", returnUrl = ReturnUrl });
+                    var confirmEmailUrl = Url.Page("/ConfirmEmail", null, new { userId = "{0}", code = "{1}", returnUrl = ReturnUrl }, Request.Scheme);
                     await _identityService.RegisterUserAsync(Input.Email, Input.Password, confirmEmailUrl);
                     return RedirectToPage("RegisterConfirmation");
                 } catch (Exception ex) {

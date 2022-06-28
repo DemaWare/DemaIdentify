@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Net;
 using System.Text;
 using System.Text.Encodings.Web;
 
@@ -131,6 +132,7 @@ public class IdentityService {
         if (string.IsNullOrWhiteSpace(userEmail)) throw new ArgumentNullException(nameof(userEmail));
         if (string.IsNullOrWhiteSpace(userPassword)) throw new ArgumentNullException(nameof(userPassword));
         if (string.IsNullOrWhiteSpace(confirmEmailUrl)) throw new ArgumentNullException(nameof(confirmEmailUrl));
+        confirmEmailUrl = WebUtility.UrlDecode(confirmEmailUrl);
 
         var user = await _userManager.FindByEmailAsync(userEmail);
 
@@ -150,7 +152,7 @@ public class IdentityService {
 
             try {
                 var templateEmail = _templateService.GenerateEmail(TemplateEmailType.UserRegistrationConfirmEmail);
-                templateEmail.Body = templateEmail.Body?.Replace("{email}", userEmail).Replace("{url}", HtmlEncoder.Default.Encode(callbackUrl ?? ""));
+                templateEmail.Body = templateEmail.Body?.Replace("{email}", userEmail).Replace("{url}", WebUtility.UrlEncode(callbackUrl ?? ""));
 
                 var mailHelper = new MailSmtpHelper(_settingService.GetSmtpSettings());
                 mailHelper.AddRecipient(RecipientMailType.To, userEmail);
@@ -194,6 +196,7 @@ public class IdentityService {
     public async Task SendPasswordResetTokenAsync(string? userEmail, string? resetPasswordUrl) {
         if (string.IsNullOrEmpty(userEmail)) throw new ArgumentNullException(nameof(userEmail));
         if (string.IsNullOrEmpty(resetPasswordUrl)) throw new ArgumentNullException(nameof(resetPasswordUrl));
+        resetPasswordUrl = WebUtility.UrlDecode(resetPasswordUrl);
 
         var user = await _userManager.FindByEmailAsync(userEmail);
 
@@ -205,7 +208,7 @@ public class IdentityService {
 
             try {
                 var templateEmail = _templateService.GenerateEmail(TemplateEmailType.UserResetPassword);
-                templateEmail.Body = templateEmail.Body?.Replace("{email}", userEmail).Replace("{url}", HtmlEncoder.Default.Encode(callbackUrl ?? ""));
+                templateEmail.Body = templateEmail.Body?.Replace("{email}", userEmail).Replace("{url}", WebUtility.UrlEncode(callbackUrl ?? ""));
 
                 var mailHelper = new MailSmtpHelper(_settingService.GetSmtpSettings());
                 mailHelper.AddRecipient(RecipientMailType.To, user.Email);
