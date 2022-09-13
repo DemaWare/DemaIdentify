@@ -115,6 +115,7 @@ builder.Services.AddSession(options => {
 
 builder.Services.ConfigureApplicationCookie(options => {
     options.LoginPath = "/login";
+    options.LogoutPath = "/logout";
 });
 
 // Add initial data
