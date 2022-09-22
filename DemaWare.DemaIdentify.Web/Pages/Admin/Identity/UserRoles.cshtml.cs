@@ -1,11 +1,12 @@
 using DemaWare.DemaIdentify.BusinessLogic.Services;
-using DemaWare.DemaIdentify.Models;
+using DemaWare.DemaIdentify.Models.User;
 using DemaWare.General.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace DemaWare.DemaIdentify.Web.Pages.Admin.Identity {
+namespace DemaWare.DemaIdentify.Web.Pages.Admin.Identity
+{
     public class UserRolesModel : PageModel {
         private readonly IdentityService _identityService;
 

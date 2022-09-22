@@ -1,4 +1,4 @@
-﻿using DemaWare.DemaIdentify.Models;
+﻿using DemaWare.DemaIdentify.Models.Role;
 using DemaWare.General.Models;
 using Microsoft.AspNetCore.Identity;
 

@@ -1,5 +1,5 @@
 using DemaWare.DemaIdentify.BusinessLogic.Services;
-using DemaWare.DemaIdentify.Models.Enums;
+using DemaWare.DemaIdentify.Enums.Setting;
 using DemaWare.DemaIdentify.Web.Helpers;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +11,7 @@ namespace DemaWare.DemaIdentify.Web.Pages {
     public class ConfigureModel : PageModel {
         private readonly ILogger<ConfigureModel> _logger;
         private readonly IdentityService _identityService;
+        private readonly OrganisationService _organisationService;
         private readonly TemplateService _templateService;
         private readonly SettingService _settingService;
 
@@ -79,9 +80,10 @@ namespace DemaWare.DemaIdentify.Web.Pages {
             public string? UserPassword { get; set; }
         }
 
-        public ConfigureModel(ILogger<ConfigureModel> logger, IdentityService identityService, TemplateService templateService, SettingService settingService) {
+        public ConfigureModel(ILogger<ConfigureModel> logger, IdentityService identityService, OrganisationService organisationService, TemplateService templateService, SettingService settingService) {
             _logger = logger;
             _identityService = identityService;
+            _organisationService = organisationService;
             _templateService = templateService;
             _settingService = settingService;
         }
@@ -150,13 +152,15 @@ namespace DemaWare.DemaIdentify.Web.Pages {
                     _settingService.Save(SettingType.SmtpFromName, Input.SmtpFromName);
 
                     await _identityService.CreateInitialRolesAsync();
+                    //TODO: Make it optional, based on setting (#7)
                     await _identityService.CreateInitialAdminUserAsync(Input.UserEmail, Input.UserPassword);
+                    await _organisationService.CreateInitialOrganisationAsync(Input.UserEmail); //TODO: 
                     await _templateService.CreateInitialTemplatesAsync();
 
                     trans.Commit();
                     _logger.Log(LogLevel.Information, "Initial settings saved to DB");
                     return RedirectToPage("Index");
-                } catch(Exception ex) {
+                } catch (Exception ex) {
                     ModelState.AddModelError(string.Empty, ex.Message);
                 }
             }

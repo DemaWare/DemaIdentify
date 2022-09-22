@@ -1,4 +1,4 @@
-﻿using DemaWare.DemaIdentify.Models;
+﻿using DemaWare.DemaIdentify.Models.ApplicationClient;
 using OpenIddict.EntityFrameworkCore.Models;
 
 namespace DemaWare.DemaIdentify.BusinessLogic.Entities;

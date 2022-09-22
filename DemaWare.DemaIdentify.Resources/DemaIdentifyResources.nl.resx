@@ -98,157 +98,157 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ValidationSummaryTitle" xml:space="preserve">
-    <value>One or more errors have occurred</value>
+    <value>Er zijn één of meer fouten opgetreden</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Login</value>
+    <value>Inloggen</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Email</value>
+    <value>E-mail</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Password</value>
+    <value>Wachtwoord</value>
   </data>
   <data name="PasswordForgotTitle" xml:space="preserve">
-    <value>Forgot your password?</value>
+    <value>Uw wachtwoord vergeten?</value>
   </data>
   <data name="UserRegister" xml:space="preserve">
-    <value>Register as a new user?</value>
+    <value>Registeren als nieuwe gebruiker?</value>
   </data>
   <data name="AccountConfirmTitle" xml:space="preserve">
-    <value>Confirm email</value>
+    <value>Account bevestigen</value>
   </data>
   <data name="AccountConfirmedMessage" xml:space="preserve">
-    <value>Thank you for confirming your account.</value>
+    <value>Bedankt voor het bevestigen van uw account.</value>
   </data>
   <data name="AccountConfirmFailure" xml:space="preserve">
-    <value>Error confirming your email.</value>
+    <value>Fout bij het bevestigen van uw e-mail.</value>
   </data>
   <data name="PasswordForgotMessage" xml:space="preserve">
-    <value>No problem, we only need the email address associated with your account. We will send you a link to a page where you can create a new password.</value>
+    <value>Geen probleem, we hebben alleen het e-mailadres nodig dat aan uw account is gekoppeld. We sturen u een link naar een pagina waar u een nieuw wachtwoord kunt aanmaken.</value>
   </data>
   <data name="Send" xml:space="preserve">
-    <value>Send</value>
+    <value>Verstuur</value>
   </data>
   <data name="PasswordSentMessage" xml:space="preserve">
-    <value>Please check your email to reset your password.</value>
+    <value>Controleer uw e-mail om uw wachtwoord opnieuw in te stellen.</value>
   </data>
   <data name="AccountCreateMessage" xml:space="preserve">
-    <value>Enter your details below to create an account. You will receive an email with a link to activate your account.</value>
+    <value>Voer hieronder uw gegevens in om een account aan te maken. U ontvangt een e-mail met daarin een link om uw account te activeren.</value>
   </data>
   <data name="AccountCreateTitle" xml:space="preserve">
-    <value>Create account</value>
+    <value>Account aanmaken</value>
   </data>
   <data name="PasswordRepeat" xml:space="preserve">
-    <value>Repeat password</value>
+    <value>Herhaal wachtwoord</value>
   </data>
   <data name="Register" xml:space="preserve">
-    <value>Register</value>
+    <value>Registreren</value>
   </data>
   <data name="AccountConfirmMessage" xml:space="preserve">
-    <value>Please check your email to confirm your account</value>
+    <value>Controleer uw e-mail om uw account te bevestigen</value>
   </data>
   <data name="PasswordReset" xml:space="preserve">
-    <value>Reset password</value>
+    <value>Wachtwoord opnieuw instellen</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Aanpassen</value>
   </data>
   <data name="PasswordChanged" xml:space="preserve">
-    <value>Your password has been changed.</value>
+    <value>Uw wachtwoord is gewijzigd.</value>
   </data>
   <data name="Logout" xml:space="preserve">
-    <value>Log out</value>
+    <value>Uitloggen</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
   <data name="ApplicationName" xml:space="preserve">
-    <value>Name of the application</value>
+    <value>Naam van de applicatie</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Taal</value>
   </data>
   <data name="InitialConfiguration" xml:space="preserve">
-    <value>Initial configuration</value>
+    <value>Initiële Configuratie</value>
   </data>
   <data name="GeneralSettings" xml:space="preserve">
-    <value>General settings</value>
+    <value>Algemene instellingen</value>
   </data>
   <data name="Colors" xml:space="preserve">
-    <value>Colors</value>
+    <value>Kleuren</value>
   </data>
   <data name="ColorBaseBackground" xml:space="preserve">
-    <value>Default background color</value>
+    <value>Standaard achtergrondkleur</value>
   </data>
   <data name="ColorBaseForeground" xml:space="preserve">
-    <value>Default foreground color</value>
-  </data>
-  <data name="Images" xml:space="preserve">
-    <value>Images</value>
-  </data>
-  <data name="SmtpConfiguration" xml:space="preserve">
-    <value>SMTP configuration</value>
+    <value>Standaard tekstkleur</value>
   </data>
   <data name="AdminUser" xml:space="preserve">
-    <value>User with administration rights</value>
+    <value>Gebruiker met beheersrechten</value>
   </data>
-  <data name="UrlLogoWhite" xml:space="preserve">
-    <value>Logo URL (white)</value>
+  <data name="Images" xml:space="preserve">
+    <value>Afbeeldingen</value>
   </data>
-  <data name="UrlLogoColor" xml:space="preserve">
-    <value>Logo URL (color)</value>
-  </data>
-  <data name="UrlBackgroundCover" xml:space="preserve">
-    <value>Background cover URL</value>
-  </data>
-  <data name="SmtpHost" xml:space="preserve">
-    <value>SMTP: Host</value>
-  </data>
-  <data name="SmtpPort" xml:space="preserve">
-    <value>SMTP: Port</value>
+  <data name="SmtpConfiguration" xml:space="preserve">
+    <value>SMTP configuratie</value>
   </data>
   <data name="SmtpEnableSsl" xml:space="preserve">
-    <value>SMTP: Enable SSL</value>
-  </data>
-  <data name="SmtpUsername" xml:space="preserve">
-    <value>SMTP: Username</value>
-  </data>
-  <data name="SmtpPassword" xml:space="preserve">
-    <value>SMTP: Password</value>
+    <value>SMTP: Gebruik SSL</value>
   </data>
   <data name="SmtpFromAddress" xml:space="preserve">
-    <value>SMTP: Default sender email</value>
+    <value>SMTP: Standaard afzender (e-mail)</value>
   </data>
   <data name="SmtpFromName" xml:space="preserve">
-    <value>SMTP: Default sender name</value>
+    <value>SMTP: Standaard afzender (naam)</value>
+  </data>
+  <data name="SmtpHost" xml:space="preserve">
+    <value>SMTP: Server</value>
+  </data>
+  <data name="SmtpPassword" xml:space="preserve">
+    <value>SMTP: Wachtwoord</value>
+  </data>
+  <data name="SmtpPort" xml:space="preserve">
+    <value>SMTP: Poort</value>
+  </data>
+  <data name="SmtpUsername" xml:space="preserve">
+    <value>SMTP: Gebruikersnaam</value>
+  </data>
+  <data name="UrlBackgroundCover" xml:space="preserve">
+    <value>Achtergrond URL</value>
+  </data>
+  <data name="UrlLogoColor" xml:space="preserve">
+    <value>Logo URL (kleur)</value>
+  </data>
+  <data name="UrlLogoWhite" xml:space="preserve">
+    <value>Logo URL (wit)</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>Save</value>
+    <value>Opslaan</value>
   </data>
   <data name="ErrorMessageRequired" xml:space="preserve">
-    <value>The field '{0}' is required.</value>
+    <value>Het veld '{0}' is verplicht.</value>
   </data>
   <data name="ErrorMessageLogin" xml:space="preserve">
-    <value>Your username and password do not match. Please try again.</value>
+    <value>Uw gebruikersnaam en wachtwoord komen niet met elkaar overeen. Probeer het opnieuw.</value>
   </data>
   <data name="ErrorMessageLength" xml:space="preserve">
-    <value>The {0} must be at least {2} and at max {1} characters long.</value>
+    <value>Het {0} moet minimaal {2} en maximaal {1} karakters lang zijn.</value>
   </data>
   <data name="PasswordNoMatch" xml:space="preserve">
-    <value>The passwords do not match.</value>
+    <value>De wachtwoorden komen niet met elkaar overeen.</value>
   </data>
   <data name="SignedInAs" xml:space="preserve">
-    <value>Signed in as</value>
+    <value>Ingelogd als</value>
   </data>
   <data name="Open" xml:space="preserve">
-    <value>Open</value>
+    <value>Openen</value>
   </data>
   <data name="General" xml:space="preserve">
-    <value>General</value>
+    <value>Algemeen</value>
   </data>
   <data name="Applications" xml:space="preserve">
-    <value>Applications</value>
+    <value>Applicaties</value>
   </data>
   <data name="Clients" xml:space="preserve">
     <value>Clients</value>
@@ -263,84 +263,105 @@
     <value>Tokens</value>
   </data>
   <data name="Identity" xml:space="preserve">
-    <value>Identity</value>
+    <value>Identiteit</value>
   </data>
   <data name="Identities" xml:space="preserve">
-    <value>Identities</value>
+    <value>Identiteiten</value>
   </data>
   <data name="Users" xml:space="preserve">
-    <value>Users</value>
+    <value>Gebruikers</value>
   </data>
   <data name="Roles" xml:space="preserve">
-    <value>Roles</value>
+    <value>Rollen</value>
   </data>
   <data name="Templates" xml:space="preserve">
     <value>Templates</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Verwijderen</value>
   </data>
   <data name="Role" xml:space="preserve">
-    <value>Role</value>
+    <value>Rol</value>
   </data>
   <data name="Add" xml:space="preserve">
-    <value>Add</value>
+    <value>Toevoegen</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Back</value>
+    <value>Terug</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Annuleren</value>
   </data>
   <data name="RoleConfirmDelete" xml:space="preserve">
-    <value>Are you sure to delete the role '{0}'?</value>
+    <value>Weet u zeker dat u de rol '{0}' wilt verwijderen?</value>
   </data>
   <data name="EmailAddressConfirmed" xml:space="preserve">
-    <value>Email address confirmed</value>
+    <value>E-mailadres bevestigd</value>
   </data>
   <data name="LockoutEnabled" xml:space="preserve">
-    <value>Lockout enabled</value>
+    <value>Account geblokkeerd</value>
   </data>
   <data name="LastLoginTime" xml:space="preserve">
-    <value>Last login</value>
+    <value>Laatst ingelogd op</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
+    <value>Ja</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>No</value>
+    <value>Nee</value>
   </data>
   <data name="User" xml:space="preserve">
-    <value>User</value>
+    <value>Gebruiker</value>
   </data>
   <data name="UserRoleConfirmDelete" xml:space="preserve">
-    <value>Are you sure to delete the role '{0}' for user '{1}'?</value>
+    <value>Weet u zeker dat u de rol '{0}' bij gebruiker '{1}' wilt verwijderen?</value>
   </data>
   <data name="Choose" xml:space="preserve">
-    <value>Choose...</value>
+    <value>Kies...</value>
   </data>
   <data name="EmailAddress" xml:space="preserve">
-    <value>Email address</value>
+    <value>E-mailadres</value>
   </data>
   <data name="TemplateConfirmDelete" xml:space="preserve">
-    <value>Are you sure to delete the template '{0}'?</value>
+    <value>Weet u zeker dat het template '{0}' wilt verwijderen?</value>
   </data>
   <data name="Subject" xml:space="preserve">
-    <value>Subject</value>
+    <value>Onderwerp</value>
   </data>
   <data name="Type" xml:space="preserve">
-    <value>Type</value>
+    <value>Soort</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Name</value>
+    <value>Naam</value>
   </data>
   <data name="Visible" xml:space="preserve">
-    <value>Visible</value>
+    <value>Zichtbaar</value>
   </data>
   <data name="ClientId" xml:space="preserve">
     <value>Client ID</value>
   </data>
   <data name="Resources" xml:space="preserve">
     <value>Resources</value>
+  </data>
+  <data name="DomainName" xml:space="preserve">
+    <value>Domeinnaam</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Ingeschakeld</value>
+  </data>
+  <data name="Organisations" xml:space="preserve">
+    <value>Organisaties</value>
+  </data>
+  <data name="Organisation" xml:space="preserve">
+    <value>Organisatie</value>
+  </data>
+  <data name="OrganisationConfirmDelete" xml:space="preserve">
+    <value>Weet u zeker dat de organisatie '{0}' wilt verwijderen?</value>
+  </data>
+  <data name="RegistrationLimited" xml:space="preserve">
+    <value>Registratie is beperkt tot de deelnemende organisaties!</value>
+  </data>
+  <data name="SignInLimited" xml:space="preserve">
+    <value>Aanmelden is beperkt tot de deelnemende organisaties!</value>
   </data>
 </root>

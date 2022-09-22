@@ -1,8 +1,9 @@
 ﻿using DemaWare.DemaIdentify.BusinessLogic.Services;
-using DemaWare.DemaIdentify.Models;
+using DemaWare.DemaIdentify.Models.ApplicationClient;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DemaWare.DemaIdentify.Web.Pages {
+namespace DemaWare.DemaIdentify.Web.Pages
+{
     public class IndexModel : PageModel {
         private readonly ApplicationService _applicationService;
 

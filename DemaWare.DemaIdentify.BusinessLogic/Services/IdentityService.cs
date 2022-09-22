@@ -1,6 +1,7 @@
 ﻿using DemaWare.DemaIdentify.BusinessLogic.Entities;
-using DemaWare.DemaIdentify.Models;
-using DemaWare.DemaIdentify.Models.Enums;
+using DemaWare.DemaIdentify.Enums.Template;
+using DemaWare.DemaIdentify.Models.Role;
+using DemaWare.DemaIdentify.Models.User;
 using DemaWare.General.Enums;
 using DemaWare.General.Helpers;
 using DemaWare.General.Models;
@@ -10,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Text;
-using System.Text.Encodings.Web;
 
 namespace DemaWare.DemaIdentify.BusinessLogic.Services;
 public class IdentityService {
@@ -18,17 +18,19 @@ public class IdentityService {
     private readonly UserManager<User> _userManager;
     private readonly RoleManager<Role> _roleManager;
     private readonly SignInManager<User> _signInManager;
+    private readonly EntitiesDbContext _entitiesContext;
     private readonly LocalizationService _localizationService;
     private readonly SettingService _settingService;
     private readonly TemplateService _templateService;
 
     private readonly string[] _initialRoles = new string[] { Constants.Roles.SystemAdministrator };
 
-    public IdentityService(ILogger<IdentityService> logger, UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager, LocalizationService localizationService, SettingService settingService, TemplateService templateService) {
+    public IdentityService(ILogger<IdentityService> logger, UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager, EntitiesDbContext entitiesContext, LocalizationService localizationService, SettingService settingService, TemplateService templateService) {
         _logger = logger;
         _userManager = userManager;
         _roleManager = roleManager;
         _signInManager = signInManager;
+        _entitiesContext = entitiesContext;
         _localizationService = localizationService;
         _settingService = settingService;
         _templateService = templateService;
@@ -98,6 +100,12 @@ public class IdentityService {
         if (string.IsNullOrEmpty(userEmail)) throw new ArgumentNullException(nameof(userEmail));
         if (string.IsNullOrEmpty(userPassword)) throw new ArgumentNullException(nameof(userPassword));
 
+        userEmail = userEmail.ToLower();
+
+        //TODO: Make it optional, based on setting (#7)
+        if (!_entitiesContext.Organisations.Any(x => userEmail.Contains(x.DomainName) && x.IsEnabled && !x.IsDeleted))
+            throw new ApplicationException(_localizationService.GetLocalizedHtmlString("SignInLimited"));
+
         var signInResult = await _signInManager.PasswordSignInAsync(userEmail, userPassword, false, lockoutOnFailure: false);
 
         if (signInResult.Succeeded) {
@@ -132,6 +140,13 @@ public class IdentityService {
         if (string.IsNullOrWhiteSpace(userEmail)) throw new ArgumentNullException(nameof(userEmail));
         if (string.IsNullOrWhiteSpace(userPassword)) throw new ArgumentNullException(nameof(userPassword));
         if (string.IsNullOrWhiteSpace(confirmEmailUrl)) throw new ArgumentNullException(nameof(confirmEmailUrl));
+
+        confirmEmailUrl = WebUtility.UrlDecode(confirmEmailUrl);
+        userEmail = userEmail.ToLower();
+
+        //TODO: Make it optional, based on setting (#7)
+        if (!_entitiesContext.Organisations.Any(x => userEmail.Contains(x.DomainName) && x.IsEnabled && !x.IsDeleted))
+            throw new ApplicationException(_localizationService.GetLocalizedHtmlString("RegistrationLimited"));
 
         var user = await _userManager.FindByEmailAsync(userEmail);
 
@@ -195,6 +210,7 @@ public class IdentityService {
     public async Task SendPasswordResetTokenAsync(string? userEmail, string? resetPasswordUrl) {
         if (string.IsNullOrEmpty(userEmail)) throw new ArgumentNullException(nameof(userEmail));
         if (string.IsNullOrEmpty(resetPasswordUrl)) throw new ArgumentNullException(nameof(resetPasswordUrl));
+        resetPasswordUrl = WebUtility.UrlDecode(resetPasswordUrl);
 
         var user = await _userManager.FindByEmailAsync(userEmail);
 
@@ -233,8 +249,8 @@ public class IdentityService {
         if (user != null) {
             var result = await _userManager.ResetPasswordAsync(user, code, userPassword);
 
-            if (result.Succeeded) 
-            _logger.LogInformation("User ({userEmail}) changed password.", userEmail);
+            if (result.Succeeded)
+                _logger.LogInformation("User ({userEmail}) changed password.", userEmail);
 
             if (result.Errors.Any()) {
                 var error = string.Join("; ", result.Errors.Select(x => string.Format("{0} - {1}", x.Code, x.Description)));
