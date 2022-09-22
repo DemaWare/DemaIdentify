@@ -1,9 +1,9 @@
 using DemaWare.DemaIdentify.BusinessLogic.Services;
-using DemaWare.DemaIdentify.Models.ApplicationScope;
+using DemaWare.DemaIdentify.Models.Application.Scope;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DemaWare.DemaIdentify.Web.Pages.Admin.Application; 
+namespace DemaWare.DemaIdentify.Web.Pages.Admin.Application.Scope; 
 public class ScopeOverviewModel : PageModel {
 	private readonly ApplicationService _applicationService;
 

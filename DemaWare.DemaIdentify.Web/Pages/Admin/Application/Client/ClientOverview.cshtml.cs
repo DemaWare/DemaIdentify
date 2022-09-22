@@ -1,9 +1,9 @@
 using DemaWare.DemaIdentify.BusinessLogic.Services;
-using DemaWare.DemaIdentify.Models.ApplicationClient;
+using DemaWare.DemaIdentify.Models.Application.Client;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DemaWare.DemaIdentify.Web.Pages.Admin.Application; 
+namespace DemaWare.DemaIdentify.Web.Pages.Admin.Application.Client;
 public class ClientOverviewModel : PageModel {
 	private readonly ApplicationService _applicationService;
 

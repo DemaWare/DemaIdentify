@@ -1,4 +1,4 @@
-﻿using DemaWare.DemaIdentify.Models.ApplicationScope;
+﻿using DemaWare.DemaIdentify.Models.Application.Scope;
 using OpenIddict.EntityFrameworkCore.Models;
 using System.Text.Json;
 

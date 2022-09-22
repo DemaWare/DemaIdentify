@@ -1,7 +1,7 @@
 ﻿using DemaWare.General.Models;
 using System.Runtime.Serialization;
 
-namespace DemaWare.DemaIdentify.Models.ApplicationScope;
+namespace DemaWare.DemaIdentify.Models.Application.Scope;
 public class ApplicationScopeOverviewModel : EntityModel {
     private string? _name;
     [DataMember]

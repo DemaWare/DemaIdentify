@@ -1,7 +1,7 @@
 ﻿using DemaWare.General.Models;
 using System.Runtime.Serialization;
 
-namespace DemaWare.DemaIdentify.Models.ApplicationClient; 
+namespace DemaWare.DemaIdentify.Models.Application.Client; 
 public class ApplicationClientEnumerationModel : EnumerationModel {
     private string? _description;
     [DataMember]

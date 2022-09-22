@@ -1,4 +1,4 @@
-﻿using DemaWare.DemaIdentify.Models.ApplicationClient;
+﻿using DemaWare.DemaIdentify.Models.Application.Client;
 using OpenIddict.EntityFrameworkCore.Models;
 
 namespace DemaWare.DemaIdentify.BusinessLogic.Entities;
@@ -7,6 +7,12 @@ public class ApplicationClient : OpenIddictEntityFrameworkCoreApplication<Guid, 
     public string? ApplicationUrl { get; set; }
     public string? ImageUrl { get; set; }
     public bool IsVisible { get; set; }
+
+    public ApplicationClientModel ToModel() => new() {
+		EntityId = Id,
+		ClientId = ClientId,
+		DisplayName = DisplayName,
+	};
 
     public ApplicationClientEnumerationModel ToEnumerationModel() => new() {
         EntityId = Id,

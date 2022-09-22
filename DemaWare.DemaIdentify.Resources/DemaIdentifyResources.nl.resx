@@ -367,4 +367,10 @@
   <data name="OnlyAccessBySpecifiedOrganisations" xml:space="preserve">
     <value>Alleen toegang voor opgegeven organisaties?</value>
   </data>
+  <data name="ClientConfirmDelete" xml:space="preserve">
+    <value>Weet u zeker dat u de client '{0}' wilt verwijderen?</value>
+  </data>
+  <data name="Client" xml:space="preserve">
+    <value>Client</value>
+  </data>
 </root>
