@@ -2,28 +2,27 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DemaWare.DemaIdentify.Web.Pages {
-    [AllowAnonymous]
-    public class ConfirmEmailModel : PageModel {
-        private readonly IdentityService _identityService;
+namespace DemaWare.DemaIdentify.Web.Pages; 
+[AllowAnonymous]
+public class ConfirmEmailModel : PageModel {
+    private readonly IdentityService _identityService;
 
-        public string? ReturnUrl { get; set; }
+    public string? ReturnUrl { get; set; }
 
-        public ConfirmEmailModel(IdentityService identityService) {
-            _identityService = identityService;
-        }
+    public ConfirmEmailModel(IdentityService identityService) {
+        _identityService = identityService;
+    }
 
-        public void OnGet(string? userId, string? code, string? returnUrl) {
-            ReturnUrl = returnUrl ?? Url.Content("~/");
+    public void OnGet(string? userId, string? code, string? returnUrl) {
+        ReturnUrl = returnUrl ?? Url.Content("~/");
 
-            if (!string.IsNullOrWhiteSpace(userId) && !string.IsNullOrWhiteSpace(code) && Guid.TryParse(userId, out Guid userIdGuid)) {
-                try {
-                    _identityService.ConfirmEmailAsync(userIdGuid, code).Wait();
-                } catch (Exception ex) {
-                    ModelState.AddModelError(string.Empty, ex.Message);
-                }
+        if (!string.IsNullOrWhiteSpace(userId) && !string.IsNullOrWhiteSpace(code) && Guid.TryParse(userId, out Guid userIdGuid)) {
+            try {
+                _identityService.ConfirmEmailAsync(userIdGuid, code).Wait();
+            } catch (Exception ex) {
+                ModelState.AddModelError(string.Empty, ex.Message);
             }
-
         }
+
     }
 }
