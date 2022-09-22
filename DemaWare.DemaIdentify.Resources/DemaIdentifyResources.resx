@@ -364,4 +364,7 @@
   <data name="SignInLimited" xml:space="preserve">
     <value>Signing in is limited to the participating organisations!</value>
   </data>
+  <data name="OnlyAccessBySpecifiedOrganisations" xml:space="preserve">
+    <value>Only access by specified organisations?</value>
+  </data>
 </root>

@@ -364,4 +364,7 @@
   <data name="SignInLimited" xml:space="preserve">
     <value>Aanmelden is beperkt tot de deelnemende organisaties!</value>
   </data>
+  <data name="OnlyAccessBySpecifiedOrganisations" xml:space="preserve">
+    <value>Alleen toegang voor opgegeven organisaties?</value>
+  </data>
 </root>

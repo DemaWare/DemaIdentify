@@ -23,6 +23,12 @@
 					<input type="text" asp-for="Input.ApplicationName" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("ApplicationName")" autofocus />
 					<span asp-validation-for="Input.ApplicationName" class="text-danger"></span>
 				</div>
+				<div class="col-md-6 mb-3">
+					<div class="form-check form-switch">
+						<input type="checkbox" asp-for="Input.OnlyAccessBySpecifiedOrganisations" role="switch" class="form-check-input">
+						<label asp-for="Input.OnlyAccessBySpecifiedOrganisations" class="form-check-label"></label>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

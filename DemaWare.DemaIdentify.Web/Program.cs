@@ -121,7 +121,8 @@ builder.Services.ConfigureApplicationCookie(options => {
 // Add initial data
 builder.Services.AddHostedService<InitialData>();
 
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+//options => options.ResourcesPath = "Resources"
+builder.Services.AddLocalization();
 
 builder.Services.AddCors(options => {
     var allowedOrigins = builder.Configuration["AllowedOrigins"].Split(";");

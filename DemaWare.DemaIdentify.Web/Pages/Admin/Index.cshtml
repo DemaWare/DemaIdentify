@@ -13,10 +13,16 @@
 	<div class="card-body">
 		<div class="container-fluid px-0">
 			<div class="row">
-				<div class="col-md-6 mb-3">
+				<div class="col-md-12 mb-3">
 					<label asp-for="Input.ApplicationName" class="form-label"></label>
 					<input type="text" asp-for="Input.ApplicationName" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("ApplicationName")" />
 					<span asp-validation-for="Input.ApplicationName" class="text-danger"></span>
+				</div>
+				<div class="col-md-6 mb-3">
+					<div class="form-check form-switch">
+						<input type="checkbox" asp-for="Input.OnlyAccessBySpecifiedOrganisations" role="switch" class="form-check-input">
+						<label asp-for="Input.OnlyAccessBySpecifiedOrganisations" class="form-check-label"></label>
+					</div>
 				</div>
 			</div>
 		</div>
