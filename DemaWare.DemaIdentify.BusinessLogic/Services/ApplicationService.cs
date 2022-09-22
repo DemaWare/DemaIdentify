@@ -1,6 +1,7 @@
 ﻿using DemaWare.DemaIdentify.BusinessLogic.Entities;
 using DemaWare.DemaIdentify.BusinessLogic.Extensions;
-using DemaWare.DemaIdentify.Models;
+using DemaWare.DemaIdentify.Models.ApplicationClient;
+using DemaWare.DemaIdentify.Models.ApplicationScope;
 using OpenIddict.Abstractions;
 
 namespace DemaWare.DemaIdentify.BusinessLogic.Services;

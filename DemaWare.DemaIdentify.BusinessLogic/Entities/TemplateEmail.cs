@@ -1,5 +1,5 @@
-﻿using DemaWare.DemaIdentify.Models;
-using DemaWare.DemaIdentify.Models.Enums;
+﻿using DemaWare.DemaIdentify.Enums.Template;
+using DemaWare.DemaIdentify.Models.Template;
 using DemaWare.General.Extensions;
 using DemaWare.General.Models;
 using System.ComponentModel.DataAnnotations;
@@ -34,7 +34,7 @@ public class TemplateEmail {
         Body = Body
     };
 
-    public EnumerationModel ToEnumerationModel() => new EnumerationModel(Id, Subject ?? string.Empty);
+    public EnumerationModel ToEnumerationModel() => new(Id, Subject ?? string.Empty);
 
     public TemplateEmailDetailModel ToDetailModel() => new() {
         EntityId = Id,

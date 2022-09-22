@@ -1,6 +1,6 @@
 ﻿using DemaWare.DemaIdentify.BusinessLogic.Entities;
-using DemaWare.DemaIdentify.Models;
-using DemaWare.DemaIdentify.Models.Enums;
+using DemaWare.DemaIdentify.Enums.Template;
+using DemaWare.DemaIdentify.Models.Template;
 using DemaWare.General.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

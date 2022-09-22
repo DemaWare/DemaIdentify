@@ -22,8 +22,4 @@
     <ProjectReference Include="..\DemaWare.DemaIdentify.Models\DemaWare.DemaIdentify.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

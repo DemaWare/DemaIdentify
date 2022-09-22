@@ -1,4 +1,4 @@
-﻿using DemaWare.DemaIdentify.Models;
+﻿using DemaWare.DemaIdentify.Models.User;
 using Microsoft.AspNetCore.Identity;
 
 namespace DemaWare.DemaIdentify.BusinessLogic.Entities;

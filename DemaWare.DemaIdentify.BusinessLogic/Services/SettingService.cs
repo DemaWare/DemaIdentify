@@ -1,6 +1,6 @@
 ﻿using DemaWare.DemaIdentify.BusinessLogic.Entities;
 using DemaWare.DemaIdentify.BusinessLogic.Extensions;
-using DemaWare.DemaIdentify.Models.Enums;
+using DemaWare.DemaIdentify.Enums.Setting;
 using DemaWare.General.Models;
 using Microsoft.EntityFrameworkCore.Storage;
 
@@ -11,14 +11,15 @@ public class SettingService {
 
     #region Setting Properties
     public string ApplicationName => GetSetting(SettingType.ApplicationName).AsString() ?? "DemaIdentify";
+    public string ColorBaseBackground => GetSetting(SettingType.ColorBaseBackground).AsString() ?? "#3a5fac";
+    public string ColorBaseForeground => GetSetting(SettingType.ColorBaseForeground).AsString() ?? "#ffffff";
+    public bool OnlyAccessBySpecifiedOrganisations => GetSetting(SettingType.OnlyAccessBySpecifiedOrganisations).AsBoolean();
     public string UrlLogoWhite => GetSetting(SettingType.UrlLogoWhite).AsString() ?? "https://static.demaidentify.nl/images/DemaIdentify_logo.750px.white.png";
     public string UrlLogoColor => GetSetting(SettingType.UrlLogoColor).AsString() ?? "https://static.demaidentify.nl/images/DemaIdentify_logo.750px.blue.png";
     public string UrlBackgroundCover => GetSetting(SettingType.UrlBackgroundCover).AsString() ?? "https://static.demaidentify.nl/images/DemaWare_Cover.light.min.jpg";
-    public string ColorBaseBackground => GetSetting(SettingType.ColorBaseBackground).AsString() ?? "#3a5fac";
-    public string ColorBaseForeground => GetSetting(SettingType.ColorBaseForeground).AsString() ?? "#ffffff";
-    #endregion
+	#endregion
 
-    public SettingService(EntitiesDbContext entitiesContext) {
+	public SettingService(EntitiesDbContext entitiesContext) {
         _entitiesContext = entitiesContext;
     }
 
