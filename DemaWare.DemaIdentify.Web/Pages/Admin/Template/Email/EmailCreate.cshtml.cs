@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace DemaWare.DemaIdentify.Web.Pages.Admin.Template; 
+namespace DemaWare.DemaIdentify.Web.Pages.Admin.Template.Email; 
 public class EmailCreateModel : PageModel {
 	private readonly TemplateService _templateService;
 

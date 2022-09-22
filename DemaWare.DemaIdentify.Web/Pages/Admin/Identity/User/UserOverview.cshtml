@@ -1,0 +1,41 @@
+﻿@page "/admin/identity/user"
+@model DemaWare.DemaIdentify.Web.Pages.Admin.Identity.User.UserOverviewModel
+@inject LocalizationService localizer
+
+@{
+	Layout = "_AdminLayout";
+	ViewData["Title"] = localizer.GetLocalizedHtmlString("Users");
+}
+
+<table class="table table-striped table-hover">
+	<thead class="table-light">
+		<tr>
+			<th scope="col">@localizer.GetLocalizedHtmlString("EmailAddress")</th>
+			<th scope="col">@localizer.GetLocalizedHtmlString("EmailAddressConfirmed")</th>
+			<th scope="col">@localizer.GetLocalizedHtmlString("Roles")</th>
+			<th scope="col">@localizer.GetLocalizedHtmlString("LockoutEnabled")</th>
+			<th scope="col">@localizer.GetLocalizedHtmlString("LastLoginTime")</th>
+			<th scope="col" style="width:100px;">&nbsp;</th>
+			@*<th scope="col" style="width:100px;">&nbsp;</th>*@
+		</tr>
+	</thead>
+	<tbody>
+		@if (Model.Users.Any()) {
+			foreach (var user in Model.Users) {
+				<tr>
+					<td>@user.Email</td>
+					<td>@(user.EmailConfirmed ? localizer.GetLocalizedHtmlString("Yes") : localizer.GetLocalizedHtmlString("No"))</td>
+					<td>@(user.Roles.Any() ? string.Join("; ", user.Roles) : "-")</td>
+					<td>@(user.LockoutEnabled ? localizer.GetLocalizedHtmlString("Yes") : localizer.GetLocalizedHtmlString("No"))</td>
+					<td>@(user.LastLoginTime.HasValue ? user.LastLoginTime.Value.ToString("dd-MM-yyyy HH:mm") : "-")</td>
+					<td><a asp-page="./UserRoles" asp-route-userId="@user.EntityId" class="btn btn-sm btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Roles")</a></td>
+					@*<td><a asp-page="./UserDelete" asp-route-userId="@role.EntityId" class="btn btn-sm btn-outline-danger text-uppercase">@localizer.GetLocalizedHtmlString("Delete")</a></td>*@
+				</tr>
+			}
+		} else {
+			<tr>
+				<td colspan="6">@localizer.GetLocalizedHtmlString("UserNoRecordsFound")</td>
+			</tr>
+		}
+	</tbody>
+</table>

@@ -3,7 +3,7 @@ using DemaWare.DemaIdentify.Models.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DemaWare.DemaIdentify.Web.Pages.Admin.Identity; 
+namespace DemaWare.DemaIdentify.Web.Pages.Admin.Identity.User; 
 public class UserRoleDeleteModel : PageModel {
 	private readonly IdentityService _identityService;
 

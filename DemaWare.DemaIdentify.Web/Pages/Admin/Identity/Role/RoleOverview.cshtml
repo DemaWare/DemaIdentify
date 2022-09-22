@@ -1,5 +1,5 @@
 ﻿@page "/admin/identity/role"
-@model DemaWare.DemaIdentify.Web.Pages.Admin.Identity.RoleOverviewModel
+@model DemaWare.DemaIdentify.Web.Pages.Admin.Identity.Role.RoleOverviewModel
 @inject LocalizationService localizer
 
 @{
@@ -16,11 +16,17 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var role in Model.Roles) {
+		@if (Model.Roles.Any()) {
+			foreach (var role in Model.Roles) {
+				<tr>
+					<td>@role.Name</td>
+					<td><a asp-page="./RoleEdit" asp-route-roleId="@role.EntityId" class="btn btn-sm btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Edit")</a></td>
+					<td><a asp-page="./RoleDelete" asp-route-roleId="@role.EntityId" class="btn btn-sm btn-outline-danger text-uppercase">@localizer.GetLocalizedHtmlString("Delete")</a></td>
+				</tr>
+			}
+		} else {
 			<tr>
-				<td>@role.Name</td>
-				<td><a asp-page="./RoleEdit" asp-route-roleId="@role.EntityId" class="btn btn-sm btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Edit")</a></td>
-				<td><a asp-page="./RoleDelete" asp-route-roleId="@role.EntityId" class="btn btn-sm btn-outline-danger text-uppercase">@localizer.GetLocalizedHtmlString("Delete")</a></td>
+				<td colspan="2">@localizer.GetLocalizedHtmlString("RoleNoRecordsFound")</td>
 			</tr>
 		}
 	</tbody>

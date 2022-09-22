@@ -3,8 +3,8 @@ using DemaWare.DemaIdentify.Models.Role;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DemaWare.DemaIdentify.Web.Pages.Admin.Identity; 
-public class RoleCreateModel : PageModel {
+namespace DemaWare.DemaIdentify.Web.Pages.Admin.Identity.Role; 
+public class RoleEditModel : PageModel {
 	private readonly IdentityService _identityService;
 
 	[TempData]
@@ -13,14 +13,18 @@ public class RoleCreateModel : PageModel {
 	[BindProperty]
 	public RoleModel Input { get; set; } = new();
 
-	public RoleCreateModel(IdentityService identityService) {
+	public RoleEditModel(IdentityService identityService) {
 		_identityService = identityService;
 	}
 
-	public async Task<IActionResult> OnPost() {
+	public void OnGet(Guid roleId) {
+		Input = _identityService.GetRoleAsync(roleId).Result;
+	}
+
+	public async Task<IActionResult> OnPostAsync() {
 		if (ModelState.IsValid) {
 			try {
-				await _identityService.CreateRoleAsync(Input);
+				await _identityService.EditRoleAsync(Input);
 				return RedirectToPage("RoleOverview");
 			} catch (Exception ex) {
 				ModelState.AddModelError(string.Empty, ex.Message);

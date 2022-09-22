@@ -1,14 +1,16 @@
-﻿@page "/admin/identity/role/create"
-@model DemaWare.DemaIdentify.Web.Pages.Admin.Identity.RoleCreateModel
+﻿@page "/admin/identity/role/{roleId:Guid}/edit"
+@model DemaWare.DemaIdentify.Web.Pages.Admin.Identity.Role.RoleEditModel
 @inject LocalizationService localizer
 
 @{
 	Layout = "_AdminLayout";
-	ViewData["Title"] = string.Format("{0} ({1})", localizer.GetLocalizedHtmlString("Role"), localizer.GetLocalizedHtmlString("Add"));
+	ViewData["Title"] = string.Format("{0} ({1})", localizer.GetLocalizedHtmlString("Role"), localizer.GetLocalizedHtmlString("Edit"));
 }
 
 <form method="post">
 	<partial name="_ValidationSummary" />
+
+	<input type="hidden" asp-for="Input.EntityId" />
 
 	<div class="card-body">
 		<div class="container-fluid px-0">

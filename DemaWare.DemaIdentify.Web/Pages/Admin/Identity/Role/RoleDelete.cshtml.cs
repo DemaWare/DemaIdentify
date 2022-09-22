@@ -3,34 +3,34 @@ using DemaWare.DemaIdentify.Models.Role;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DemaWare.DemaIdentify.Web.Pages.Admin.Identity; 
-public class RoleEditModel : PageModel {
+namespace DemaWare.DemaIdentify.Web.Pages.Admin.Identity.Role; 
+public class RoleDeleteModel : PageModel {
 	private readonly IdentityService _identityService;
 
 	[TempData]
 	public string? ErrorMessage { get; set; }
 
-	[BindProperty]
-	public RoleModel Input { get; set; } = new();
+	public RoleModel? Role { get; set; }
 
-	public RoleEditModel(IdentityService identityService) {
+	public RoleDeleteModel(IdentityService identityService) {
 		_identityService = identityService;
 	}
 
 	public void OnGet(Guid roleId) {
-		Input = _identityService.GetRoleAsync(roleId).Result;
+		Role = _identityService.GetRoleAsync(roleId).Result;
 	}
 
-	public async Task<IActionResult> OnPostAsync() {
+	public async Task<IActionResult> OnPostAsync(Guid roleId) {
 		if (ModelState.IsValid) {
 			try {
-				await _identityService.EditRoleAsync(Input);
+				await _identityService.DeleteRoleAsync(roleId);
 				return RedirectToPage("RoleOverview");
 			} catch (Exception ex) {
 				ModelState.AddModelError(string.Empty, ex.Message);
 			}
 		}
 
+		OnGet(roleId);
 		return Page();
 	}
 }

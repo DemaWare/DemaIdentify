@@ -373,4 +373,22 @@
   <data name="Client" xml:space="preserve">
     <value>Client</value>
   </data>
+  <data name="ClientNoRecordsFound" xml:space="preserve">
+    <value>Er zijn nog geen clients aanwezig!</value>
+  </data>
+  <data name="OrganisationNoRecordsFound" xml:space="preserve">
+    <value>Er zijn nog geen organisaties aanwezig!</value>
+  </data>
+  <data name="ScopeNoRecordsFound" xml:space="preserve">
+    <value>Er zijn nog geen scopes aanwezig!</value>
+  </data>
+  <data name="RoleNoRecordsFound" xml:space="preserve">
+    <value>Er zijn nog geen rollen aanwezig!</value>
+  </data>
+  <data name="TemplateNoRecordsFound" xml:space="preserve">
+    <value>Er zijn nog geen templates aanwezig!</value>
+  </data>
+  <data name="UserNoRecordsFound" xml:space="preserve">
+    <value>Er zijn nog geen gebruikers aanwezig!</value>
+  </data>
 </root>

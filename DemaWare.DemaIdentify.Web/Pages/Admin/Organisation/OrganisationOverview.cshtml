@@ -18,13 +18,19 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var organisation in Model.Organisations) {
+		@if(Model.Organisations.Any()){
+			foreach (var organisation in Model.Organisations) {
+				<tr>
+					<td>@organisation.Name</td>
+					<td>@organisation.DomainName</td>
+					<td>@(organisation.IsEnabled ? localizer.GetLocalizedHtmlString("Yes") : localizer.GetLocalizedHtmlString("No"))</td>
+					<td><a asp-page="./OrganisationEdit" asp-route-organisationId="@organisation.EntityId" class="btn btn-sm btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Edit")</a></td>
+					<td><a asp-page="./OrganisationDelete" asp-route-organisationId="@organisation.EntityId" class="btn btn-sm btn-outline-danger text-uppercase">@localizer.GetLocalizedHtmlString("Delete")</a></td>
+				</tr>
+			}
+		} else {
 			<tr>
-				<td>@organisation.Name</td>
-				<td>@organisation.DomainName</td>
-				<td>@(organisation.IsEnabled ? localizer.GetLocalizedHtmlString("Yes") : localizer.GetLocalizedHtmlString("No"))</td>
-				<td><a asp-page="./OrganisationEdit" asp-route-organisationId="@organisation.EntityId" class="btn btn-sm btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Edit")</a></td>
-				<td><a asp-page="./OrganisationDelete" asp-route-organisationId="@organisation.EntityId" class="btn btn-sm btn-outline-danger text-uppercase">@localizer.GetLocalizedHtmlString("Delete")</a></td>
+				<td colspan="5">@localizer.GetLocalizedHtmlString("OrganisationNoRecordsFound")</td>
 			</tr>
 		}
 	</tbody>

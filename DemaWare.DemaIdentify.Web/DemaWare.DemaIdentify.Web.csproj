@@ -46,7 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Pages\Admin\Identity\RoleCreate.cshtml">
+    <Content Update="Pages\Admin\Identity\Role\RoleCreate.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

@@ -17,12 +17,18 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var scope in Model.Scopes) {
+		@if (Model.Scopes.Any()) {
+			@foreach (var scope in Model.Scopes) {
+				<tr>
+					<td>@scope.Name</td>
+					<td>@(scope.Resources.Any() ? string.Join("; ", scope.Resources) : "-")</td>
+					<td><a asp-page="./ScopeEdit" asp-route-scopeId="@scope.EntityId" class="btn btn-sm btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Edit")</a></td>
+					<td><a asp-page="./ScopeDelete" asp-route-scopeId="@scope.EntityId" class="btn btn-sm btn-outline-danger text-uppercase">@localizer.GetLocalizedHtmlString("Delete")</a></td>
+				</tr>
+			}
+		} else {
 			<tr>
-				<td>@scope.Name</td>
-				<td>@(scope.Resources.Any() ? string.Join("; ", scope.Resources) : "-")</td>
-				<td><a asp-page="./ScopeEdit" asp-route-scopeId="@scope.EntityId" class="btn btn-sm btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Edit")</a></td>
-				<td><a asp-page="./ScopeDelete" asp-route-scopeId="@scope.EntityId" class="btn btn-sm btn-outline-danger text-uppercase">@localizer.GetLocalizedHtmlString("Delete")</a></td>
+				<td colspan="4">@localizer.GetLocalizedHtmlString("ScopeNoRecordsFound")</td>
 			</tr>
 		}
 	</tbody>

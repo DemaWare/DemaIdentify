@@ -18,13 +18,19 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var client in Model.Clients) {
+		@if (Model.Clients.Any()) {
+			foreach (var client in Model.Clients) {
+				<tr>
+					<td>@client.ClientId</td>
+					<td>@(!string.IsNullOrWhiteSpace(client.DisplayName) ? client.DisplayName : "-")</td>
+					<td>@(client.IsVisible ? localizer.GetLocalizedHtmlString("Yes") : localizer.GetLocalizedHtmlString("No"))</td>
+					<td><a asp-page="./ClientEdit" asp-route-clientId="@client.EntityId" class="btn btn-sm btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Edit")</a></td>
+					<td><a asp-page="./ClientDelete" asp-route-clientId="@client.EntityId" class="btn btn-sm btn-outline-danger text-uppercase">@localizer.GetLocalizedHtmlString("Delete")</a></td>
+				</tr>
+			}
+		} else {
 			<tr>
-				<td>@client.ClientId</td>
-				<td>@(!string.IsNullOrWhiteSpace(client.DisplayName) ? client.DisplayName : "-")</td>
-				<td>@(client.IsVisible ? localizer.GetLocalizedHtmlString("Yes") : localizer.GetLocalizedHtmlString("No"))</td>
-				<td><a asp-page="./ClientEdit" asp-route-clientId="@client.EntityId" class="btn btn-sm btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Edit")</a></td>
-				<td><a asp-page="./ClientDelete" asp-route-clientId="@client.EntityId" class="btn btn-sm btn-outline-danger text-uppercase">@localizer.GetLocalizedHtmlString("Delete")</a></td>
+				<td colspan="5">@localizer.GetLocalizedHtmlString("ClientNoRecordsFound")</td>
 			</tr>
 		}
 	</tbody>

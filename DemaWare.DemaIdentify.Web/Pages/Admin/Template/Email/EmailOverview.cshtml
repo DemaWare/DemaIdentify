@@ -1,5 +1,5 @@
 ﻿@page "/admin/template/email"
-@model DemaWare.DemaIdentify.Web.Pages.Admin.Template.EmailOverviewModel
+@model DemaWare.DemaIdentify.Web.Pages.Admin.Template.Email.EmailOverviewModel
 @inject LocalizationService localizer
 
 @{
@@ -17,12 +17,18 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var template in Model.Templates) {
+		@if (Model.Templates.Any()) {
+			foreach (var template in Model.Templates) {
+				<tr>
+					<td>@(template.Type != null ? template.Type.Name : "-")</td>
+					<td>@template.Subject</td>
+					<td><a asp-page="./EmailEdit" asp-route-templateId="@template.EntityId" class="btn btn-sm btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Edit")</a></td>
+					<td><a asp-page="./EmailDelete" asp-route-templateId="@template.EntityId" class="btn btn-sm btn-outline-danger text-uppercase">@localizer.GetLocalizedHtmlString("Delete")</a></td>
+				</tr>
+			}
+		} else {
 			<tr>
-				<td>@(template.Type != null ? template.Type.Name : "-")</td>
-				<td>@template.Subject</td>
-				<td><a asp-page="./EmailEdit" asp-route-templateId="@template.EntityId" class="btn btn-sm btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Edit")</a></td>
-				<td><a asp-page="./EmailDelete" asp-route-templateId="@template.EntityId" class="btn btn-sm btn-outline-danger text-uppercase">@localizer.GetLocalizedHtmlString("Delete")</a></td>
+				<td colspan="4">@localizer.GetLocalizedHtmlString("TemplateNoRecordsFound")</td>
 			</tr>
 		}
 	</tbody>

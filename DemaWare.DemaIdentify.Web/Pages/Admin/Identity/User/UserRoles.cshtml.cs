@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace DemaWare.DemaIdentify.Web.Pages.Admin.Identity; 
+namespace DemaWare.DemaIdentify.Web.Pages.Admin.Identity.User; 
 public class UserRolesModel : PageModel {
 	private readonly IdentityService _identityService;
 
