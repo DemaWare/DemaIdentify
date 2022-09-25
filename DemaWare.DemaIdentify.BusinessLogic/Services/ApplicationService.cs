@@ -29,7 +29,7 @@ public class ApplicationService {
         return ((ApplicationClient)client).ToModel();
     }
 
-    public async Task<IEnumerable<ApplicationClientEnumerationModel>> GetClientEnumerationAsync(bool onlyVisible) {
+    public async Task<IEnumerable<ApplicationClientEnumerationModel>> GetClientEnumerationAsync(bool onlyVisible = false) {
         var clients = await _applicationManager.ListAsync(x => x, CancellationToken.None).ToListAsync();
         return clients.Cast<ApplicationClient>().Where(x => !onlyVisible || x.IsVisible).Select(x => x.ToEnumerationModel());
     }
@@ -45,12 +45,12 @@ public class ApplicationService {
         var client = clientModel.IsExistingObject ? await _applicationManager.FindByIdAsync(clientModel.EntityId.ToString()) as ApplicationClient : new ApplicationClient();
         if (client is null) throw new ArgumentOutOfRangeException(nameof(clientModel));
 
-        client.DisplayName = !string.IsNullOrWhiteSpace(clientModel.ClientId) ? clientModel.DisplayName : null;
+        client.DisplayName = !string.IsNullOrWhiteSpace(clientModel.DisplayName) ? clientModel.DisplayName : null;
         client.ClientId = !string.IsNullOrWhiteSpace(clientModel.ClientId) ? clientModel.ClientId : null;
         client.IsVisible = clientModel.IsVisible;
 
         client.ConsentType = !string.IsNullOrWhiteSpace(clientModel.ConsentType) ? clientModel.ConsentType : null;
-        if(!string.IsNullOrWhiteSpace(clientModel.ClientSecret)) client.ClientSecret = clientModel.ClientSecret;
+        if (!string.IsNullOrWhiteSpace(clientModel.ClientSecret)) client.ClientSecret = clientModel.ClientSecret;
 
         client.ApplicationUrl = !string.IsNullOrWhiteSpace(clientModel.ApplicationUrl) ? clientModel.ApplicationUrl : null;
         client.RedirectUris = !string.IsNullOrWhiteSpace(clientModel.RedirectUris) ? JsonSerializer.Serialize(clientModel.RedirectUris.Split(";").Where(x => !string.IsNullOrWhiteSpace(x))) : null;
@@ -72,14 +72,23 @@ public class ApplicationService {
 
         var client = await _applicationManager.FindByIdAsync(clientId.ToString());
         if (client is null) throw new ArgumentOutOfRangeException(nameof(clientId));
-        var clientModel = ((ApplicationClient)client).ToModel();
+        var clientClientId = ((ApplicationClient)client).ClientId;
 
         await _applicationManager.DeleteAsync(client);
-        _logger.LogInformation("ApplicationClient (({clientId})) deleted.", clientModel.ClientId);
+        _logger.LogInformation("ApplicationClient (({clientClientId})) deleted.", clientClientId);
     }
     #endregion
 
     #region Scopes
+    public async Task<ApplicationScopeModel> GetScopeAsync(Guid scopeId) {
+        if (scopeId == Guid.Empty) throw new ArgumentNullException(nameof(scopeId));
+
+		var scope = await _scopeManager.FindByIdAsync(scopeId.ToString());
+		if (scope is null) throw new ArgumentOutOfRangeException(nameof(scopeId));
+
+		return ((ApplicationScope)scope).ToModel();
+    }
+
     public async Task<IEnumerable<EnumerationModel>> GetScopeEnumerationAsync() {
         var scopes = await _scopeManager.ListAsync().ToListAsync();
         return scopes.Cast<ApplicationScope>().Select(x => x.ToEnumerationModel());
@@ -88,6 +97,35 @@ public class ApplicationService {
     public async Task<IEnumerable<ApplicationScopeOverviewModel>> GetScopeOverviewAsync() {
         var scopes = await _scopeManager.ListAsync().ToListAsync();
         return scopes.Cast<ApplicationScope>().Select(x => x.ToOverviewModel());
+    }
+
+    public async Task SaveScopeAsync(ApplicationScopeModel scopeModel) {
+        if (scopeModel is null) throw new ArgumentNullException(nameof(scopeModel));
+
+        var scope = scopeModel.IsExistingObject ? await _scopeManager.FindByIdAsync(scopeModel.EntityId.ToString()) as ApplicationScope : new ApplicationScope();
+        if (scope is null) throw new ArgumentOutOfRangeException(nameof(scopeModel));
+
+		scope.Name = !string.IsNullOrWhiteSpace(scopeModel.Name) ? scopeModel.Name : null;
+		scope.Resources = !string.IsNullOrWhiteSpace(scopeModel.Resources) ? JsonSerializer.Serialize(scopeModel.Resources.Split(";").Where(x => !string.IsNullOrWhiteSpace(x))) : null;
+
+        if (!scopeModel.IsExistingObject) {
+            await _scopeManager.CreateAsync(scope);
+            _logger.LogInformation("ApplicationScope ({clientId}) added.", scopeModel.Name);
+        } else {
+            await _scopeManager.UpdateAsync(scope);
+            _logger.LogInformation("ApplicationScope ({clientId}) changed.", scopeModel.Name);
+        }
+    }
+
+    public async Task DeleteScopeAsync(Guid scopeId) {
+        if (scopeId == Guid.Empty) throw new ArgumentNullException(nameof(scopeId));
+
+        var scope = await _scopeManager.FindByIdAsync(scopeId.ToString());
+        if (scope is null) throw new ArgumentOutOfRangeException(nameof(scopeId));
+        var scopeName = ((ApplicationScope)scope).Name;
+
+        await _scopeManager.DeleteAsync(scope);
+        _logger.LogInformation("ApplicationScope (({scopeName})) deleted.", scopeName);
     }
     #endregion
 }

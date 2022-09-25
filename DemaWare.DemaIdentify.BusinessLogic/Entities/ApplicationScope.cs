@@ -5,11 +5,18 @@ using System.Text.Json;
 
 namespace DemaWare.DemaIdentify.BusinessLogic.Entities;
 public class ApplicationScope : OpenIddictEntityFrameworkCoreScope<Guid> {
-    public ApplicationScopeOverviewModel ToOverviewModel() => new() {
+
+	public ApplicationScopeModel ToModel() => new() {
+		EntityId = Id,
+		Name = Name,
+		Resources = string.Join(";", JsonSerializer.Deserialize<string[]>(Resources ?? "[]") ?? Array.Empty<string>())
+	};
+
+	public EnumerationModel ToEnumerationModel() => new(Id, Name ?? string.Empty);
+
+	public ApplicationScopeOverviewModel ToOverviewModel() => new() {
         EntityId = Id,
         Name = Name,
         Resources = JsonSerializer.Deserialize<IEnumerable<string>>(Resources ?? "[]") ?? Enumerable.Empty<string>()
     };
-
-    public EnumerationModel ToEnumerationModel() => new(Id, Name ?? string.Empty);
 }

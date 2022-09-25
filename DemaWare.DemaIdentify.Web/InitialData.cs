@@ -1,11 +1,8 @@
 ﻿using DemaWare.DemaIdentify.BusinessLogic;
-using DemaWare.DemaIdentify.BusinessLogic.Entities;
 using Microsoft.EntityFrameworkCore;
 using OpenIddict.Abstractions;
-using System.Text.Json;
-using static OpenIddict.Abstractions.OpenIddictConstants;
 
-namespace DemaWare.DemaIdentify.Web; 
+namespace DemaWare.DemaIdentify.Web;
 public class InitialData : IHostedService {
     private readonly IServiceProvider _serviceProvider;
     private readonly ILogger<InitialData> _logger;
