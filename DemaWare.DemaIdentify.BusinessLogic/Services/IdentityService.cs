@@ -102,7 +102,7 @@ public class IdentityService {
 
         userEmail = userEmail.ToLower();
 
-        if (_settingService.OnlyAccessBySpecifiedOrganisations && !_entitiesContext.Organisations.Any(x => userEmail.Contains(x.DomainName) && x.IsEnabled && !x.IsDeleted))
+        if (_settingService.OnlyAccessForSpecifiedOrganisations && !_entitiesContext.Organisations.Any(x => userEmail.Contains(x.DomainName) && x.IsEnabled && !x.IsDeleted))
             throw new ApplicationException(_localizationService.GetLocalizedHtmlString("SignInLimited"));
 
         var signInResult = await _signInManager.PasswordSignInAsync(userEmail, userPassword, false, lockoutOnFailure: false);
@@ -143,7 +143,7 @@ public class IdentityService {
         confirmEmailUrl = WebUtility.UrlDecode(confirmEmailUrl);
         userEmail = userEmail.ToLower();
 
-        if (_settingService.OnlyAccessBySpecifiedOrganisations && !_entitiesContext.Organisations.Any(x => userEmail.Contains(x.DomainName) && x.IsEnabled && !x.IsDeleted))
+        if (_settingService.OnlyAccessForSpecifiedOrganisations && !_entitiesContext.Organisations.Any(x => userEmail.Contains(x.DomainName) && x.IsEnabled && !x.IsDeleted))
             throw new ApplicationException(_localizationService.GetLocalizedHtmlString("RegistrationLimited"));
 
         var user = await _userManager.FindByEmailAsync(userEmail);

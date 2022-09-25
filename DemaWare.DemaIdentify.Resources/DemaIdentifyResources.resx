@@ -364,7 +364,61 @@
   <data name="SignInLimited" xml:space="preserve">
     <value>Signing in is limited to the participating organisations!</value>
   </data>
-  <data name="OnlyAccessBySpecifiedOrganisations" xml:space="preserve">
-    <value>Only access by specified organisations?</value>
+  <data name="OnlyAccessForSpecifiedOrganisations" xml:space="preserve">
+    <value>Only access for specified organisations</value>
+  </data>
+  <data name="ClientConfirmDelete" xml:space="preserve">
+    <value>Are you sure to delete the client '{0}'?</value>
+  </data>
+  <data name="Client" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="OrganisationNoRecordsFound" xml:space="preserve">
+    <value>There are no organisations available yet!</value>
+  </data>
+  <data name="ClientNoRecordsFound" xml:space="preserve">
+    <value>There are no clients available yet!</value>
+  </data>
+  <data name="ScopeNoRecordsFound" xml:space="preserve">
+    <value>There are no scopes available yet!</value>
+  </data>
+  <data name="RoleNoRecordsFound" xml:space="preserve">
+    <value>There are no roles available yet!</value>
+  </data>
+  <data name="UserNoRecordsFound" xml:space="preserve">
+    <value>There are no users available yet!</value>
+  </data>
+  <data name="TemplateNoRecordsFound" xml:space="preserve">
+    <value>There are no templates available yet!</value>
+  </data>
+  <data name="ClientSecret" xml:space="preserve">
+    <value>Client Secret</value>
+  </data>
+  <data name="ApplicationUrl" xml:space="preserve">
+    <value>Application URL</value>
+  </data>
+  <data name="ConsentType" xml:space="preserve">
+    <value>Consent type</value>
+  </data>
+  <data name="RedirectUris" xml:space="preserve">
+    <value>Redirect URLs</value>
+  </data>
+  <data name="PostLogoutRedirectUris" xml:space="preserve">
+    <value>Post logout redirect URLs</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="Urls" xml:space="preserve">
+    <value>URLs</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Generate</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Permissions</value>
   </data>
 </root>

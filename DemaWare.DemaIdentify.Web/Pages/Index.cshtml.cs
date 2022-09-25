@@ -1,5 +1,5 @@
 ﻿using DemaWare.DemaIdentify.BusinessLogic.Services;
-using DemaWare.DemaIdentify.Models.ApplicationClient;
+using DemaWare.DemaIdentify.Models.Application.Client;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DemaWare.DemaIdentify.Web.Pages;

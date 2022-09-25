@@ -31,9 +31,6 @@ public class ConfigureModel : PageModel {
 		[Required(ErrorMessage = "ErrorMessageRequired"), Display(Name = "ApplicationName")]
 		public string? ApplicationName { get; set; }
 
-		[Display(Name = "OnlyAccessBySpecifiedOrganisations")]
-		public bool OnlyAccessBySpecifiedOrganisations { get; set; }
-
 		/* Default colors */
 		[Required(ErrorMessage = "ErrorMessageRequired"), Display(Name = "ColorBaseBackground")]
 		public string? ColorBaseBackground { get; set; }
@@ -50,6 +47,10 @@ public class ConfigureModel : PageModel {
 
 		[Required(ErrorMessage = "ErrorMessageRequired"), Display(Name = "UrlBackgroundCover")]
 		public string? UrlBackgroundCover { get; set; }
+
+		/* Options */
+		[Display(Name = "OnlyAccessForSpecifiedOrganisations")]
+		public bool OnlyAccessForSpecifiedOrganisations { get; set; }
 
 		/* Email settings */
 		[Required(ErrorMessage = "ErrorMessageRequired"), Display(Name = "SmtpHost")]
@@ -102,7 +103,6 @@ public class ConfigureModel : PageModel {
 
 		Input = new() {
 			ApplicationName = _settingService.ApplicationName,
-			OnlyAccessBySpecifiedOrganisations = _settingService.OnlyAccessBySpecifiedOrganisations,
 
 			ColorBaseBackground = _settingService.ColorBaseBackground,
 			ColorBaseForeground = _settingService.ColorBaseForeground,
@@ -110,6 +110,8 @@ public class ConfigureModel : PageModel {
 			UrlLogoWhite = _settingService.UrlLogoWhite,
 			UrlLogoColor = _settingService.UrlLogoColor,
 			UrlBackgroundCover = _settingService.UrlBackgroundCover,
+
+			OnlyAccessForSpecifiedOrganisations = _settingService.OnlyAccessForSpecifiedOrganisations,
 
 			SmtpHost = smtpSettings.Host,
 			SmtpPort = smtpSettings.Port,
@@ -138,7 +140,6 @@ public class ConfigureModel : PageModel {
 
 				// Save all settings into the database
 				_settingService.Save(SettingType.ApplicationName, Input.ApplicationName);
-				_settingService.Save(SettingType.OnlyAccessBySpecifiedOrganisations, Input.OnlyAccessBySpecifiedOrganisations);
 
 				_settingService.Save(SettingType.ColorBaseBackground, Input.ColorBaseBackground);
 				_settingService.Save(SettingType.ColorBaseForeground, Input.ColorBaseForeground);
@@ -147,6 +148,8 @@ public class ConfigureModel : PageModel {
 				_settingService.Save(SettingType.UrlLogoColor, Input.UrlLogoColor);
 				_settingService.Save(SettingType.UrlBackgroundCover, Input.UrlBackgroundCover);
 
+				_settingService.Save(SettingType.OnlyAccessForSpecifiedOrganisations, Input.OnlyAccessForSpecifiedOrganisations);
+				
 				_settingService.Save(SettingType.SmtpHost, Input.SmtpHost);
 				_settingService.Save(SettingType.SmtpPort, Input.SmtpPort);
 				_settingService.Save(SettingType.SmtpEnableSsl, Input.SmtpEnableSsl);
@@ -157,7 +160,7 @@ public class ConfigureModel : PageModel {
 
 				await _identityService.CreateInitialRolesAsync();
 				await _identityService.CreateInitialAdminUserAsync(Input.UserEmail, Input.UserPassword);
-				if (_settingService.OnlyAccessBySpecifiedOrganisations) await _organisationService.CreateInitialOrganisationAsync(Input.UserEmail);
+				if (_settingService.OnlyAccessForSpecifiedOrganisations) await _organisationService.CreateInitialOrganisationAsync(Input.UserEmail);
 				await _templateService.CreateInitialTemplatesAsync();
 
 				trans.Commit();

@@ -1,0 +1,50 @@
+﻿@page "/admin/template/email/create"
+@model DemaWare.DemaIdentify.Web.Pages.Admin.Template.Email.EmailCreateModel
+@inject LocalizationService localizer
+
+@{
+	Layout = "_AdminLayout";
+	ViewData["Title"] = string.Format("{0} ({1} - {2})", localizer.GetLocalizedHtmlString("Template"), localizer.GetLocalizedHtmlString("Email"), localizer.GetLocalizedHtmlString("Add"));
+}
+
+<form method="post">
+	<partial name="_ValidationSummary" />
+
+	<input type="hidden" asp-for="Input.EntityId" />
+
+	<div class="card-body">
+		<div class="container-fluid px-0">
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label asp-for="Input.Type" class="form-label"></label>
+					<select asp-for="Input.Type" asp-items="Model.TypeList" class="form-select">
+						<option value="">@localizer.GetLocalizedHtmlString("Choose")</option>
+					</select>
+					<span asp-validation-for="Input.Type" class="text-danger"></span>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label asp-for="Input.Parent" class="form-label"></label>
+					<select asp-for="Input.Parent" asp-items="Model.ParentList" class="form-select">
+						<option value="">@localizer.GetLocalizedHtmlString("Choose")</option>
+					</select>
+					<span asp-validation-for="Input.Parent" class="text-danger"></span>
+				</div>
+				<div class="col-12 mb-3">
+					<label asp-for="Input.Subject" class="form-label"></label>
+					<input type="text" asp-for="Input.Subject" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("Subject")" />
+					<span asp-validation-for="Input.Subject" class="text-danger"></span>
+				</div>
+				<div class="col-12 mb-3">
+					<label asp-for="Input.Body" class="form-label"></label>
+					<textarea asp-for="Input.Body" class="form-control" style="height:250px;" placeholder="@localizer.GetLocalizedHtmlString("Body")"></textarea>
+					<span asp-validation-for="Input.Body" class="text-danger"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card-footer text-center">
+		<a asp-page="./EmailOverview" class="btn btn-lg btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Cancel")</a>
+		<button class="btn btn-lg btn-outline-primary text-uppercase" type="submit">@localizer.GetLocalizedHtmlString("Save")</button>
+	</div>
+</form>

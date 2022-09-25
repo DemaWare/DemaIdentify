@@ -1,0 +1,38 @@
+﻿@page "/admin/template/email"
+@model DemaWare.DemaIdentify.Web.Pages.Admin.Template.Email.EmailOverviewModel
+@inject LocalizationService localizer
+
+@{
+	Layout = "_AdminLayout";
+	ViewData["Title"] = string.Format("{0} ({1})", localizer.GetLocalizedHtmlString("Templates"), localizer.GetLocalizedHtmlString("Email"));
+}
+
+<table class="table table-striped table-hover">
+	<thead class="table-light">
+		<tr>
+			<th scope="col" style="width:150px;">@localizer.GetLocalizedHtmlString("Type")</th>
+			<th scope="col">@localizer.GetLocalizedHtmlString("Subject")</th>
+			<th scope="col" style="width:100px;">&nbsp;</th>
+			<th scope="col" style="width:100px;">&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (Model.Templates.Any()) {
+			foreach (var template in Model.Templates) {
+				<tr>
+					<td>@(template.Type != null ? template.Type.Name : "-")</td>
+					<td>@template.Subject</td>
+					<td><a asp-page="./EmailEdit" asp-route-templateId="@template.EntityId" class="btn btn-sm btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Edit")</a></td>
+					<td><a asp-page="./EmailDelete" asp-route-templateId="@template.EntityId" class="btn btn-sm btn-outline-danger text-uppercase">@localizer.GetLocalizedHtmlString("Delete")</a></td>
+				</tr>
+			}
+		} else {
+			<tr>
+				<td colspan="4">@localizer.GetLocalizedHtmlString("TemplateNoRecordsFound")</td>
+			</tr>
+		}
+	</tbody>
+</table>
+<div class="card-footer text-center">
+	<a asp-page="./EmailCreate" class="btn btn-lg btn-outline-primary text-uppercase">@localizer.GetLocalizedHtmlString("Add")</a>
+</div>

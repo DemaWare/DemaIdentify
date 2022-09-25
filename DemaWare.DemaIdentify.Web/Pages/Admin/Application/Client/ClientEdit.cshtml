@@ -1,0 +1,264 @@
+﻿@page "/admin/application/client/{clientId:Guid}/edit"
+@model DemaWare.DemaIdentify.Web.Pages.Admin.Application.Client.ClientEditModel
+@inject LocalizationService localizer
+
+@{
+	Layout = "_AdminLayout";
+	ViewData["Title"] = string.Format("{0} ({1})", localizer.GetLocalizedHtmlString("Client"), localizer.GetLocalizedHtmlString("Edit"));
+}
+
+<form method="post">
+    <partial name="_ValidationSummary" />
+
+    <input type="hidden" asp-for="Input.EntityId" />
+    <input type="hidden" asp-for="Input.RedirectUris" />
+    <input type="hidden" asp-for="Input.PostLogoutRedirectUris" />
+    <input type="hidden" asp-for="Input.Permissions" />
+
+    <div class="card-body">
+        <div class="container-fluid px-0">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label asp-for="Input.DisplayName" class="form-label"></label>
+                    <input type="text" asp-for="Input.DisplayName" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("Name")" />
+                    <span asp-validation-for="Input.DisplayName" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Input.ClientId" class="form-label"></label>
+                    <input type="text" asp-for="Input.ClientId" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("ClientId")" />
+                    <span asp-validation-for="Input.ClientId" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Input.IsVisible" class="form-label"></label><br />
+                    <div class="form-check form-switch">
+                        <input type="checkbox" asp-for="Input.IsVisible" role="switch" class="form-check-input">
+                    </div>
+                    <span asp-validation-for="Input.IsVisible" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h5 class="card-header text-primary border-top">@localizer.GetLocalizedHtmlString("Security")</h5>
+    <div class="card-body">
+        <div class="container-fluid px-0">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Input.ConsentType" class="form-label"></label>
+                    <select asp-for="Input.ConsentType" class="form-select">
+                        <option value="">@localizer.GetLocalizedHtmlString("Choose")</option>
+                        <option value="explicit">Explicit</option>
+                        <option value="external">External</option>
+                        <option value="implicit">Implicit</option>
+                        <option value="systematic">Systematic</option>
+                    </select>
+                    <span asp-validation-for="Input.ConsentType" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Input.ClientSecret" class="form-label"></label>
+                    <div class="input-group">
+                        <input type="text" asp-for="Input.ClientSecret" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("ClientSecret")" />
+                        <button id="GenerateClientSecretButton" type="button" class="btn btn-outline-secondary px-2" title="@localizer.GetLocalizedHtmlString("Generate")"><i class="material-icons">link</i></button>
+                    </div>
+                    <span asp-validation-for="Input.ClientSecret" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h5 class="card-header text-primary border-top">@localizer.GetLocalizedHtmlString("Urls")</h5>
+    <div class="card-body">
+        <div class="container-fluid px-0">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label asp-for="Input.ApplicationUrl" class="form-label"></label>
+                    <input type="text" asp-for="Input.ApplicationUrl" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("ApplicationUrl")" />
+                    <span asp-validation-for="Input.ApplicationUrl" class="text-danger"></span>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label for="AddRedirectUriTextbox" class="form-label">@localizer.GetLocalizedHtmlString("RedirectUris")</label>
+                    <div class="input-group redirecturis-placeholder">
+                        <input type="text" id="AddRedirectUriTextbox" name="AddRedirectUriTextbox" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("RedirectUris")" />
+                        <button id="AddRedirectUriButton" type="button" class="btn btn-outline-secondary px-2" title="@localizer.GetLocalizedHtmlString("Add")"><i class="material-icons">add</i></button>
+                    </div>
+                    <span asp-validation-for="Input.RedirectUris" class="text-danger"></span>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label for="AddPostLogoutRedirectUriTextbox" class="form-label">@localizer.GetLocalizedHtmlString("PostLogoutRedirectUris")</label>
+                    <div class="input-group postlogoutredirecturis-placeholder">
+                        <input type="text" id="AddPostLogoutRedirectUriTextbox" name="AddPostLogoutRedirectUriTextbox" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("PostLogoutRedirectUris")" />
+                        <button id="AddPostLogoutRedirectUriButton" type="button" class="btn btn-outline-secondary px-2" title="@localizer.GetLocalizedHtmlString("Add")"><i class="material-icons">add</i></button>
+                    </div>
+                    <span asp-validation-for="Input.PostLogoutRedirectUris" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h5 class="card-header text-primary border-top">@localizer.GetLocalizedHtmlString("Permissions")</h5>
+    <div class="card-body">
+        <div class="container-fluid px-0">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-3 permissions-placeholder">
+                    <div class="input-group">
+                        <select id="AddPermissionSelectbox" name="AddPermissionSelectbox" class="form-select">
+                            <option value="">@localizer.GetLocalizedHtmlString("Choose")</option>
+                            <optgroup label="Endpoints">
+                                <option value="ept:authorization">Authorization</option>
+                                <option value="ept:device">Device</option>
+                                <option value="ept:introspection">Introspection</option>
+                                <option value="ept:logout">Logout</option>
+                                <option value="ept:revocation">Revocation</option>
+                                <option value="ept:token">Token</option>
+                            </optgroup>
+                            <optgroup label="GrantTypes">
+                                <option value="gt:authorization_code">AuthorizationCode</option>
+                                <option value="gt:client_credentials">ClientCredentials</option>
+                                <option value="gt:urn:ietf:params:oauth:grant-type:device_code">DeviceCode</option>
+                                <option value="gt:implicit">Implicit</option>
+                                <option value="gt:password">Password</option>
+                                <option value="gt:refresh_token">RefreshToken</option>
+                            </optgroup>
+                            <optgroup label="ResponseTypes">
+                                <option value="rst:code">Code</option>
+                                <option value="rst:code id_token">CodeIdToken</option>
+                                <option value="rst:code id_token token">CodeIdTokenToken</option>
+                                <option value="rst:code token">CodeToken</option>
+                                <option value="rst:id_token">IdToken</option>
+                                <option value="rst:id_token token">IdTokenToken</option>
+                                <option value="rst:none">None</option>
+                                <option value="rst:token">Token</option>
+                            </optgroup>
+                            <optgroup label="Scopes - Default">
+                                <option value="scp:address">Address</option>
+                                <option value="scp:email">Email</option>
+                                <option value="scp:openid">OpenID</option>
+                                <option value="scp:phone">Phone</option>
+                                <option value="scp:profile">Profile</option>
+                                <option value="scp:roles">Roles</option>
+                            </optgroup>
+                            @if (Model.Scopes.Any()) {
+                                <optgroup label="Scopes - Manually created">
+                                    @foreach (var scope in Model.Scopes) {
+                                        <option value="@string.Format("scp:{0}", scope.Name.ToLower())">@scope.Name</option>
+                                    }
+                                </optgroup>
+                            }
+                        </select>
+                        <button id="AddPermissionButton" type="button" class="btn btn-outline-secondary px-2" title="@localizer.GetLocalizedHtmlString("Add")"><i class="material-icons">add</i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer text-center">
+        <a asp-page="./ClientOverview" class="btn btn-lg btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Cancel")</a>
+        <button class="btn btn-lg btn-outline-primary text-uppercase" type="submit">@localizer.GetLocalizedHtmlString("Save")</button>
+    </div>
+</form>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            renderRedirectUris();
+            renderPostLogoutRedirectUris();
+            renderPermissions();
+
+            $("#GenerateClientSecretButton").click(function () {
+                $("#Input_ClientSecret").val(generateUUID());
+            });
+
+            $("#AddRedirectUriButton").click(function () {
+                var allRedirectUris = $("#Input_RedirectUris").val();
+                var selectedRedirectUri = $("#AddRedirectUriTextbox").val();
+
+                if (selectedRedirectUri != null && selectedRedirectUri != "" && allRedirectUris.indexOf(selectedRedirectUri) < 0) {
+                    $("#Input_RedirectUris").val(allRedirectUris + (allRedirectUris.length <= 0 ? "" : ";") + selectedRedirectUri);
+                    renderRedirectUris();
+                }
+                $("#AddRedirectUriTextbox").val("");
+            });
+
+            $("#AddPostLogoutRedirectUriButton").click(function () {
+                var allRedirectUris = $("#Input_PostLogoutRedirectUris").val();
+                var selectedRedirectUri = $("#AddPostLogoutRedirectUriTextbox").val();
+
+                if (selectedRedirectUri != null && selectedRedirectUri != "" && allRedirectUris.indexOf(selectedRedirectUri) < 0) {
+                    $("#Input_PostLogoutRedirectUris").val(allRedirectUris + (allRedirectUris.length <= 0 ? "" : ";") + selectedRedirectUri);
+                    renderPostLogoutRedirectUris();
+                }
+                $("#AddPostLogoutRedirectUriTextbox").val("");
+            });
+
+            $("#AddPermissionButton").click(function () {
+                var allPermissions = $("#Input_Permissions").val();
+                var selectedPermission = $("#AddPermissionSelectbox").val();
+
+                if (selectedPermission != null && selectedPermission != "" && allPermissions.indexOf(selectedPermission) < 0) {
+                    $("#Input_Permissions").val(allPermissions + (allPermissions.length <= 0 ? "" : ";") + selectedPermission);
+                    renderPermissions();
+                }
+                $("#AddPermissionSelectbox").val("");
+            });
+        });
+
+        function renderRedirectUris() {
+            $(".redirecturi-rendered").remove();
+
+            var allRedirectUris = $("#Input_RedirectUris").val().split(";");
+            allRedirectUris.forEach((currentRedirectUri) => {
+                if (currentRedirectUri == "") return;
+                $(".redirecturis-placeholder").before('<div class="input-group mb-2 redirecturi-rendered"><span class="form-control">' + currentRedirectUri + '</span><button id="DeleteRedirectUriButton" type="button" class="btn btn-outline-secondary px-2" title="@localizer.GetLocalizedHtmlString("Delete")" onclick="deleteRedirectUris(\'' + currentRedirectUri + '\');"><i class="material-icons">delete</i></button></div></div>');
+            });
+        }
+
+        function deleteRedirectUris(redirecturi) {
+            $("#Input_RedirectUris").val($("#Input_RedirectUris").val().replace(redirecturi, ""));
+            renderRedirectUris();
+        }
+
+        function renderPostLogoutRedirectUris() {
+            $(".postlogoutredirecturi-rendered").remove();
+
+            var allRedirectUris = $("#Input_PostLogoutRedirectUris").val().split(";");
+            allRedirectUris.forEach((currentRedirectUri) => {
+                if (currentRedirectUri == "") return;
+                $(".postlogoutredirecturis-placeholder").before('<div class="input-group mb-2 postlogoutredirecturi-rendered"><span class="form-control">' + currentRedirectUri + '</span><button id="DeletePostLogoutRedirectUriButton" type="button" class="btn btn-outline-secondary px-2" title="@localizer.GetLocalizedHtmlString("Delete")" onclick="deletePostLogoutRedirectUris(\'' + currentRedirectUri + '\');"><i class="material-icons">delete</i></button></div></div>');
+            });
+        }
+
+        function deletePostLogoutRedirectUris(redirecturi) {
+            $("#Input_PostLogoutRedirectUris").val($("#Input_PostLogoutRedirectUris").val().replace(redirecturi, ""));
+            renderPostLogoutRedirectUris();
+        }
+
+        function renderPermissions() {
+            $(".permission-rendered").remove();
+
+            var allPermissions = $("#Input_Permissions").val().split(";");
+
+            allPermissions.forEach((currentPermission) => {
+                if (currentPermission == "") return;
+
+                var permissionSplitted = currentPermission.split(":");
+                var permissionType = "n/a";
+                var permissionName = permissionSplitted[permissionSplitted.length - 1];
+
+                switch (permissionSplitted[0]) {
+                    case "ept": permissionType = "Endpoint"; break;
+                    case "gt": permissionType = "GrantType"; break;
+                    case "rst": permissionType = "ResponseType"; break;
+                    case "scp": permissionType = "Scope"; break;
+                }
+
+                $(".permissions-placeholder").before('<div class="col-xl-3 col-lg-4 col-md-6 mb-3 permission-rendered"><div class="input-group"><span class="input-group-text">' + permissionType + '</span><span class="form-control">' + permissionName + '</span><button id="DeletePermissionButton" type="button" class="btn btn-outline-secondary px-2" title="@localizer.GetLocalizedHtmlString("Delete")" onclick="deletePermission(\'' + currentPermission + '\');"><i class="material-icons">delete</i></button></div></div>');
+            });
+        }
+
+        function deletePermission(permission) {
+            $("#Input_Permissions").val($("#Input_Permissions").val().replace(permission, ""));
+            renderPermissions();
+        }
+    </script>
+}

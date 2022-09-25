@@ -25,19 +25,19 @@
 								<li class="nav-item dropdown">
 									<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuApplicationsLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">@localizer.GetLocalizedHtmlString("Applications")</a>
 									<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuApplicationsLink">
-										<li><a asp-page="/Admin/Application/ClientOverview" class="dropdown-item">@localizer.GetLocalizedHtmlString("Clients")</a></li>
-										<li><a asp-page="/Admin/Application/ScopeOverview" class="dropdown-item">@localizer.GetLocalizedHtmlString("Scopes")</a></li>
+										<li><a asp-page="/Admin/Application/Client/ClientOverview" class="dropdown-item">@localizer.GetLocalizedHtmlString("Clients")</a></li>
+										<li><a asp-page="/Admin/Application/Scope/ScopeOverview" class="dropdown-item">@localizer.GetLocalizedHtmlString("Scopes")</a></li>
 									</ul>
 								</li>
 								<li class="nav-item dropdown">
 									<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuIdentityLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">@localizer.GetLocalizedHtmlString("Identities")</a>
 									<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuIdentityLink">
-										<li><a asp-page="/Admin/Identity/UserOverview" class="dropdown-item">@localizer.GetLocalizedHtmlString("Users")</a></li>
-										<li><a asp-page="/Admin/Identity/RoleOverview" class="dropdown-item">@localizer.GetLocalizedHtmlString("Roles")</a></li>
+										<li><a asp-page="/Admin/Identity/User/UserOverview" class="dropdown-item">@localizer.GetLocalizedHtmlString("Users")</a></li>
+										<li><a asp-page="/Admin/Identity/Role/RoleOverview" class="dropdown-item">@localizer.GetLocalizedHtmlString("Roles")</a></li>
 									</ul>
 								</li>
 								<li class="nav-item"><a asp-page="/Admin/Organisation/OrganisationOverview" class="nav-link">@localizer.GetLocalizedHtmlString("Organisations")</a></li>
-								<li class="nav-item"><a asp-page="/Admin/Template/EmailOverview" class="nav-link">@localizer.GetLocalizedHtmlString("Templates")</a></li>
+								<li class="nav-item"><a asp-page="/Admin/Template/Email/EmailOverview" class="nav-link">@localizer.GetLocalizedHtmlString("Templates")</a></li>
 								<li class="nav-item"><a asp-page="/Logout" class="nav-link">@localizer.GetLocalizedHtmlString("Logout")</a></li>
 							</ul>
 						</div>

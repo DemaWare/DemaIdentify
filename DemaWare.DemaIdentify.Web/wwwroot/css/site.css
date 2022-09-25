@@ -202,12 +202,12 @@ a.external-login:hover img {
   content: ":";
 }
 
-.input-group .input-group-text {
+.input-group .input-group-text.input-group-icon {
   background: #ffffff;
   border-right: 0;
   padding: 0 5px;
 }
-.input-group .input-group-text .material-icons {
+.input-group .input-group-text.input-group-icon .material-icons {
   color: rgba(58, 95, 172, 0.9);
 }
 .input-group .form-control, .input-group .form-select {

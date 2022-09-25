@@ -1,0 +1,29 @@
+﻿@page "/admin/identity/role/create"
+@model DemaWare.DemaIdentify.Web.Pages.Admin.Identity.Role.RoleCreateModel
+@inject LocalizationService localizer
+
+@{
+	Layout = "_AdminLayout";
+	ViewData["Title"] = string.Format("{0} ({1})", localizer.GetLocalizedHtmlString("Role"), localizer.GetLocalizedHtmlString("Add"));
+}
+
+<form method="post">
+	<partial name="_ValidationSummary" />
+
+	<div class="card-body">
+		<div class="container-fluid px-0">
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label asp-for="Input.Name" class="form-label"></label>
+					<input type="text" asp-for="Input.Name" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("Role")" autofocus />
+					<span asp-validation-for="Input.Name" class="text-danger"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card-footer text-center">
+		<a asp-page="./RoleOverview" class="btn btn-lg btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Cancel")</a>
+		<button class="btn btn-lg btn-outline-primary text-uppercase" type="submit">@localizer.GetLocalizedHtmlString("Save")</button>
+	</div>
+</form>
