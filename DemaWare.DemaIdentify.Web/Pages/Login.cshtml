@@ -12,7 +12,7 @@
     <div class="mb-3">
         <label class="visually-hidden" asp-for="Input.Language"></label>
         <div class="input-group input-group-lg">
-            <span class="input-group-text"><i class="material-icons">language</i></span>
+            <span class="input-group-text input-group-icon"><i class="material-icons">language</i></span>
             <select asp-for="Input.Language" class="form-select" asp-items="Model.Languages"></select>
         </div>
     </div>
@@ -20,7 +20,7 @@
     <div class="mb-3">
         <label class="visually-hidden" asp-for="Input.Email"></label>
         <div class="input-group input-group-lg">
-            <div class="input-group-text"><i class="material-icons">account_box</i></div>
+            <div class="input-group-text input-group-icon"><i class="material-icons">account_box</i></div>
             <input type="email" asp-for="Input.Email" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("EmailAddress")" autocomplete="off" autofocus />
         </div>
         <span asp-validation-for="Input.Email" class="text-danger"></span>
@@ -29,7 +29,7 @@
     <div class="mb-3">
         <label class="visually-hidden" asp-for="Input.Password"></label>
         <div class="input-group input-group-lg">
-            <div class="input-group-text"><i class="material-icons">lock</i></div>
+            <div class="input-group-text input-group-icon"><i class="material-icons">lock</i></div>
             <input type="password" asp-for="Input.Password" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("Password")" autocomplete="off" />
         </div>
         <span asp-validation-for="Input.Password" class="text-danger"></span>

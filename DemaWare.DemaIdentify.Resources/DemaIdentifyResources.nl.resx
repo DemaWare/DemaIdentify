@@ -364,8 +364,8 @@
   <data name="SignInLimited" xml:space="preserve">
     <value>Aanmelden is beperkt tot de deelnemende organisaties!</value>
   </data>
-  <data name="OnlyAccessBySpecifiedOrganisations" xml:space="preserve">
-    <value>Alleen toegang voor opgegeven organisaties?</value>
+  <data name="OnlyAccessForSpecifiedOrganisations" xml:space="preserve">
+    <value>Alleen toegang voor opgegeven organisaties</value>
   </data>
   <data name="ClientConfirmDelete" xml:space="preserve">
     <value>Weet u zeker dat u de client '{0}' wilt verwijderen?</value>
@@ -390,5 +390,35 @@
   </data>
   <data name="UserNoRecordsFound" xml:space="preserve">
     <value>Er zijn nog geen gebruikers aanwezig!</value>
+  </data>
+  <data name="ApplicationUrl" xml:space="preserve">
+    <value>Applicatie URL</value>
+  </data>
+  <data name="ClientSecret" xml:space="preserve">
+    <value>Client Secret</value>
+  </data>
+  <data name="ConsentType" xml:space="preserve">
+    <value>Toestemmingstype</value>
+  </data>
+  <data name="RedirectUris" xml:space="preserve">
+    <value>Redirect URLs</value>
+  </data>
+  <data name="PostLogoutRedirectUris" xml:space="preserve">
+    <value>Post logout redirect URLs</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Opties</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Beveiliging</value>
+  </data>
+  <data name="Urls" xml:space="preserve">
+    <value>URLs</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Genereer</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Permissies</value>
   </data>
 </root>

@@ -5,25 +5,26 @@ public enum SettingType {
 	[Display(Order = 0, Name = "ApplicationName")]
 	ApplicationName = 1,
 
-	[Display(Order = 1, Name = "OnlyAccessBySpecifiedOrganisations")]
-	OnlyAccessBySpecifiedOrganisations = 14,
-
 	/* Default colors */
-	[Display(Order = 2, Name = "ColorBaseBackground")]
+	[Display(Order = 1, Name = "ColorBaseBackground")]
 	ColorBaseBackground = 2,
 
-	[Display(Order = 3, Name = "ColorBaseForeground")]
+	[Display(Order = 2, Name = "ColorBaseForeground")]
 	ColorBaseForeground = 3,
 
 	/* External images */
-	[Display(Order = 4, Name = "UrlLogoWhite")]
+	[Display(Order = 3, Name = "UrlLogoWhite")]
 	UrlLogoWhite = 4,
 
-	[Display(Order = 5, Name = "UrlLogoColor")]
+	[Display(Order = 4, Name = "UrlLogoColor")]
 	UrlLogoColor = 5,
 
-	[Display(Order = 6, Name = "UrlBackgroundCover")]
+	[Display(Order = 5, Name = "UrlBackgroundCover")]
 	UrlBackgroundCover = 6,
+
+	/* Options */
+	[Display(Order = 6, Name = "OnlyAccessBySpecifiedOrganisations")]
+	OnlyAccessForSpecifiedOrganisations = 14,
 
 	/* Email configuration */
 	[Display(Order = 7, Name = "SmtpHost")]

@@ -13,7 +13,7 @@ public class SettingService {
     public string ApplicationName => GetSetting(SettingType.ApplicationName).AsString() ?? "DemaIdentify";
     public string ColorBaseBackground => GetSetting(SettingType.ColorBaseBackground).AsString() ?? "#3a5fac";
     public string ColorBaseForeground => GetSetting(SettingType.ColorBaseForeground).AsString() ?? "#ffffff";
-    public bool OnlyAccessBySpecifiedOrganisations => GetSetting(SettingType.OnlyAccessBySpecifiedOrganisations).AsBoolean();
+    public bool OnlyAccessForSpecifiedOrganisations => GetSetting(SettingType.OnlyAccessForSpecifiedOrganisations).AsBoolean();
     public string UrlLogoWhite => GetSetting(SettingType.UrlLogoWhite).AsString() ?? "https://static.demaidentify.nl/images/DemaIdentify_logo.750px.white.png";
     public string UrlLogoColor => GetSetting(SettingType.UrlLogoColor).AsString() ?? "https://static.demaidentify.nl/images/DemaIdentify_logo.750px.blue.png";
     public string UrlBackgroundCover => GetSetting(SettingType.UrlBackgroundCover).AsString() ?? "https://static.demaidentify.nl/images/DemaWare_Cover.light.min.jpg";

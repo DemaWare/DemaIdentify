@@ -35,7 +35,7 @@ public class UserRolesModel : PageModel {
 			if (ModelState.IsValid) {
 				try {
 					await _identityService.AddUserRoleAsync(userId, RoleNameAdd);
-					return RedirectToPage("./UserRoles", new { userId = userId });
+					return RedirectToPage("./UserRoles", new { userId });
 				} catch (Exception ex) {
 					ModelState.AddModelError(string.Empty, ex.Message);
 				}
