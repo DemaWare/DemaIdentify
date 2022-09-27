@@ -1,0 +1,93 @@
+﻿@page "/admin/application/scope/create"
+@model DemaWare.DemaIdentify.Web.Pages.Admin.Application.Scope.ScopeCreateModel
+
+@using DemaWare.DemaIdentify.BusinessLogic.Services
+@inject LocalizationService localizer
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = string.Format("{0} ({1})", localizer.GetLocalizedHtmlString("Scope"), localizer.GetLocalizedHtmlString("Add"));
+}
+
+<form method="post">
+    <partial name="_ValidationSummary" />
+
+    <input type="hidden" asp-for="Input.EntityId" />
+    <input type="hidden" asp-for="Input.Resources" />
+
+    <div class="card-body">
+        <div class="container-fluid px-0">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label asp-for="Input.Name" class="form-label"></label>
+                    <input type="text" asp-for="Input.Name" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("Name")" />
+                    <span asp-validation-for="Input.Name" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h5 class="card-header text-primary border-top">@localizer.GetLocalizedHtmlString("Resources")</h5>
+    <div class="card-body">
+        <div class="container-fluid px-0">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-3 resources-placeholder">
+                    <div class="input-group">
+                        <select id="AddResourceSelectbox" name="AddResourceSelectbox" class="form-select">
+                            <option value="">@localizer.GetLocalizedHtmlString("Choose")</option>
+                            @if (Model.Clients.Any()) {
+                                <optgroup label="Clients">
+                                    @foreach (var client in Model.Clients) {
+                                        <option value="@client.Name.ToLower()">@client.Name</option>
+                                    }
+                                </optgroup>
+                            }
+                        </select>
+                        <button id="AddResourceButton" type="button" class="btn btn-outline-secondary px-2" title="@localizer.GetLocalizedHtmlString("Add")"><i class="material-icons">add</i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-footer text-center">
+        <a asp-page="./ScopeOverview" class="btn btn-lg btn-outline-secondary text-uppercase">@localizer.GetLocalizedHtmlString("Cancel")</a>
+        <button class="btn btn-lg btn-outline-primary text-uppercase" type="submit">@localizer.GetLocalizedHtmlString("Save")</button>
+    </div>
+</form>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            renderResources();
+
+            $("#AddResourceButton").click(function () {
+                var allResources = $("#Input_Resources").val();
+                var selectedResource = $("#AddResourceSelectbox").val();
+
+                if (selectedResource != null && selectedResource != "" && allResources.indexOf(selectedResource) < 0) {
+                    $("#Input_Resources").val(allResources + (allResources.length <= 0 ? "" : ";") + selectedResource);
+                    renderResources();
+                }
+                $("#AddResourceSelectbox").val("");
+            });
+        });
+
+        function renderResources() {
+            $(".resource-rendered").remove();
+
+            var allResources = $("#Input_Resources").val().split(";");
+
+            allResources.forEach((currentResource) => {
+                if (currentResource == "") return;
+
+                $(".resources-placeholder").before('<div class="col-xl-3 col-lg-4 col-md-6 mb-3 resource-rendered"><div class="input-group"><span class="form-control">' + currentResource + '</span><button id="DeleteResourceButton" type="button" class="btn btn-outline-secondary px-2" title="@localizer.GetLocalizedHtmlString("Delete")" onclick="deleteResource(\''+currentResource+'\');"><i class="material-icons">delete</i></button></div></div>');
+            });
+        }
+
+        function deleteResource(resource){
+            $("#Input_Resources").val($("#Input_Resources").val().replace(resource, ""));
+            renderResources();
+        }
+    </script>
+}

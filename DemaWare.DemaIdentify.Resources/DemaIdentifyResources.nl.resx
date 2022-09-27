@@ -421,4 +421,7 @@
   <data name="Permissions" xml:space="preserve">
     <value>Permissies</value>
   </data>
+  <data name="ScopeConfirmDelete" xml:space="preserve">
+    <value>Weet u zeker dat u de scope '{0}' wilt verwijderen?</value>
+  </data>
 </root>
