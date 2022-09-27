@@ -40,11 +40,11 @@ public class RegisterModel : PageModel {
     public void OnGet(string? returnUrl = null) {
         ReturnUrl = returnUrl ?? Url.Content("~/");
 
-        // TODO: Implement external providers
-        //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-    }
+		// TODO: Implement external providers (#3)
+		//ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+	}
 
-    public async Task<IActionResult> OnPostAsync(string? returnUrl = null) {
+	public async Task<IActionResult> OnPostAsync(string? returnUrl = null) {
         OnGet(returnUrl);
 
         if (ModelState.IsValid) {

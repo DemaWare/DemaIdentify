@@ -427,4 +427,19 @@
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="RegistrationDisabled" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="UseDomainCredentials" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="DomainUsername" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="DomainPassword" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="PasswordResetDisabled" xml:space="preserve">
+    <value></value>
+  </data>
 </root>
