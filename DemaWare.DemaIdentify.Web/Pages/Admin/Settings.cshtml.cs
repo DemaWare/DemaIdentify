@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 
 namespace DemaWare.DemaIdentify.Web.Pages.Admin;
-public class IndexModel : PageModel {
-	private readonly ILogger<IndexModel> _logger;
+public class SettingsModel : PageModel {
+	private readonly ILogger<SettingsModel> _logger;
 	private readonly OrganisationService _organisationService;
 	private readonly SettingService _settingService;
 
@@ -65,7 +65,7 @@ public class IndexModel : PageModel {
 		public string? SmtpFromName { get; set; }
 	}
 
-	public IndexModel(ILogger<IndexModel> logger, OrganisationService organisationService, SettingService settingService) {
+	public SettingsModel(ILogger<SettingsModel> logger, OrganisationService organisationService, SettingService settingService) {
 		_logger = logger;
 		_organisationService = organisationService;
 		_settingService = settingService;

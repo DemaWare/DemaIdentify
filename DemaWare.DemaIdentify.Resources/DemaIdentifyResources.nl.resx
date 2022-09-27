@@ -424,4 +424,7 @@
   <data name="ScopeConfirmDelete" xml:space="preserve">
     <value>Weet u zeker dat u de scope '{0}' wilt verwijderen?</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Instellingen</value>
+  </data>
 </root>
