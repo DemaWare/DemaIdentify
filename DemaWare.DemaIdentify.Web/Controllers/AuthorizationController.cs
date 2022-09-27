@@ -92,7 +92,7 @@ public class AuthorizationController : Controller {
 				// Automatically create a permanent authorization to avoid requiring explicit consent
 				// for future authorization or token requests containing the same scopes.
 				var authorization = authorizations.LastOrDefault();
-				if (authorization == null) authorization = await _authorizationManager.CreateAsync(principal, await _userManager.GetUserIdAsync(user), await _applicationManager.GetIdAsync(application) ?? throw new InvalidOperationException("The ID of the calling client application cannot be found."), AuthorizationTypes.Permanent, principal.GetScopes());
+				authorization ??= await _authorizationManager.CreateAsync(principal, await _userManager.GetUserIdAsync(user), await _applicationManager.GetIdAsync(application) ?? throw new InvalidOperationException("The ID of the calling client application cannot be found."), AuthorizationTypes.Permanent, principal.GetScopes());
 
 				principal.SetAuthorizationId(await _authorizationManager.GetIdAsync(authorization));
 				foreach (var claim in principal.Claims) claim.SetDestinations(GetDestinations(claim, principal));
@@ -142,7 +142,7 @@ public class AuthorizationController : Controller {
 		// Automatically create a permanent authorization to avoid requiring explicit consent
 		// for future authorization or token requests containing the same scopes.
 		var authorization = authorizations.LastOrDefault();
-		if (authorization == null) authorization = await _authorizationManager.CreateAsync(principal, await _userManager.GetUserIdAsync(user), await _applicationManager.GetIdAsync(application) ?? throw new InvalidOperationException("The ID of the calling client application cannot be found."), AuthorizationTypes.Permanent, principal.GetScopes());
+		authorization ??= await _authorizationManager.CreateAsync(principal, await _userManager.GetUserIdAsync(user), await _applicationManager.GetIdAsync(application) ?? throw new InvalidOperationException("The ID of the calling client application cannot be found."), AuthorizationTypes.Permanent, principal.GetScopes());
 
 		principal.SetAuthorizationId(await _authorizationManager.GetIdAsync(authorization));
 		foreach (var claim in principal.Claims) claim.SetDestinations(GetDestinations(claim, principal));
