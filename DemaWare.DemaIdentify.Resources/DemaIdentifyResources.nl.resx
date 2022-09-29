@@ -427,4 +427,22 @@
   <data name="Settings" xml:space="preserve">
     <value>Instellingen</value>
   </data>
+  <data name="DomainPassword" xml:space="preserve">
+    <value>Wachtwoord</value>
+  </data>
+  <data name="DomainUsername" xml:space="preserve">
+    <value>Gebruikersnaam</value>
+  </data>
+  <data name="DomainConfiguration" xml:space="preserve">
+    <value>Domein configuratie (Windows AD)</value>
+  </data>
+  <data name="PasswordResetDisabled" xml:space="preserve">
+    <value>Het resetten van uw wachtwoord is door de beheerders uitgeschakeld.</value>
+  </data>
+  <data name="RegistrationDisabled" xml:space="preserve">
+    <value>Het registreren van een nieuwe gebruiker is door de beheerders uitgeschakeld.</value>
+  </data>
+  <data name="UseDomainCredentials" xml:space="preserve">
+    <value>Maak gebruik van domein credentials om in te loggen</value>
+  </data>
 </root>

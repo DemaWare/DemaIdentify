@@ -45,19 +45,16 @@
     </div>
 </form>
 
-<div class="login-footer">
-    <div class="mb-3">
-        <div class="btn-group btn-group-lg w-100">
-            <a asp-page="./ForgotPassword" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-secondary">@localizer.GetLocalizedHtmlString("PasswordForgotTitle")</a>
+@if (!Model.UseDomainCredentials) {
+    <div class="login-footer">
+        <div class="mb-3">
+            <div class="btn-group btn-group-lg w-100"><a asp-page="./ForgotPassword" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-secondary">@localizer.GetLocalizedHtmlString("PasswordForgotTitle")</a></div>
+        </div>
+        <div>
+            <div class="btn-group btn-group-lg w-100"><a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-secondary">@localizer.GetLocalizedHtmlString("UserRegister")</a></div>
         </div>
     </div>
-
-    <div>
-        <div class="btn-group btn-group-lg w-100">
-            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-secondary">@localizer.GetLocalizedHtmlString("UserRegister")</a>
-        </div>
-    </div>
-</div>
+}
 
 @section Scripts {
     <script type="text/javascript">

@@ -29,6 +29,16 @@ public enum SettingType {
 	[Display(Order = 7, Name = "UseDomainCredentials")]
 	UseDomainCredentials = 15,
 
+	/* Windows ActiveDirectory configuration */
+	[Display(Order = 15, Name = "DomainName")]
+	DomainName = 16,
+
+	[Display(Order = 16, Name = "DomainUsername")]
+	DomainUsername = 17,
+
+	[Display(Order = 17, Name = "DomainPassword")]
+	DomainPassword = 18,
+
 	/* Email configuration */
 	[Display(Order = 8, Name = "SmtpHost")]
 	SmtpHost = 7,
@@ -49,17 +59,7 @@ public enum SettingType {
 	SmtpFromAddress = 12,
 
 	[Display(Order = 14, Name = "SmtpFromName")]
-	SmtpFromName = 13,
-
-	/* Windows ActiveDirectory configuration */
-	[Display(Order = 15, Name = "DomainName")]
-	DomainName = 16,
-
-	[Display(Order = 16, Name = "DomainUsername")]
-	DomainUsername = 17,
-
-	[Display(Order = 17, Name = "DomainPassword")]
-	DomainPassword = 18
+	SmtpFromName = 13
 
 	//MAX: 18!
 }
