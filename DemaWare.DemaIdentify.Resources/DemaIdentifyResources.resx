@@ -427,4 +427,22 @@
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="RegistrationDisabled" xml:space="preserve">
+    <value>Registering a new user has been disabled by the administrators.</value>
+  </data>
+  <data name="UseDomainCredentials" xml:space="preserve">
+    <value>Use domain credentials to sign in</value>
+  </data>
+  <data name="DomainUsername" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="DomainPassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordResetDisabled" xml:space="preserve">
+    <value>Resetting your password has been disabled by the administrators.</value>
+  </data>
+  <data name="DomainConfiguration" xml:space="preserve">
+    <value>Domain configuration (Windows AD)</value>
+  </data>
 </root>

@@ -1,5 +1,7 @@
 ﻿@page "/admin/settings"
 @model DemaWare.DemaIdentify.Web.Pages.Admin.SettingsModel
+
+@using DemaWare.DemaIdentify.BusinessLogic.Services
 @inject LocalizationService localizer
 
 @{
@@ -73,6 +75,36 @@
 						<input type="checkbox" asp-for="Input.OnlyAccessForSpecifiedOrganisations" role="switch" class="form-check-input">
 					</div>
 					<span asp-validation-for="Input.OnlyAccessForSpecifiedOrganisations" class="text-danger"></span>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label asp-for="Input.UseDomainCredentials" class="form-label"></label><br />
+					<div class="form-check form-switch">
+						<input type="checkbox" asp-for="Input.UseDomainCredentials" role="switch" class="form-check-input">
+					</div>
+					<span asp-validation-for="Input.UseDomainCredentials" class="text-danger"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<h5 class="card-header text-primary border-top">@localizer.GetLocalizedHtmlString("DomainConfiguration")</h5>
+	<div class="card-body">
+		<div class="container-fluid px-0">
+			<div class="row">
+				<div class="col-md-4 mb-3">
+					<label asp-for="Input.DomainName" class="form-label"></label>
+					<input type="text" asp-for="Input.DomainName" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("DomainName")" />
+					<span asp-validation-for="Input.DomainName" class="text-danger"></span>
+				</div>
+				<div class="col-md-4 mb-3">
+					<label asp-for="Input.DomainUsername" class="form-label"></label>
+					<input type="text" asp-for="Input.DomainUsername" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("DomainUsername")" />
+					<span asp-validation-for="Input.DomainUsername" class="text-danger"></span>
+				</div>
+				<div class="col-md-4 mb-3">
+					<label asp-for="Input.DomainPassword" class="form-label"></label>
+					<input type="text" asp-for="Input.DomainPassword" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("DomainPassword")" />
+					<span asp-validation-for="Input.DomainPassword" class="text-danger"></span>
 				</div>
 			</div>
 		</div>

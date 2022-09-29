@@ -42,7 +42,20 @@ public class SettingsModel : PageModel {
 		[Display(Name = "OnlyAccessForSpecifiedOrganisations")]
 		public bool OnlyAccessForSpecifiedOrganisations { get; set; }
 
-		/* Email settings */
+		[Display(Name = "UseDomainCredentials")]
+		public bool UseDomainCredentials { get; set; }
+
+		/* Windows ActiveDirectory configuration */
+		[Display(Name = "DomainName")]
+		public string? DomainName { get; set; }
+
+		[Display(Name = "DomainUsername")]
+		public string? DomainUsername { get; set; }
+
+		[Display(Name = "DomainPassword")]
+		public string? DomainPassword { get; set; }
+
+		/* Email configuration */
 		[Required(ErrorMessage = "ErrorMessageRequired"), Display(Name = "SmtpHost")]
 		public string? SmtpHost { get; set; }
 
@@ -72,6 +85,7 @@ public class SettingsModel : PageModel {
 	}
 
 	public void OnGet() {
+		var domainSettings = _settingService.GetDomainCredentials();
 		var smtpSettings = _settingService.GetSmtpSettings();
 
 		Input = new() {
@@ -85,6 +99,11 @@ public class SettingsModel : PageModel {
 			UrlBackgroundCover = _settingService.UrlBackgroundCover,
 
 			OnlyAccessForSpecifiedOrganisations = _settingService.OnlyAccessForSpecifiedOrganisations,
+			UseDomainCredentials = _settingService.UseDomainCredentials,
+
+			DomainName = domainSettings.ADName,
+			DomainUsername = domainSettings.Username,
+			DomainPassword = domainSettings.Password,
 
 			SmtpHost = smtpSettings.Host,
 			SmtpPort = smtpSettings.Port,
@@ -112,6 +131,11 @@ public class SettingsModel : PageModel {
 				_settingService.Save(SettingType.UrlBackgroundCover, Input.UrlBackgroundCover);
 
 				_settingService.Save(SettingType.OnlyAccessForSpecifiedOrganisations, Input.OnlyAccessForSpecifiedOrganisations);
+				_settingService.Save(SettingType.UseDomainCredentials, Input.UseDomainCredentials);
+
+				_settingService.Save(SettingType.DomainName, Input.DomainName);
+				_settingService.Save(SettingType.DomainUsername, Input.DomainUsername);
+				_settingService.Save(SettingType.DomainPassword, Input.DomainPassword);
 
 				_settingService.Save(SettingType.SmtpHost, Input.SmtpHost);
 				_settingService.Save(SettingType.SmtpPort, Input.SmtpPort);

@@ -60,7 +60,7 @@
                     <label asp-for="Input.ClientSecret" class="form-label"></label>
                     <div class="input-group">
                         <input type="text" asp-for="Input.ClientSecret" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("ClientSecret")" />
-                        <button id="GenerateClientSecretButton" type="button" class="btn btn-outline-secondary px-2" title="@localizer.GetLocalizedHtmlString("Generate")"><i class="material-icons">link</i></button>
+                        <button id="GenerateClientSecretButton" type="button" class="btn btn-outline-info px-2" title="@localizer.GetLocalizedHtmlString("Generate")"><i class="material-icons">link</i></button>
                     </div>
                     <span asp-validation-for="Input.ClientSecret" class="text-danger"></span>
                 </div>
@@ -81,7 +81,7 @@
                     <label for="AddRedirectUriTextbox" class="form-label">@localizer.GetLocalizedHtmlString("RedirectUris")</label>
                     <div class="input-group redirecturis-placeholder">
                         <input type="text" id="AddRedirectUriTextbox" name="AddRedirectUriTextbox" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("RedirectUris")" />
-                        <button id="AddRedirectUriButton" type="button" class="btn btn-outline-secondary px-2" title="@localizer.GetLocalizedHtmlString("Add")"><i class="material-icons">add</i></button>
+                        <button id="AddRedirectUriButton" type="button" class="btn btn-outline-success px-2" title="@localizer.GetLocalizedHtmlString("Add")"><i class="material-icons">add</i></button>
                     </div>
                     <span asp-validation-for="Input.RedirectUris" class="text-danger"></span>
                 </div>
@@ -89,7 +89,7 @@
                     <label for="AddPostLogoutRedirectUriTextbox" class="form-label">@localizer.GetLocalizedHtmlString("PostLogoutRedirectUris")</label>
                     <div class="input-group postlogoutredirecturis-placeholder">
                         <input type="text" id="AddPostLogoutRedirectUriTextbox" name="AddPostLogoutRedirectUriTextbox" class="form-control" placeholder="@localizer.GetLocalizedHtmlString("PostLogoutRedirectUris")" />
-                        <button id="AddPostLogoutRedirectUriButton" type="button" class="btn btn-outline-secondary px-2" title="@localizer.GetLocalizedHtmlString("Add")"><i class="material-icons">add</i></button>
+                        <button id="AddPostLogoutRedirectUriButton" type="button" class="btn btn-outline-success px-2" title="@localizer.GetLocalizedHtmlString("Add")"><i class="material-icons">add</i></button>
                     </div>
                     <span asp-validation-for="Input.PostLogoutRedirectUris" class="text-danger"></span>
                 </div>
@@ -147,7 +147,7 @@
                                 </optgroup>
                             }
                         </select>
-                        <button id="AddPermissionButton" type="button" class="btn btn-outline-secondary px-2" title="@localizer.GetLocalizedHtmlString("Add")"><i class="material-icons">add</i></button>
+                        <button id="AddPermissionButton" type="button" class="btn btn-outline-success px-2" title="@localizer.GetLocalizedHtmlString("Add")"><i class="material-icons">add</i></button>
                     </div>
                 </div>
             </div>
@@ -211,7 +211,7 @@
             var allRedirectUris = $("#Input_RedirectUris").val().split(";");
             allRedirectUris.forEach((currentRedirectUri) => {
                 if (currentRedirectUri == "") return;
-                $(".redirecturis-placeholder").before('<div class="input-group mb-2 redirecturi-rendered"><span class="form-control">' + currentRedirectUri + '</span><button id="DeleteRedirectUriButton" type="button" class="btn btn-outline-secondary px-2" title="@localizer.GetLocalizedHtmlString("Delete")" onclick="deleteRedirectUris(\'' + currentRedirectUri + '\');"><i class="material-icons">delete</i></button></div></div>');
+                $(".redirecturis-placeholder").before('<div class="input-group mb-2 redirecturi-rendered"><span class="form-control">' + currentRedirectUri + '</span><button id="DeleteRedirectUriButton" type="button" class="btn btn-outline-danger px-2" title="@localizer.GetLocalizedHtmlString("Delete")" onclick="deleteRedirectUris(\'' + currentRedirectUri + '\');"><i class="material-icons">delete</i></button></div></div>');
             });
         }
 
@@ -226,7 +226,7 @@
             var allRedirectUris = $("#Input_PostLogoutRedirectUris").val().split(";");
             allRedirectUris.forEach((currentRedirectUri) => {
                 if (currentRedirectUri == "") return;
-                $(".postlogoutredirecturis-placeholder").before('<div class="input-group mb-2 postlogoutredirecturi-rendered"><span class="form-control">' + currentRedirectUri + '</span><button id="DeletePostLogoutRedirectUriButton" type="button" class="btn btn-outline-secondary px-2" title="@localizer.GetLocalizedHtmlString("Delete")" onclick="deletePostLogoutRedirectUris(\'' + currentRedirectUri + '\');"><i class="material-icons">delete</i></button></div></div>');
+                $(".postlogoutredirecturis-placeholder").before('<div class="input-group mb-2 postlogoutredirecturi-rendered"><span class="form-control">' + currentRedirectUri + '</span><button id="DeletePostLogoutRedirectUriButton" type="button" class="btn btn-outline-danger px-2" title="@localizer.GetLocalizedHtmlString("Delete")" onclick="deletePostLogoutRedirectUris(\'' + currentRedirectUri + '\');"><i class="material-icons">delete</i></button></div></div>');
             });
         }
 
@@ -254,7 +254,7 @@
                     case "scp": permissionType = "Scope"; break;
                 }
 
-                $(".permissions-placeholder").before('<div class="col-xl-3 col-lg-4 col-md-6 mb-3 permission-rendered"><div class="input-group"><span class="input-group-text">' + permissionType + '</span><span class="form-control">' + permissionName + '</span><button id="DeletePermissionButton" type="button" class="btn btn-outline-secondary px-2" title="@localizer.GetLocalizedHtmlString("Delete")" onclick="deletePermission(\'' + currentPermission + '\');"><i class="material-icons">delete</i></button></div></div>');
+                $(".permissions-placeholder").before('<div class="col-xl-3 col-lg-4 col-md-6 mb-3 permission-rendered"><div class="input-group"><span class="input-group-text">' + permissionType + '</span><span class="form-control">' + permissionName + '</span><button id="DeletePermissionButton" type="button" class="btn btn-outline-danger px-2" title="@localizer.GetLocalizedHtmlString("Delete")" onclick="deletePermission(\'' + currentPermission + '\');"><i class="material-icons">delete</i></button></div></div>');
             });
         }
 
