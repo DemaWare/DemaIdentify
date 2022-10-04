@@ -117,8 +117,9 @@ public class IdentityService {
 			currentUser = await _userManager.FindByEmailAsync(userEmail);
 
 			if (currentUser == null) {
+				var passwordOptions = _userManager.Options.Password;
 				currentUser = new User { UserName = userEmail, Email = userEmail, EmailConfirmed = true, LockoutEnabled = false };
-				var createResult = await _userManager.CreateAsync(currentUser, SecurityHelper.GeneratePassword());
+				var createResult = await _userManager.CreateAsync(currentUser, SecurityHelper.GeneratePassword(passwordOptions.RequiredLength, passwordOptions.RequireNonAlphanumeric, passwordOptions.RequireDigit, passwordOptions.RequireLowercase, passwordOptions.RequireUppercase));
 				if (!createResult.Succeeded) throw new ApplicationException(_localizationService.GetLocalizedHtmlString("ErrorMessageLogin"));
 			}
 
