@@ -105,14 +105,15 @@ public class IdentityService {
 		if (_settingService.OnlyAccessForSpecifiedOrganisations && !_entitiesContext.Organisations.Any(x => userEmail.Contains(x.DomainName) && x.IsEnabled && !x.IsDeleted))
 			throw new ApplicationException(_localizationService.GetLocalizedHtmlString("SignInLimited"));
 
+		// Check if domain credentials are enabled
 		if (_settingService.UseDomainCredentials) {
-			// When domain credentials are enabled
 
-			using var domainHelper = new WindowsADHelper(_settingService.GetDomainCredentials());
-
+			// Return the validated user from the domain
+			using var domainHelper = new WindowsDomainHelper(_settingService.GetDomainCredentials());
 			var windowsUser = domainHelper.ValidateCredentials(userEmail, userPassword);
 			if (windowsUser == null) throw new ApplicationException(_localizationService.GetLocalizedHtmlString("ErrorMessageLogin"));
 
+			// Try to find 'our' user, or create a new user
 			currentUser = await _userManager.FindByEmailAsync(userEmail);
 
 			if (currentUser == null) {
