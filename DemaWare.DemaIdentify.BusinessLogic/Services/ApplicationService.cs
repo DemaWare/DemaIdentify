@@ -50,6 +50,7 @@ public class ApplicationService {
         client.IsVisible = clientModel.IsVisible;
 
         client.ConsentType = !string.IsNullOrWhiteSpace(clientModel.ConsentType) ? clientModel.ConsentType : null;
+        if (!string.IsNullOrWhiteSpace(clientModel.ClientSecret)) client.ClientSecret = clientModel.ClientSecret;
 
         client.ApplicationUrl = !string.IsNullOrWhiteSpace(clientModel.ApplicationUrl) ? clientModel.ApplicationUrl : null;
         client.RedirectUris = !string.IsNullOrWhiteSpace(clientModel.RedirectUris) ? JsonSerializer.Serialize(clientModel.RedirectUris.Split(";").Where(x => !string.IsNullOrWhiteSpace(x))) : null;
