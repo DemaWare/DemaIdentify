@@ -59,11 +59,15 @@ public class ApplicationService {
         client.Permissions = !string.IsNullOrWhiteSpace(clientModel.Permissions) ? JsonSerializer.Serialize(clientModel.Permissions.Split(";").Where(x => !string.IsNullOrWhiteSpace(x))) : null;
 
         if (!clientModel.IsExistingObject) {
-            await _applicationManager.CreateAsync(client);
-            _logger.LogInformation("ApplicationClient ({clientId}) added.", clientModel.ClientId);
+			if (!string.IsNullOrWhiteSpace(clientModel.ClientSecret)) await _applicationManager.CreateAsync(client, clientModel.ClientSecret);
+			else await _applicationManager.CreateAsync(client);
+
+			_logger.LogInformation("ApplicationClient ({clientId}) added.", clientModel.ClientId);
         } else {
-            await _applicationManager.UpdateAsync(client);
-            _logger.LogInformation("ApplicationClient ({clientId}) changed.", clientModel.ClientId);
+			if (!string.IsNullOrWhiteSpace(clientModel.ClientSecret)) await _applicationManager.UpdateAsync(client, clientModel.ClientSecret);
+			else await _applicationManager.UpdateAsync(client);
+
+			_logger.LogInformation("ApplicationClient ({clientId}) changed.", clientModel.ClientId);
         }
     }
 
