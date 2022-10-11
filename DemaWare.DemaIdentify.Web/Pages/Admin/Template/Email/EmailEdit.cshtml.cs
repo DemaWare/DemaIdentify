@@ -48,7 +48,7 @@ public class EmailEditModel : PageModel {
 		templates.Remove(templates.First(x => x.EntityId == templateId));
 		ParentList = new SelectList(templates, nameof(EnumerationModel.EntityId), nameof(EnumerationModel.Name));
 
-		var types = EnumExtension.ToEnumList<TemplateEmailType>();
+		var types = EnumExtensions.ToEnumList<TemplateEmailType>();
 		TypeList = new SelectList(types, nameof(EnumModel.Id), nameof(EnumModel.Name));
 	}
 }
