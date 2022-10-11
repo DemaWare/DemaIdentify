@@ -28,7 +28,7 @@ public class EmailCreateModel : PageModel {
 		var templates = _templateService.GetEmailEnumerationAsync().Result.ToList();
 		ParentList = new SelectList(templates, nameof(EnumerationModel.EntityId), nameof(EnumerationModel.Name));
 
-		var types = EnumExtension.ToEnumList<TemplateEmailType>();
+		var types = EnumExtensions.ToEnumList<TemplateEmailType>();
 		TypeList = new SelectList(types, nameof(EnumModel.Id), nameof(EnumModel.Name));
 	}
 
