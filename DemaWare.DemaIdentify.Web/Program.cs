@@ -74,7 +74,9 @@ builder.Services.AddOpenIddict()
         options.RegisterScopes(Scopes.Email, Scopes.Profile, Scopes.Roles, Scopes.OpenId);
 
         options.AllowAuthorizationCodeFlow().RequireProofKeyForCodeExchange();
+        options.AllowClientCredentialsFlow();
         options.AllowRefreshTokenFlow();
+
 
         options.UseReferenceAccessTokens();
         options.UseReferenceRefreshTokens();
