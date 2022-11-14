@@ -187,8 +187,7 @@ public class IdentityService {
 
 			var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-			var callbackUrl = Regex.Replace(confirmEmailUrl, "%7B0%7D", user.Id.ToString(), RegexOptions.IgnoreCase);
-			callbackUrl = Regex.Replace(callbackUrl, "%7B1%7D", WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)), RegexOptions.IgnoreCase);
+			var callbackUrl = string.Format(confirmEmailUrl, user.Id.ToString(), WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)));
 
 			try {
 				var templateEmail = _templateService.GenerateEmail(TemplateEmailType.UserRegistrationConfirmEmail);
@@ -247,8 +246,7 @@ public class IdentityService {
 
 			var code = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-            var callbackUrl = Regex.Replace(resetPasswordUrl, "%7B0%7D", WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(user.Email)), RegexOptions.IgnoreCase);
-            callbackUrl = Regex.Replace(callbackUrl, "%7B1%7D", WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)), RegexOptions.IgnoreCase);
+            var callbackUrl = string.Format(resetPasswordUrl, WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(user.Email)), WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)));
 
 			try {
 				var templateEmail = _templateService.GenerateEmail(TemplateEmailType.UserResetPassword);
