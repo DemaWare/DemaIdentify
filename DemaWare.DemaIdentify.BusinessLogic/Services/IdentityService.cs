@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace DemaWare.DemaIdentify.BusinessLogic.Services;
 public class IdentityService {
@@ -185,7 +186,9 @@ public class IdentityService {
 			_logger.LogInformation("User ({emailAddress}) created a new account with password.", userEmail);
 
 			var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-			var callbackUrl = confirmEmailUrl.Replace("%7B0%7D", user.Id.ToString()).Replace("%7B1%7D", WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)));
+
+			var callbackUrl = Regex.Replace(confirmEmailUrl, "%7B0%7D", user.Id.ToString(), RegexOptions.IgnoreCase);
+			callbackUrl = Regex.Replace(callbackUrl, "%7B1%7D", WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)), RegexOptions.IgnoreCase);
 
 			try {
 				var templateEmail = _templateService.GenerateEmail(TemplateEmailType.UserRegistrationConfirmEmail);
@@ -243,7 +246,9 @@ public class IdentityService {
 			_logger.LogInformation("The user '{userEmail}' has requested a reset password email.", userEmail);
 
 			var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-			var callbackUrl = resetPasswordUrl.Replace("%7B0%7D", WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(user.Email))).Replace("%7B1%7D", WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)));
+
+            var callbackUrl = Regex.Replace(resetPasswordUrl, "%7B0%7D", WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(user.Email)), RegexOptions.IgnoreCase);
+            callbackUrl = Regex.Replace(callbackUrl, "%7B1%7D", WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)), RegexOptions.IgnoreCase);
 
 			try {
 				var templateEmail = _templateService.GenerateEmail(TemplateEmailType.UserResetPassword);
