@@ -51,17 +51,18 @@ public class ResetPasswordModel : PageModel {
     }
 
     public async Task<IActionResult> OnPostAsync(string? returnUrl = null) {
+        ReturnUrl = returnUrl;
+
         if (ModelState.IsValid) {
             try {
                 await _identityService.ResetPasswordAsync(Input.Email, Input.Password, Input.Code);
-            } catch {
-                // Do nothing, always redirect to confirmation page
+                return RedirectToPage("./ResetPasswordConfirmation", new { returnUrl });
+            } catch (Exception ex) {
+                ModelState.AddModelError(string.Empty, ex.Message);
             }
 
-            return RedirectToPage("./ResetPasswordConfirmation", new { returnUrl });
         }
 
         return Page();
-
     }
 }
