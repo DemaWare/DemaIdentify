@@ -33,8 +33,8 @@ public class ForgotPasswordModel : PageModel {
 
         if (ModelState.IsValid) {
             try {
-                var resetPasswordUrl = Url.Page("/ResetPassword", null, new { email = "{0}", code = "{1}", returnUrl = ReturnUrl }, Request.Scheme);
-                await _identityService.SendPasswordResetTokenAsync(Input.Email, resetPasswordUrl);
+                var resetPasswordUrl = Url.Page("/ResetPassword", null, new { email = "{0}", code = "{1}", returnUrl = "{2}" }, Request.Scheme);
+                await _identityService.SendPasswordResetTokenAsync(Input.Email, resetPasswordUrl, ReturnUrl);
             } catch {
                 // Do nothing, always redirect to confirmation page
             }

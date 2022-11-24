@@ -159,12 +159,13 @@ public class IdentityService {
 		_logger.LogInformation("User logged out.");
 	}
 
-	public async Task RegisterUserAsync(string? userEmail, string? userPassword, string? confirmEmailUrl) {
+	public async Task RegisterUserAsync(string? userEmail, string? userPassword, string? confirmEmailUrl, string? returnUrl) {
 		if (string.IsNullOrWhiteSpace(userEmail)) throw new ArgumentNullException(nameof(userEmail));
 		if (string.IsNullOrWhiteSpace(userPassword)) throw new ArgumentNullException(nameof(userPassword));
 		if (string.IsNullOrWhiteSpace(confirmEmailUrl)) throw new ArgumentNullException(nameof(confirmEmailUrl));
+		if (string.IsNullOrEmpty(returnUrl)) throw new ArgumentNullException(nameof(returnUrl));
 		confirmEmailUrl = WebUtility.UrlDecode(confirmEmailUrl);
-		userEmail = userEmail.ToLower();
+        userEmail = userEmail.ToLower();
 
 		if (_settingService.OnlyAccessForSpecifiedOrganisations && !_entitiesContext.Organisations.Any(x => userEmail.Contains(x.DomainName) && x.IsEnabled && !x.IsDeleted))
 			throw new ApplicationException(_localizationService.GetLocalizedHtmlString("RegistrationLimited"));
@@ -186,7 +187,7 @@ public class IdentityService {
 
 			var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-			var callbackUrl = string.Format(confirmEmailUrl, user.Id.ToString(), WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)));
+			var callbackUrl = string.Format(confirmEmailUrl, user.Id.ToString(), WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)), returnUrl);
 
 			try {
 				var templateEmail = _templateService.GenerateEmail(TemplateEmailType.UserRegistrationConfirmEmail);
@@ -231,10 +232,11 @@ public class IdentityService {
 		}
 	}
 
-	public async Task SendPasswordResetTokenAsync(string? userEmail, string? resetPasswordUrl) {
+	public async Task SendPasswordResetTokenAsync(string? userEmail, string? resetPasswordUrl, string? returnUrl) {
 		if (string.IsNullOrEmpty(userEmail)) throw new ArgumentNullException(nameof(userEmail));
 		if (string.IsNullOrEmpty(resetPasswordUrl)) throw new ArgumentNullException(nameof(resetPasswordUrl));
-		resetPasswordUrl = WebUtility.UrlDecode(resetPasswordUrl);
+		if (string.IsNullOrEmpty(returnUrl)) throw new ArgumentNullException(nameof(returnUrl));
+        resetPasswordUrl = WebUtility.UrlDecode(resetPasswordUrl);
 
 		if (_settingService.UseDomainCredentials) throw new ApplicationException("PasswordResetDisabled");
 
@@ -245,7 +247,7 @@ public class IdentityService {
 
 			var code = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-            var callbackUrl = string.Format(resetPasswordUrl, WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(user.Email)), WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)));
+            var callbackUrl = string.Format(resetPasswordUrl, WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(user.Email)), WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)), returnUrl);
 
 			try {
 				var templateEmail = _templateService.GenerateEmail(TemplateEmailType.UserResetPassword);
