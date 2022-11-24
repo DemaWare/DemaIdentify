@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace DemaWare.DemaIdentify.BusinessLogic.Services;
 public class IdentityService {
