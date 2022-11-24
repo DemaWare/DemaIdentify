@@ -205,7 +205,7 @@ public class IdentityService {
 		}
 
 		if (result.Errors.Any()) {
-			var error = string.Join("; ", result.Errors.Select(x => string.Format("{0} - {1}", x.Code, x.Description)));
+			var error = string.Join("; ", result.Errors.Select(x => x.Description.TrimEnd('.')));
 			throw new ApplicationException(error);
 		}
 	}
@@ -222,7 +222,7 @@ public class IdentityService {
 			if (result.Succeeded) {
 				_logger.LogInformation("Email confirmed for user '{userEmail}'.", user.Email);
 			} else {
-				var error = string.Join("; ", result.Errors.Select(x => string.Format("{0} - {1}", x.Code, x.Description)));
+				var error = string.Join("; ", result.Errors.Select(x => x.Description.TrimEnd('.')));
 				_logger.LogError("Unable to confirm user '{userEmail}': {errorMessage} ", user.Email, error);
 				throw new ApplicationException(error);
 			}
@@ -281,7 +281,7 @@ public class IdentityService {
 				_logger.LogInformation("User ({userEmail}) changed password.", userEmail);
 
 			if (result.Errors.Any()) {
-				var error = string.Join("; ", result.Errors.Select(x => string.Format("{0} - {1}", x.Code, x.Description)));
+				var error = string.Join("; ", result.Errors.Select(x => x.Description.TrimEnd('.')));
 				_logger.LogError("Unable to reset password for user '{userEmail}': {errorMessage} ", user.Email, error);
 				throw new ApplicationException(error);
 			}
@@ -302,7 +302,7 @@ public class IdentityService {
 		if (roleResult.Succeeded) _logger.LogInformation("Role ({roleName}) for user '{userEmail}' added.", roleName, user.Email);
 
 		if (roleResult.Errors.Any()) {
-			var error = string.Join("; ", roleResult.Errors.Select(x => string.Format("{0} - {1}", x.Code, x.Description)));
+			var error = string.Join("; ", roleResult.Errors.Select(x => x.Description.TrimEnd('.')));
 			throw new ApplicationException(error);
 		}
 	}
@@ -318,7 +318,7 @@ public class IdentityService {
 		if (roleResult.Succeeded) _logger.LogInformation("Role ({roleName}) for user '{userEmail}' deleted.", roleName, user.Email);
 
 		if (roleResult.Errors.Any()) {
-			var error = string.Join("; ", roleResult.Errors.Select(x => string.Format("{0} - {1}", x.Code, x.Description)));
+			var error = string.Join("; ", roleResult.Errors.Select(x => x.Description.TrimEnd('.')));
 			throw new ApplicationException(error);
 		}
 	}
