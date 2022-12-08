@@ -187,7 +187,7 @@ public class IdentityService {
 
 			var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-			var callbackUrl = string.Format(confirmEmailUrl, user.Id.ToString(), WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)), returnUrl);
+			var callbackUrl = string.Format(confirmEmailUrl, user.Id.ToString(), WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)), WebUtility.UrlEncode(returnUrl));
 
 			try {
 				var templateEmail = _templateService.GenerateEmail(TemplateEmailType.UserRegistrationConfirmEmail);
@@ -247,7 +247,7 @@ public class IdentityService {
 
 			var code = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-            var callbackUrl = string.Format(resetPasswordUrl, WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(user.Email)), WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)), returnUrl);
+            var callbackUrl = string.Format(resetPasswordUrl, WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(user.Email)), WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)), WebUtility.UrlEncode(returnUrl));
 
 			try {
 				var templateEmail = _templateService.GenerateEmail(TemplateEmailType.UserResetPassword);

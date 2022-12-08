@@ -50,8 +50,7 @@ builder.Services.AddIdentity<User, Role>(options => {
     options.ClaimsIdentity.UserIdClaimType = Claims.Subject;
     options.ClaimsIdentity.RoleClaimType = Claims.Role;
     options.ClaimsIdentity.EmailClaimType = Claims.Email;
-
-    options.Lockout.AllowedForNewUsers = true;
+    options.Lockout.AllowedForNewUsers = false;
     options.Lockout.DefaultLockoutTimeSpan = DateTime.Now.AddYears(5) - DateTime.Now;
     options.User.RequireUniqueEmail = true;
     options.SignIn.RequireConfirmedAccount = true;
@@ -76,7 +75,6 @@ builder.Services.AddOpenIddict()
         options.AllowAuthorizationCodeFlow().RequireProofKeyForCodeExchange();
         options.AllowClientCredentialsFlow();
         options.AllowRefreshTokenFlow();
-
 
         options.UseReferenceAccessTokens();
         options.UseReferenceRefreshTokens();

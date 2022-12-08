@@ -45,7 +45,7 @@ public class RegisterModel : PageModel {
 	}
 
 	public async Task<IActionResult> OnPostAsync(string? returnUrl = null) {
-        OnGet(returnUrl);
+        ReturnUrl = returnUrl ?? Url.Content("~/");
 
         if (ModelState.IsValid) {
             try {

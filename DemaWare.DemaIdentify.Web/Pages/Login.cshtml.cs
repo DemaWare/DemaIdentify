@@ -51,9 +51,9 @@ public class LoginModel : PageModel {
 	}
 
 	public void OnGet(string? returnUrl = null) {
-		if (!string.IsNullOrEmpty(ErrorMessage)) ModelState.AddModelError(string.Empty, ErrorMessage);
-
 		ReturnUrl = returnUrl ?? Url.Content("~/");
+
+		if (!string.IsNullOrEmpty(ErrorMessage)) ModelState.AddModelError(string.Empty, ErrorMessage);
 
 		// Clear the existing external cookie to ensure a clean login process
 		HttpContext.SignOutAsync(IdentityConstants.ExternalScheme).Wait();
@@ -69,12 +69,12 @@ public class LoginModel : PageModel {
 	}
 
 	public async Task<IActionResult> OnPostAsync(string? returnUrl = null) {
-		returnUrl ??= Url.Content("~/");
+        ReturnUrl = returnUrl ?? Url.Content("~/");
 
-		if (ModelState.IsValid) {
+        if (ModelState.IsValid) {
 			try {
 				await _identityService.PasswordSignInAsync(Input.Email, Input.Password);
-				return LocalRedirect(returnUrl);
+				return LocalRedirect(ReturnUrl);
 			} catch (Exception ex) {
 				ModelState.AddModelError(string.Empty, ex.Message);
 			}

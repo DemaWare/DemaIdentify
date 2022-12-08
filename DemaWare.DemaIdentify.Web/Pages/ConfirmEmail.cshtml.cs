@@ -23,6 +23,5 @@ public class ConfirmEmailModel : PageModel {
                 ModelState.AddModelError(string.Empty, ex.Message);
             }
         }
-
     }
 }
