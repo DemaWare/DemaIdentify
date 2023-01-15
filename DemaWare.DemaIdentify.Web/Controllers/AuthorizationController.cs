@@ -1,5 +1,6 @@
 ﻿using DemaWare.DemaIdentify.BusinessLogic.Entities;
 using DemaWare.DemaIdentify.BusinessLogic.Extensions;
+using DemaWare.DemaIdentify.Models.Role;
 using DemaWare.DemaIdentify.Web.Helpers;
 using DemaWare.DemaIdentify.Web.Models;
 using Microsoft.AspNetCore;
@@ -212,14 +213,13 @@ public class AuthorizationController : Controller {
 
 		if (request.IsAuthorizationCodeGrantType() || request.IsRefreshTokenGrantType()) {
 			// Retrieve the claims principal stored in the authorization code/device code/refresh token.
-			var principal = (await HttpContext.AuthenticateAsync(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme)).Principal;
-			if (principal == null) throw new InvalidOperationException("The principal cannot be retrevied from the request");
+			var principal = (await HttpContext.AuthenticateAsync(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme)).Principal ?? throw new InvalidOperationException("The principal cannot be retrevied from the request");
 
-			// Retrieve the user profile corresponding to the authorization code/refresh token.
-			// Note: if you want to automatically invalidate the authorization code/refresh token
-			// when the user password/roles change, use the following line instead:
-			// var user = _signInManager.ValidateSecurityStampAsync(info.Principal);
-			var user = await _userManager.GetUserAsync(principal);
+            // Retrieve the user profile corresponding to the authorization code/refresh token.
+            // Note: if you want to automatically invalidate the authorization code/refresh token
+            // when the user password/roles change, use the following line instead:
+            // var user = _signInManager.ValidateSecurityStampAsync(info.Principal);
+            var user = await _userManager.GetUserAsync(principal);
 			if (user == null) return Forbid(new AuthenticationProperties(new Dictionary<string, string?> { [OpenIddictServerAspNetCoreConstants.Properties.Error] = Errors.InvalidGrant, [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] = "The token is no longer valid." }), OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
 
 			// Ensure the user is still allowed to sign in.
@@ -245,14 +245,13 @@ public class AuthorizationController : Controller {
 		var claims = new Dictionary<string, object>(StringComparer.Ordinal) {
 			[Claims.Subject] = await _userManager.GetUserIdAsync(user)
 		};
-
-		if (User.HasScope(Scopes.Email)) {
-			claims[Claims.Email] = await _userManager.GetEmailAsync(user);
+        if (User.HasScope(Scopes.Email)) {
+			claims[Claims.Email] = await _userManager.GetEmailAsync(user) ?? throw new NullReferenceException("No email address found");
 			claims[Claims.EmailVerified] = await _userManager.IsEmailConfirmedAsync(user);
 		}
 
 		if (User.HasScope(Scopes.Phone)) {
-			claims[Claims.PhoneNumber] = await _userManager.GetPhoneNumberAsync(user);
+			claims[Claims.PhoneNumber] = await _userManager.GetPhoneNumberAsync(user) ?? throw new NullReferenceException("No phonenumber address found");
 			claims[Claims.PhoneNumberVerified] = await _userManager.IsPhoneNumberConfirmedAsync(user);
 		}
 

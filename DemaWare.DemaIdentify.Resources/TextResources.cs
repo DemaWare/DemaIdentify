@@ -1,3 +1,3 @@
 ﻿namespace DemaWare.DemaIdentify.Resources; 
-public class DemaIdentifyResources {
+public class TextResources {
 }

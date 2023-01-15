@@ -21,7 +21,7 @@ var openIddictConfiguration = new OpenIddictConfigurationModel();
 builder.Configuration.Bind("OpenIddict", openIddictConfiguration);
 
 // DemaIdentify
-builder.Services.AddDemaIdentify(builder.Configuration.GetConnectionString(nameof(EntitiesDbContext)));
+builder.Services.AddDemaIdentify(builder.Configuration.GetConnectionString(nameof(EntitiesDbContext))!);
 
 // CookiePolicy (default)
 builder.Services.Configure<CookiePolicyOptions>(options => {
@@ -125,7 +125,7 @@ builder.Services.AddHostedService<InitialData>();
 builder.Services.AddLocalization();
 
 builder.Services.AddCors(options => {
-    var allowedOrigins = builder.Configuration["AllowedOrigins"].Split(";");
+    var allowedOrigins = builder.Configuration["AllowedOrigins"]!.Split(";");
     options.AddDefaultPolicy(x => x.WithOrigins(allowedOrigins).AllowAnyMethod().AllowAnyHeader());
 });
 
@@ -136,7 +136,7 @@ builder.Services.AddRazorPages(options => {
 }).AddViewLocalization()
     .AddDataAnnotationsLocalization(options => {
         options.DataAnnotationLocalizerProvider = (type, factory) => {
-            return factory.Create(nameof(DemaIdentifyResources), location: typeof(DemaIdentifyResources).GetTypeInfo().Assembly.GetName().Name ?? string.Empty);
+            return factory.Create(nameof(TextResources), location: typeof(TextResources).GetTypeInfo().Assembly.GetName().Name ?? string.Empty);
         };
     });
 
@@ -169,10 +169,8 @@ app.UseSession();
 //TODO: app.UseResponseCompression();
 //TODO: app.UseResponseCaching();
 
-app.UseEndpoints(endpoints => {
-    endpoints.MapRazorPages();
-    endpoints.MapControllers();
-});
+app.MapRazorPages();
+app.MapControllers();
 
 app.Run();
 
