@@ -7,31 +7,21 @@ using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 
 namespace DemaWare.DemaIdentify.BusinessLogic.Services;
-public class TemplateService {
-    private readonly ILogger<TemplateService> _logger;
-    private readonly EntitiesDbContext _entitiesContext;
-    private readonly SettingService _settingService;
-
-    public TemplateService(ILogger<TemplateService> logger, EntitiesDbContext entitiesContext, SettingService settingService) {
-        _logger = logger;
-        _entitiesContext = entitiesContext;
-        _settingService = settingService;
-    }
-
+public partial class TemplateService(ILogger<TemplateService> logger, EntitiesDbContext entitiesContext, SettingService settingService) {
     public async Task CreateInitialTemplatesAsync() {
-        if (!_entitiesContext.TemplateEmails.Any()) {
-            var applicationName = _settingService.ApplicationName;
-            var logoUrl = _settingService.UrlLogoWhite;
-            var baseColorBackground = _settingService.ColorBaseBackground;
-            var baseColorForeground = _settingService.ColorBaseForeground;
+        if (!entitiesContext.TemplateEmails.Any()) {
+            var applicationName = settingService.ApplicationName;
+            var logoUrl = settingService.UrlLogoWhite;
+            var baseColorBackground = settingService.ColorBaseBackground;
+            var baseColorForeground = settingService.ColorBaseForeground;
 
-            var templateParent = await _entitiesContext.TemplateEmails.AddAsync(new TemplateEmail() {
+            var templateParent = await entitiesContext.TemplateEmails.AddAsync(new TemplateEmail() {
                 Subject = "Base template",
                 Body = "<table width=\"100%\" style=\"width:100%;\" cellspacing=\"0\" cellpadding=\"0\"><tr><td width=\"100%\" align=\"center\" style=\"width:100%;\"><table width=\"600\" style=\"width:600px;font-family:Arial,Helvetica,sans-serif;\" cellspacing=\"0\" cellpadding=\"0\"><tr><td style=\"background:" + baseColorBackground + ";padding:10px;color:" + baseColorForeground + ";\" align=\"center\" colspan=\"2\"><img src=\"" + logoUrl + "\" alt=\"" + applicationName + "\" /></td></tr><tr><td style=\"padding:20px 10px;color:#555555;\" colspan=\"2\">{content}</td></tr><tr><td style=\"background:" + baseColorBackground + ";padding:10px;color:" + baseColorForeground + ";\" align=\"left\"><strong>" + applicationName + "</strong><br />Your address</td><td style=\"background:" + baseColorBackground + ";padding:10px;color:" + baseColorForeground + ";\" align=\"right\"><a href=\"tel:00000000\"style=\"color:" + baseColorForeground + "\">Your phone number</a><br /><a href=\"mailto:test@example.com\" style=\"color:" + baseColorForeground + "\";>Your email address</a><br /><a href=\"https://www.example.com\" style=\"color:" + baseColorForeground + "\">Your website</a></td></tr></table></td></tr></table>",
                 IsDeleted = false
             });
 
-            await _entitiesContext.TemplateEmails.AddAsync(new TemplateEmail() {
+            await entitiesContext.TemplateEmails.AddAsync(new TemplateEmail() {
                 Parent = templateParent.Entity,
                 Type = TemplateEmailType.UserRegistrationConfirmEmail,
                 Subject = applicationName + " - Bevestig uw e-mailadres",
@@ -39,7 +29,7 @@ public class TemplateService {
                 IsDeleted = false
             });
 
-            await _entitiesContext.TemplateEmails.AddAsync(new TemplateEmail() {
+            await entitiesContext.TemplateEmails.AddAsync(new TemplateEmail() {
                 Parent = templateParent.Entity,
                 Type = TemplateEmailType.UserResetPassword,
                 Subject = applicationName + " - Uw wachtwoord vergeten?",
@@ -47,60 +37,57 @@ public class TemplateService {
                 IsDeleted = false
             });
 
-            _entitiesContext.SaveChanges();
-            _logger.LogInformation("Inserted initial email templates");
+            entitiesContext.SaveChanges();
+            logger.LogInformation("Inserted initial email templates");
         }
     }
 
     #region Email
     public async Task<TemplateEmailModel> GetEmailAsync(Guid templateId) {
         if (templateId == Guid.Empty) throw new ArgumentNullException(nameof(templateId));
-        var template = await _entitiesContext.TemplateEmails.FirstOrDefaultAsync(x => x.Id == templateId && !x.IsDeleted);
+        var template = await entitiesContext.TemplateEmails.FirstOrDefaultAsync(x => x.Id == templateId && !x.IsDeleted);
         if (template == null || template.IsDeleted) throw new ArgumentOutOfRangeException(nameof(templateId));
         return template.ToModel();
     }
 
     public async Task<IEnumerable<TemplateEmailOverviewModel>> GetEmailOverviewAsync() {
-        var templateEmails = await _entitiesContext.TemplateEmails.Where(x => !x.IsDeleted).ToListAsync();
+        var templateEmails = await entitiesContext.TemplateEmails.Where(x => !x.IsDeleted).ToListAsync();
         return templateEmails.Select(x => x.ToOverviewModel()).OrderBy(x => x.Type?.Name);
     }
 
     public async Task<IEnumerable<EnumerationModel>> GetEmailEnumerationAsync() {
-        var templateEmails = await _entitiesContext.TemplateEmails.Where(x => !x.IsDeleted).ToListAsync();
+        var templateEmails = await entitiesContext.TemplateEmails.Where(x => !x.IsDeleted).ToListAsync();
         return templateEmails.Select(x => x.ToEnumerationModel()).OrderBy(x => x.Name);
     }
 
     public async Task SaveEmailAsync(TemplateEmailModel templateModel) {
-        if (templateModel == null) throw new ArgumentNullException(nameof(templateModel));
+        ArgumentNullException.ThrowIfNull(templateModel);
 
-        var template = templateModel.IsExistingObject ? await _entitiesContext.TemplateEmails.FirstAsync(x => x.Id == templateModel.EntityId && !x.IsDeleted) : new TemplateEmail();
-        if (template == null) throw new ArgumentOutOfRangeException(nameof(templateModel));
-        if (!templateModel.IsExistingObject) _entitiesContext.TemplateEmails.Add(template);
+        var template = templateModel.IsExistingObject ? await entitiesContext.TemplateEmails.FirstAsync(x => x.Id == templateModel.EntityId && !x.IsDeleted) ?? throw new ArgumentOutOfRangeException(nameof(templateModel)) : new TemplateEmail();
+        if (!templateModel.IsExistingObject) entitiesContext.TemplateEmails.Add(template);
         
         template.ParentId = templateModel.Parent;
         template.Type = templateModel.Type.HasValue ? (TemplateEmailType)templateModel.Type.Value : null;
         template.Subject = !string.IsNullOrWhiteSpace(templateModel.Subject) ? templateModel.Subject : null;
         template.Body = !string.IsNullOrWhiteSpace(templateModel.Body) ? templateModel.Body : string.Empty;
 
-        await _entitiesContext.SaveChangesAsync();
-        _logger.LogInformation("Template ({templateSubject}) changed.", template.Subject);
+        await entitiesContext.SaveChangesAsync();
+        logger.LogInformation("Template ({templateSubject}) changed.", template.Subject);
     }
 
     public async Task DeleteEmailAsync(Guid templateId) {
         if (templateId == Guid.Empty) throw new ArgumentNullException(nameof(templateId));
-        var template = await _entitiesContext.TemplateEmails.FindAsync(templateId);
+        var template = await entitiesContext.TemplateEmails.FindAsync(templateId);
         if (template == null || template.IsDeleted) throw new ArgumentOutOfRangeException(nameof(templateId));
 
         template.IsDeleted = true;
 
-        await _entitiesContext.SaveChangesAsync();
-        _logger.LogInformation("Template ({templateSubject}) deleted.", template.Subject);
+        await entitiesContext.SaveChangesAsync();
+        logger.LogInformation("Template ({templateSubject}) deleted.", template.Subject);
     }
 
     public TemplateEmailDetailModel GenerateEmail(TemplateEmailType emailType) {
-        var templateEmail = _entitiesContext.TemplateEmails.Include(x => x.Parent).FirstOrDefault(x => x.Type == emailType && !x.IsDeleted);
-        if (templateEmail == null) throw new IndexOutOfRangeException();
-
+        var templateEmail = entitiesContext.TemplateEmails.Include(x => x.Parent).FirstOrDefault(x => x.Type == emailType && !x.IsDeleted) ?? throw new IndexOutOfRangeException();
         var entityModel = templateEmail.ToDetailModel();
         entityModel.MergeTemplate();
 
@@ -113,7 +100,7 @@ public class TemplateService {
     private static string? ReplaceTags(string? input) {
         if (string.IsNullOrWhiteSpace(input)) return input;
 
-        foreach (string match in Regex.Matches(input, @"{.*?}").Cast<Match>().Select(x => x.Value).Distinct()) {
+        foreach (string match in FindTagsRegex().Matches(input).Cast<Match>().Select(x => x.Value).Distinct()) {
             var matchResult = match switch {
                 //TODO: "{setting-webimageurl}" => entitiesContext.GetSetting(SettingType.WebImageUrl).AsString(),
                 _ => match
@@ -123,5 +110,8 @@ public class TemplateService {
         }
         return input;
     }
+
+    [GeneratedRegex(@"{.*?}")]
+    private static partial Regex FindTagsRegex();
     #endregion
 }

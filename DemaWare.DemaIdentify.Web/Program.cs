@@ -65,10 +65,10 @@ builder.Services.AddOpenIddict()
     })
     .AddServer(options => {
         options.SetAuthorizationEndpointUris("/connect/authorize");
-        options.SetLogoutEndpointUris("/connect/logout");
+        options.SetEndSessionEndpointUris("/connect/logout");
         options.SetIntrospectionEndpointUris("/connect/introspect");
         options.SetTokenEndpointUris("/connect/token");
-        options.SetUserinfoEndpointUris("/connect/userinfo");
+        options.SetUserInfoEndpointUris("/connect/userinfo");
 
         options.RegisterScopes(Scopes.Email, Scopes.Profile, Scopes.Roles, Scopes.OpenId);
 
@@ -93,8 +93,8 @@ builder.Services.AddOpenIddict()
         options.UseAspNetCore()
             .EnableTokenEndpointPassthrough()
             .EnableAuthorizationEndpointPassthrough()
-            .EnableLogoutEndpointPassthrough()
-            .EnableUserinfoEndpointPassthrough();
+            .EnableEndSessionEndpointPassthrough()
+            .EnableUserInfoEndpointPassthrough();
     })
     .AddValidation(options => {
         options.UseLocalServer();

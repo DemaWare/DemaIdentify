@@ -5,9 +5,8 @@ using DemaWare.General.Models;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace DemaWare.DemaIdentify.BusinessLogic.Services;
-public class SettingService {
-	private readonly EntitiesDbContext _entitiesContext;
-	public bool IsApplicationConfigured => _entitiesContext.Settings.Any();
+public class SettingService(EntitiesDbContext entitiesContext) {
+    public bool IsApplicationConfigured => entitiesContext.Settings.Any();
 
 	#region Setting Properties
 	public string ApplicationName => GetSetting(SettingType.ApplicationName).AsString() ?? "DemaIdentify";
@@ -18,14 +17,11 @@ public class SettingService {
 	public string UrlLogoColor => GetSetting(SettingType.UrlLogoColor).AsString() ?? "https://static.demaidentify.nl/images/DemaIdentify_logo.750px.blue.png";
 	public string UrlBackgroundCover => GetSetting(SettingType.UrlBackgroundCover).AsString() ?? "https://static.demaidentify.nl/images/DemaWare_Cover.light.min.jpg";
 	public bool UseDomainCredentials => GetSetting(SettingType.UseDomainCredentials).AsBoolean();
-	#endregion
 
-	public SettingService(EntitiesDbContext entitiesContext) {
-		_entitiesContext = entitiesContext;
-	}
+    #endregion
 
-	private Setting? GetSetting(SettingType settingType) {
-		return _entitiesContext.Settings.Find(settingType);
+    private Setting? GetSetting(SettingType settingType) {
+		return entitiesContext.Settings.Find(settingType);
 	}
 
 	public SmtpSettingModel GetSmtpSettings(string? senderAddress = null, string? senderDisplayName = null) => new() {
@@ -39,23 +35,23 @@ public class SettingService {
 	};
 
 	public WindowsCredentialModel GetDomainCredentials() => new() {
-		ADName = GetSetting(SettingType.DomainName).AsString(),
+		ADName = GetSetting(SettingType.DomainName).AsString() ?? string.Empty,
 		Username = GetSetting(SettingType.DomainUsername).AsString() ?? string.Empty,
 		Password = GetSetting(SettingType.DomainPassword).AsString() ?? string.Empty
 	};
 
 	public IDbContextTransaction BeginTransaction() {
-		return _entitiesContext.Database.BeginTransaction();
+		return entitiesContext.Database.BeginTransaction();
 	}
 
 	public void Save(SettingType type, object? value) {
 		var setting = GetSetting(type);
 		if (setting == null) {
 			setting = new Setting() { Type = type };
-			_entitiesContext.Settings.Add(setting);
+			entitiesContext.Settings.Add(setting);
 		}
 
 		setting.Value = value?.ToString();
-		_entitiesContext.SaveChanges();
+		entitiesContext.SaveChanges();
 	}
 }

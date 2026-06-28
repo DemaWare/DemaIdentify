@@ -9,5 +9,5 @@ public class Role : IdentityRole<Guid> {
         Name = Name
     };
 
-    public EnumerationModel ToEnumerationModel() => new(Id, Name);
+    public EnumerationModel ToEnumerationModel() => new(Id, Name ?? string.Empty);
 }
